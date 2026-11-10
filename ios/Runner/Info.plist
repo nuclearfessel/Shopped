@@ -64,6 +64,8 @@
 	<string>Shopped uses your location when you tap Use my location to look up a sales tax rate.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Shopped uses your location only when you tap Use my location to look up a sales tax rate. It does not track your location in the background.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Shopped looks for another device on this Wi-Fi so you can share lists.</string>
 	<key>NSBonjourServices</key>
