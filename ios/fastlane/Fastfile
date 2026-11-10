@@ -31,7 +31,8 @@ platform :ios do
 
     profile_name = lane_context[SharedValues::SIGH_NAME]
     profile_path = lane_context[SharedValues::SIGH_PROFILE_PATH]
-    team_id = lane_context[SharedValues::SIGH_TEAM_ID]
+    team_id = FastlaneCore::ProvisioningProfile.team_id(profile_path)
+    UI.user_error!("Could not read Team ID from provisioning profile at #{profile_path}") if team_id.to_s.empty?
 
     update_code_signing_settings(
       use_automatic_signing: false,
