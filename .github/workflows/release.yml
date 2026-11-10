@@ -308,6 +308,12 @@ jobs:
           bundler-cache: true
           working-directory: ios
 
+      - name: Cache iOS Distribution certificate
+        uses: actions/cache@v4
+        with:
+          path: ios/fastlane/signing-cache
+          key: ios-distribution-cert-v1
+
       - name: Build signed IPA and upload to TestFlight
         working-directory: ios
         env:

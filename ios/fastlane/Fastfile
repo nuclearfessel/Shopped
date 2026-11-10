@@ -1,3 +1,6 @@
+require "fileutils"
+require "securerandom"
+
 default_platform(:ios)
 
 platform :ios do
@@ -13,20 +16,19 @@ platform :ios do
 
     setup_ci(force: true) if ENV["CI"]
 
-    # setup_ci creates fastlane_tmp_keychain; cert must install there, not login.keychain.
     keychain_name = ENV.fetch("MATCH_KEYCHAIN_NAME", "fastlane_tmp_keychain")
     keychain_password = ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
     keychain_path = File.expand_path("~/Library/Keychains/#{keychain_name}-db")
+    cache_dir = File.expand_path("signing-cache", __dir__)
+    FileUtils.mkdir_p(cache_dir)
 
-    # Previous CI VMs created Distribution certs, then discarded the private keys.
-    # Apple allows only 3; revoke orphans so this runner can create one it owns.
-    revoke_orphaned_distribution_certificates!
-
-    get_certificates(
+    ensure_distribution_certificate!(
       api_key: api_key,
       keychain_path: keychain_path,
-      keychain_password: keychain_password
+      keychain_password: keychain_password,
+      cache_dir: cache_dir
     )
+
     get_provisioning_profile(
       api_key: api_key,
       app_identifier: "com.nuclearfessel.shopped",
@@ -83,6 +85,8 @@ platform :ios do
       PLIST
     )
 
+    validate_ios_upload_plist!
+
     build_name = ENV.fetch("BUILD_NAME")
     build_number = ENV.fetch("BUILD_NUMBER")
 
@@ -108,6 +112,72 @@ platform :ios do
   end
 end
 
+def ensure_distribution_certificate!(api_key:, keychain_path:, keychain_password:, cache_dir:)
+  cached_p12 = File.join(cache_dir, "dist.p12")
+  cached_password_file = File.join(cache_dir, "password.txt")
+
+  if File.exist?(cached_p12) && File.exist?(cached_password_file)
+    UI.success("Importing cached Distribution certificate")
+    import_certificate(
+      certificate_path: cached_p12,
+      certificate_password: File.read(cached_password_file).strip,
+      keychain_path: keychain_path,
+      keychain_password: keychain_password
+    )
+    return
+  end
+
+  begin
+    get_certificates(
+      api_key: api_key,
+      keychain_path: keychain_path,
+      keychain_password: keychain_password
+    )
+  rescue StandardError => error
+    raise error unless error.message.include?("maximum number")
+
+    UI.important("Distribution certificate limit reached; revoking orphans and retrying")
+    revoke_orphaned_distribution_certificates!
+    get_certificates(
+      api_key: api_key,
+      keychain_path: keychain_path,
+      keychain_password: keychain_password
+    )
+  end
+
+  export_password = SecureRandom.hex(16)
+  File.write(cached_password_file, export_password)
+  sh(
+    "security", "export",
+    "-k", keychain_path,
+    "-t", "identities",
+    "-f", "pkcs12",
+    "-P", export_password,
+    "-o", cached_p12
+  )
+  UI.success("Cached Distribution certificate for later CI runs")
+end
+
+def validate_ios_upload_plist!
+  require "plist"
+  info = Plist.parse_xml(File.expand_path("../Runner/Info.plist", __dir__))
+  ipad = Array(info["UISupportedInterfaceOrientations~ipad"])
+  required = %w[
+    UIInterfaceOrientationPortrait
+    UIInterfaceOrientationPortraitUpsideDown
+    UIInterfaceOrientationLandscapeLeft
+    UIInterfaceOrientationLandscapeRight
+  ]
+  missing = required - ipad
+  full_screen = info["UIRequiresFullScreen"] == true
+  return if full_screen || missing.empty?
+
+  UI.user_error!(
+    "Info.plist is not App Store Connect ready for iPad: missing #{missing.join(', ')}. " \
+    "Add those orientations or set UIRequiresFullScreen."
+  )
+end
+
 def revoke_orphaned_distribution_certificates!
   require "spaceship"
 
@@ -122,10 +192,7 @@ def revoke_orphaned_distribution_certificates!
     type = cert.certificate_type.to_s
     next unless type.include?("DISTRIBUTION")
 
-    UI.important(
-      "Revoking Distribution certificate #{cert.id} (#{type}) so CI can " \
-      "create one with a private key on this runner"
-    )
+    UI.important("Revoking Distribution certificate #{cert.id} (#{type})")
     begin
       cert.delete!
     rescue StandardError => error

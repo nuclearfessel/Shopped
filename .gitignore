@@ -18,6 +18,7 @@ ios/fastlane/report.xml
 ios/fastlane/Preview.html
 ios/fastlane/screenshots/**/*.png
 ios/fastlane/test_output
+ios/fastlane/signing-cache/
 ios/*.mobileprovision
 ios/*.cer
 ios/*.p12
