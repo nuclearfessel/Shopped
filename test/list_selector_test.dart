@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/ui/choice_field.dart';
+import 'package:shopped/ui/choice_field.dart';
 
 import 'support/harness.dart';
 
 void main() {
   testWidgets('one list: just its name, no pull-down', (tester) async {
-    await pumpShopIt(tester, lists: [fakeList('l1', 'Grocery list')]);
+    await pumpShopped(tester, lists: [fakeList('l1', 'Grocery list')]);
     expect(find.text('Grocery list'), findsOneWidget);
     expect(find.byType(ChoiceField<String>), findsNothing);
     expect(find.byTooltip('Choose a list'), findsNothing);
@@ -17,7 +17,7 @@ void main() {
   });
 
   testWidgets('one list at a narrow width too', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       width: 320,
       lists: [fakeList('l1', 'A very long shopping list name that overflows')],
@@ -27,7 +27,7 @@ void main() {
   });
 
   testWidgets('two lists: a pull-down to switch between them', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       lists: [fakeList('l1', 'Grocery list'), fakeList('l2', 'Party')],
       items: [
@@ -53,10 +53,10 @@ void main() {
   testWidgets('the pull-down appears as soon as a second list exists', (
     tester,
   ) async {
-    await pumpShopIt(tester, lists: [fakeList('l1', 'Only')]);
+    await pumpShopped(tester, lists: [fakeList('l1', 'Only')]);
     expect(find.byType(ChoiceField<String>), findsNothing);
     await tester.pumpWidget(const SizedBox.shrink()); // a fresh app next
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       lists: [fakeList('l1', 'Only'), fakeList('l2', 'Second')],
     );

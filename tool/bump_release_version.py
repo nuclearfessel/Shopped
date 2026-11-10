@@ -1,4 +1,4 @@
-"""Bump ShopIt pubspec version for the next GitHub Release.
+"""Bump Shopped pubspec version for the next GitHub Release.
 
 Patch runs 0..9, then minor goes up and patch returns to 0.
 Minor runs 0..9, then major goes up and minor/patch return to 0.

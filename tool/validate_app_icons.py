@@ -1,6 +1,6 @@
 """Validate checked-in app icons without Flutter or native platform toolchains.
 
-Run: python tool/validate_app_icons.py [--root /path/to/ShopIt]
+Run: python tool/validate_app_icons.py [--root /path/to/Shopped]
 Install dependencies with: python -m pip install -r tool/icon-requirements.txt
 
 These expectations intentionally do not import make_icon: a generator regression
@@ -186,7 +186,7 @@ def validate(root):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1],
-                        help="ShopIt repository root (defaults to the script's repository)")
+                        help="Shopped repository root (defaults to the script's repository)")
     args = parser.parse_args(argv)
     errors = validate(args.root)
     if errors:

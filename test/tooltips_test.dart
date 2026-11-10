@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/ui/choice_field.dart';
+import 'package:shopped/ui/choice_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_it/app/title_bar.dart';
+import 'package:shopped/app/title_bar.dart';
 
 import 'support/harness.dart';
 
@@ -98,7 +98,7 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   testWidgets('wide window: every control has a tooltip', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       lists: [fakeList('l1', 'Grocery list'), fakeList('l2', 'Party')],
     );
@@ -145,7 +145,7 @@ void main() {
   });
 
   testWidgets('dialogs from the menu have tooltips', (tester) async {
-    await pumpShopIt(tester, lists: [fakeList('l1', 'Grocery list')]);
+    await pumpShopped(tester, lists: [fakeList('l1', 'Grocery list')]);
     await tester.tap(find.byTooltip('List options'));
     await _settle(tester);
     await tester.tap(find.text('New list'));
@@ -164,7 +164,7 @@ void main() {
   testWidgets('list settings and manage lists dialogs have tooltips', (
     tester,
   ) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       lists: [fakeList('l1', 'Grocery list'), fakeList('l2', 'Party')],
     );
@@ -192,7 +192,7 @@ void main() {
   });
 
   testWidgets('categories and the colour dialog have tooltips', (tester) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     await tester.tap(find.byTooltip('List options'));
     await _settle(tester);
     await tester.tap(find.text('Manage categories'));
@@ -218,7 +218,7 @@ void main() {
   });
 
   testWidgets('history and the new item editor have tooltips', (tester) async {
-    await pumpShopIt(tester, history: [fakeHistory('h1', 'Milk')]);
+    await pumpShopped(tester, history: [fakeHistory('h1', 'Milk')]);
     await tester.tap(find.byTooltip('History'));
     await _settle(tester);
     _expectAllTipped(tester, 'history dialog');
@@ -234,7 +234,7 @@ void main() {
   });
 
   testWidgets('the Move/Copy dialog has tooltips', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       lists: [fakeList('l1', 'Grocery list'), fakeList('l2', 'Party')],
     );
@@ -249,7 +249,7 @@ void main() {
   });
 
   testWidgets('the pantry menu and its dialogs have tooltips', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       pantry: [
         fakePantryItem('a', 'Yogurt', mode: 'level'),
@@ -299,7 +299,7 @@ void main() {
   });
 
   testWidgets('pantry: every control has a tooltip', (tester) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     await tester.tap(find.byTooltip('Go to Pantry'));
     await _settle(tester);
     _expectAllTipped(tester, 'pantry screen');
@@ -316,7 +316,7 @@ void main() {
   });
 
   testWidgets('narrow window: every control has a tooltip', (tester) async {
-    await pumpShopIt(tester, width: 360, height: 700);
+    await pumpShopped(tester, width: 360, height: 700);
     _expectAllTipped(tester, 'shopping screen (narrow)');
     expect(find.byTooltip('Go to Shopping'), findsOneWidget);
     expect(find.byTooltip('Go to Pantry'), findsOneWidget);

@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>ShopIt</string>
+	<string>Shopped</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>ShopIt</string>
+	<string>Shopped</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -54,19 +54,19 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
-	<string>ShopIt uses the camera to scan a barcode onto your list, or the QR code shown on a Windows PC or Mac.</string>
+	<string>Shopped uses the camera to scan a barcode onto your list, or the QR code shown on a Windows PC or Mac.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>ShopIt uses your location when you tap Use my location to look up a sales tax rate.</string>
+	<string>Shopped uses your location when you tap Use my location to look up a sales tax rate.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>ShopIt looks for another device on this Wi-Fi so you can share lists.</string>
+	<string>Shopped looks for another device on this Wi-Fi so you can share lists.</string>
 	<key>NSBonjourServices</key>
 	<array>
-		<string>_shopit._udp</string>
+		<string>_shopped._udp</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

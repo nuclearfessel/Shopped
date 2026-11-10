@@ -8,8 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:shop_it/app/form_factor.dart';
-import 'package:shop_it/data/database.dart';
+import 'package:shopped/app/form_factor.dart';
+import 'package:shopped/data/database.dart';
 
 import '../test/support/harness.dart';
 
@@ -53,7 +53,7 @@ void main() {
     }) async {
       debugPlatformScansBarcodes = scan;
       final key = GlobalKey();
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         width: width,
         height: height,

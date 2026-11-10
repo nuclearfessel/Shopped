@@ -102,9 +102,9 @@ jobs:
         run: |
           # Same committed sideload.jks on every runner so APKs can replace each other.
           printf '%s\n' \
-            'storePassword=shopit-sideload' \
-            'keyPassword=shopit-sideload' \
-            'keyAlias=shopit' \
+            'storePassword=shopped-sideload' \
+            'keyPassword=shopped-sideload' \
+            'keyAlias=shopped' \
             'storeFile=sideload.jks' \
             > android/key.properties
 
@@ -113,18 +113,18 @@ jobs:
           flutter build apk --release \
             --build-name=${{ needs.version.outputs.name }} \
             --build-number=${{ needs.version.outputs.code }}
-          cp build/app/outputs/flutter-apk/app-release.apk "ShopIt-${{ needs.version.outputs.name }}.apk"
+          cp build/app/outputs/flutter-apk/app-release.apk "Shopped-${{ needs.version.outputs.name }}.apk"
           STAGE="$GITHUB_WORKSPACE/build/android-package"
           mkdir -p "$STAGE"
-          cp "ShopIt-${{ needs.version.outputs.name }}.apk" "$STAGE/"
-          cp installer/Install-ShopIt-Android.sh installer/Install-ShopIt-Android.ps1 "$STAGE/"
-          chmod +x "$STAGE/Install-ShopIt-Android.sh"
+          cp "Shopped-${{ needs.version.outputs.name }}.apk" "$STAGE/"
+          cp installer/Install-Shopped-Android.sh installer/Install-Shopped-Android.ps1 "$STAGE/"
+          chmod +x "$STAGE/Install-Shopped-Android.sh"
           (
             cd "$STAGE"
-            zip -r "$GITHUB_WORKSPACE/ShopIt-${{ needs.version.outputs.name }}-android.zip" \
-              "ShopIt-${{ needs.version.outputs.name }}.apk" \
-              Install-ShopIt-Android.sh \
-              Install-ShopIt-Android.ps1
+            zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-android.zip" \
+              "Shopped-${{ needs.version.outputs.name }}.apk" \
+              Install-Shopped-Android.sh \
+              Install-Shopped-Android.ps1
           )
 
       - name: Set up Python for APK icon gate
@@ -141,15 +141,15 @@ jobs:
           test -n "$SDK"
           AAPT="$(find "$SDK/build-tools" -type f -name aapt | sort -V | tail -n 1)"
           test -n "$AAPT"
-          python tool/check_android_apk_icons.py --android-apk "ShopIt-${{ needs.version.outputs.name }}.apk" --aapt "$AAPT"
+          python tool/check_android_apk_icons.py --android-apk "Shopped-${{ needs.version.outputs.name }}.apk" --aapt "$AAPT"
 
       - name: Upload APK
         uses: actions/upload-artifact@v7
         with:
           name: android-apk
           path: |
-            ShopIt-${{ needs.version.outputs.name }}.apk
-            ShopIt-${{ needs.version.outputs.name }}-android.zip
+            Shopped-${{ needs.version.outputs.name }}.apk
+            Shopped-${{ needs.version.outputs.name }}-android.zip
 
   windows:
     needs: [version, check]
@@ -188,7 +188,7 @@ jobs:
         run: |
           python -m pip install -r tool/native-requirements.txt
           if ($LASTEXITCODE -ne 0) { throw "Icon checker dependencies failed" }
-          $exe = "build/windows/x64/runner/Release/shop_it.exe"
+          $exe = "build/windows/x64/runner/Release/shopped.exe"
           python tool/check_built_icons.py --windows-exe "$exe"
           if ($LASTEXITCODE -ne 0) { throw "Compiled Windows icon failed" }
           python tool/check_built_version.py --windows-exe "$exe" --expected-version "${{ needs.version.outputs.name }}" --expected-build "${{ needs.version.outputs.code }}"
@@ -197,19 +197,19 @@ jobs:
       - name: Build installer
         run: |
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          & $iscc "/DAppVersion=${{ needs.version.outputs.name }}" "installer/shop_it.iss"
+          & $iscc "/DAppVersion=${{ needs.version.outputs.name }}" "installer/shopped.iss"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Verify Windows installer payload
         shell: pwsh
         run: |
           # This is a disposable hosted runner, never a user's installed app.
-          $installer = (Resolve-Path "build/installer/ShopIt-Setup-${{ needs.version.outputs.name }}.exe").Path
-          $target = Join-Path $env:RUNNER_TEMP "ShopIt-icon-verification"
+          $installer = (Resolve-Path "build/installer/Shopped-Setup-${{ needs.version.outputs.name }}.exe").Path
+          $target = Join-Path $env:RUNNER_TEMP "Shopped-icon-verification"
           $arguments = "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=`"$target`""
           $result = Start-Process -FilePath $installer -ArgumentList $arguments -Wait -PassThru
           if ($result.ExitCode -ne 0) { throw "Verification install failed" }
-          $exe = Join-Path $target "shop_it.exe"
+          $exe = Join-Path $target "shopped.exe"
           python tool/check_built_icons.py --windows-exe "$exe"
           if ($LASTEXITCODE -ne 0) { throw "Installer-payload icon failed" }
           python tool/check_built_version.py --windows-exe "$exe" --expected-version "${{ needs.version.outputs.name }}" --expected-build "${{ needs.version.outputs.code }}"
@@ -224,7 +224,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: windows-installer
-          path: build/installer/ShopIt-Setup-${{ needs.version.outputs.name }}.exe
+          path: build/installer/Shopped-Setup-${{ needs.version.outputs.name }}.exe
 
   macos:
     needs: [version, check]
@@ -251,13 +251,13 @@ jobs:
             --build-number=${{ needs.version.outputs.code }}
           STAGE="$GITHUB_WORKSPACE/build/macos-package"
           mkdir -p "$STAGE"
-          cp -R build/macos/Build/Products/Release/ShopIt.app "$STAGE/"
-          cp installer/Install-ShopIt.command installer/Uninstall-ShopIt.command "$STAGE/"
-          chmod +x "$STAGE/Install-ShopIt.command" "$STAGE/Uninstall-ShopIt.command"
+          cp -R build/macos/Build/Products/Release/Shopped.app "$STAGE/"
+          cp installer/Install-Shopped.command installer/Uninstall-Shopped.command "$STAGE/"
+          chmod +x "$STAGE/Install-Shopped.command" "$STAGE/Uninstall-Shopped.command"
           (
             cd "$STAGE"
-            zip -r "$GITHUB_WORKSPACE/ShopIt-${{ needs.version.outputs.name }}-macos.zip" \
-              ShopIt.app Install-ShopIt.command Uninstall-ShopIt.command
+            zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-macos.zip" \
+              Shopped.app Install-Shopped.command Uninstall-Shopped.command
           )
 
       - name: Set up Python for macOS icon gate
@@ -270,10 +270,10 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install -r tool/native-requirements.txt
-          PAYLOAD="$RUNNER_TEMP/ShopIt-icon-verification"
+          PAYLOAD="$RUNNER_TEMP/Shopped-icon-verification"
           mkdir -p "$PAYLOAD"
-          ditto -x -k "ShopIt-${{ needs.version.outputs.name }}-macos.zip" "$PAYLOAD"
-          for APP in "build/macos/Build/Products/Release/ShopIt.app" "$PAYLOAD/ShopIt.app"; do
+          ditto -x -k "Shopped-${{ needs.version.outputs.name }}-macos.zip" "$PAYLOAD"
+          for APP in "build/macos/Build/Products/Release/Shopped.app" "$PAYLOAD/Shopped.app"; do
             python tool/check_built_icons.py --macos-app "$APP"
             python tool/check_built_version.py --macos-app "$APP" --expected-version "${{ needs.version.outputs.name }}" --expected-build "${{ needs.version.outputs.code }}"
           done
@@ -282,7 +282,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: macos-app
-          path: ShopIt-${{ needs.version.outputs.name }}-macos.zip
+          path: Shopped-${{ needs.version.outputs.name }}-macos.zip
 
   ios:
     needs: [version, check]
@@ -308,23 +308,23 @@ jobs:
             --build-number=${{ needs.version.outputs.code }}
           STAGE="$GITHUB_WORKSPACE/build/ios-package"
           mkdir -p "$STAGE"
-          cp installer/Install-ShopIt-iOS.command "$STAGE/"
-          chmod +x "$STAGE/Install-ShopIt-iOS.command"
+          cp installer/Install-Shopped-iOS.command "$STAGE/"
+          chmod +x "$STAGE/Install-Shopped-iOS.command"
           # Unsigned payload for local re-signing; the install script needs a
           # device-provisioned IPA or .app before it can push to a phone.
           APP="build/ios/iphoneos/Runner.app"
           if [[ -d "$APP" ]]; then
-            cp -R "$APP" "$STAGE/ShopIt.app"
+            cp -R "$APP" "$STAGE/Shopped.app"
             (
               cd "$STAGE"
-              zip -r "$GITHUB_WORKSPACE/ShopIt-${{ needs.version.outputs.name }}-ios-install.zip" \
-                Install-ShopIt-iOS.command ShopIt.app
+              zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-ios-install.zip" \
+                Install-Shopped-iOS.command Shopped.app
             )
           else
             (
               cd "$STAGE"
-              zip -r "$GITHUB_WORKSPACE/ShopIt-${{ needs.version.outputs.name }}-ios-install.zip" \
-                Install-ShopIt-iOS.command
+              zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-ios-install.zip" \
+                Install-Shopped-iOS.command
             )
           fi
 
@@ -332,7 +332,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ios-install
-          path: ShopIt-${{ needs.version.outputs.name }}-ios-install.zip
+          path: Shopped-${{ needs.version.outputs.name }}-ios-install.zip
 
   publish:
     needs: [version, android, windows, macos, ios]
@@ -353,13 +353,13 @@ jobs:
           VERSION: ${{ needs.version.outputs.name }}
           TAG: ${{ needs.version.outputs.tag }}
         run: |
-          notes="ShopIt ${VERSION}. Windows: run ShopIt-Setup-${VERSION}.exe (overrides the same version, replaces a previous version and keeps lists/settings). Android: open ShopIt-${VERSION}.apk, or use Install-ShopIt-Android.sh/.ps1 from ShopIt-${VERSION}-android.zip with adb. Mac: unzip ShopIt-${VERSION}-macos.zip and run Install-ShopIt.command. iOS: sign the app from ShopIt-${VERSION}-ios-install.zip, then run Install-ShopIt-iOS.command on a Mac with a paired device. Uninstall from Windows Apps and Features (or the Start Menu Uninstall shortcut), from Android/iOS by removing the app, or on a Mac with Uninstall-ShopIt.command. Uninstall removes the app and its lists, settings, and data folders."
+          notes="Shopped ${VERSION}. Windows: run Shopped-Setup-${VERSION}.exe (overrides the same version, replaces a previous version and keeps lists/settings). Android: open Shopped-${VERSION}.apk, or use Install-Shopped-Android.sh/.ps1 from Shopped-${VERSION}-android.zip with adb. Mac: unzip Shopped-${VERSION}-macos.zip and run Install-Shopped.command. iOS: sign the app from Shopped-${VERSION}-ios-install.zip, then run Install-Shopped-iOS.command on a Mac with a paired device. Uninstall from Windows Apps and Features (or the Start Menu Uninstall shortcut), from Android/iOS by removing the app, or on a Mac with Uninstall-Shopped.command. Uninstall removes the app and its lists, settings, and data folders."
           assets=(
-            "packages/ShopIt-${VERSION}.apk"
-            "packages/ShopIt-${VERSION}-android.zip"
-            "packages/ShopIt-Setup-${VERSION}.exe"
-            "packages/ShopIt-${VERSION}-macos.zip"
-            "packages/ShopIt-${VERSION}-ios-install.zip"
+            "packages/Shopped-${VERSION}.apk"
+            "packages/Shopped-${VERSION}-android.zip"
+            "packages/Shopped-Setup-${VERSION}.exe"
+            "packages/Shopped-${VERSION}-macos.zip"
+            "packages/Shopped-${VERSION}-ios-install.zip"
           )
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "Release $TAG already exists; replacing its packages."

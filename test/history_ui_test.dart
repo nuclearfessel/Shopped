@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
+import 'package:shopped/data/database.dart';
 
 import 'support/harness.dart';
 
@@ -19,7 +19,7 @@ void main() {
     testWidgets('has history and add; the pencil shows once you type', (
       tester,
     ) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       expect(find.byTooltip('History'), findsOneWidget);
       expect(find.byTooltip('Add item'), findsOneWidget);
       expect(find.byTooltip('Edit details before adding'), findsNothing);
@@ -34,7 +34,7 @@ void main() {
     testWidgets('fits at the narrowest width with the pencil showing', (
       tester,
     ) async {
-      await pumpShopIt(tester, width: 240);
+      await pumpShopped(tester, width: 240);
       await _type(tester, 'Oat milk');
       expect(tester.takeException(), isNull);
       expect(find.byTooltip('Edit details before adding'), findsOneWidget);
@@ -45,7 +45,7 @@ void main() {
     testWidgets('opens a "New item" editor that says Add, not Save', (
       tester,
     ) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await _type(tester, 'Oat milk');
       await tester.tap(find.byTooltip('Edit details before adding'));
       await tester.pumpAndSettle();
@@ -59,7 +59,7 @@ void main() {
     testWidgets('a new item cannot be deleted, but still has price and notes', (
       tester,
     ) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await _type(tester, 'Oat milk');
       await tester.tap(find.byTooltip('Edit details before adding'));
       await tester.pumpAndSettle();
@@ -71,7 +71,7 @@ void main() {
     testWidgets('cancelling leaves the typed text where it was', (
       tester,
     ) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await _type(tester, 'Oat milk');
       await tester.tap(find.byTooltip('Edit details before adding'));
       await tester.pumpAndSettle();
@@ -83,7 +83,7 @@ void main() {
     testWidgets('the category list is the user\'s own, custom ones included', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         categories: [
           Category(name: 'Produce', sortOrder: 0),
@@ -103,7 +103,7 @@ void main() {
     testWidgets('an existing item\'s editor also uses the user\'s categories', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         categories: [
           Category(name: 'Dairy & Eggs', sortOrder: 0),
@@ -121,7 +121,7 @@ void main() {
 
   group('the History dialog', () {
     testWidgets('lists previous items with their categories', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         history: [
           fakeHistory('h1', 'Milk'),
@@ -139,7 +139,7 @@ void main() {
     testWidgets('keeps the order it is given (most recent first)', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         history: [
           fakeHistory('h1', 'Zucchini'),
@@ -153,7 +153,7 @@ void main() {
     });
 
     testWidgets('can be searched', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         history: [
           fakeHistory('h1', 'Milk'),
@@ -180,13 +180,13 @@ void main() {
     });
 
     testWidgets('says so when there is nothing yet', (tester) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await _openHistory(tester);
       expect(find.textContaining('Nothing here yet'), findsOneWidget);
     });
 
     testWidgets('fits a narrow window', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         width: 240,
         history: [fakeHistory('h1', 'A rather long item name that must wrap')],
@@ -198,7 +198,7 @@ void main() {
 
   group('Clear all history', () {
     testWidgets('asks before clearing from the list menu', (tester) async {
-      await pumpShopIt(tester, history: [fakeHistory('h1', 'Milk')]);
+      await pumpShopped(tester, history: [fakeHistory('h1', 'Milk')]);
       await tester.tap(find.byTooltip('List options'));
       await tester.pumpAndSettle();
       await tester.tap(

@@ -7,7 +7,7 @@ import '../app/form_factor.dart';
 /// Returns the digits, or null if the user cancelled or this is Windows or Mac.
 class BarcodeScanner {
   BarcodeScanner({MethodChannel? channel})
-    : _channel = channel ?? const MethodChannel('shop_it/barcode');
+    : _channel = channel ?? const MethodChannel('shopped/barcode');
 
   final MethodChannel _channel;
 

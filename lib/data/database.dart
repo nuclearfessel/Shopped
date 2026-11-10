@@ -1947,6 +1947,42 @@ class PantryStockUndo {
 
 Future<AppDatabase> openAppDatabase() async {
   final dir = await getApplicationSupportDirectory();
-  final file = File(p.join(dir.path, 'shop_it.sqlite'));
+  await _migrateLegacySupport(dir);
+  final file = File(p.join(dir.path, 'shopped.sqlite'));
+  // Prefer the new db name; keep lists when upgrading from the prior app id.
+  if (!file.existsSync()) {
+    final legacy = File(p.join(dir.path, 'shop_it.sqlite'));
+    if (legacy.existsSync()) {
+      await legacy.rename(file.path);
+      for (final suffix in ['-wal', '-shm']) {
+        final oldSide = File('${legacy.path}$suffix');
+        if (oldSide.existsSync()) {
+          await oldSide.rename('${file.path}$suffix');
+        }
+      }
+    }
+  }
   return AppDatabase(NativeDatabase.createInBackground(file));
+}
+
+/// Copies Application Support files from the prior ShopIt folders when needed.
+Future<void> _migrateLegacySupport(Directory dir) async {
+  final parent = dir.parent;
+  for (final legacyName in ['ShopIt', 'shop_it']) {
+    final legacyDir = Directory(p.join(parent.path, legacyName));
+    if (!legacyDir.existsSync() || p.equals(legacyDir.path, dir.path)) {
+      continue;
+    }
+    await dir.create(recursive: true);
+    await for (final entity in legacyDir.list(followLinks: false)) {
+      if (entity is! File) continue;
+      final name = p.basename(entity.path);
+      final destName = name.startsWith('shop_it.sqlite')
+          ? name.replaceFirst('shop_it.sqlite', 'shopped.sqlite')
+          : name;
+      final destPath = p.join(dir.path, destName);
+      if (File(destPath).existsSync()) continue;
+      await entity.copy(destPath);
+    }
+  }
 }

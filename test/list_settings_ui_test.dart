@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
+import 'package:shopped/data/database.dart';
 
 import 'support/harness.dart';
 
@@ -21,7 +21,7 @@ void main() {
 
   group('category display follows the list settings', () {
     testWidgets('categories on: headers in alphabetical order', (tester) async {
-      await pumpShopIt(tester, items: items);
+      await pumpShopped(tester, items: items);
       expect(_headers(tester).where((h) => h != 'IN YOUR CART'), [
         'BAKERY',
         'DAIRY & EGGS',
@@ -30,7 +30,7 @@ void main() {
     });
 
     testWidgets('legacy manual order rows are ignored', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: items,
         categoryOrder: [
@@ -42,7 +42,7 @@ void main() {
     });
 
     testWidgets('categories off: one plain alphabetical list', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: items,
         lists: [fakeList('l1', 'Grocery list', useCategories: false)],
@@ -57,7 +57,7 @@ void main() {
     });
 
     testWidgets('show empty categories: every header appears', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: [fakeItem('a', 'Milk', category: 'Dairy & Eggs')],
         lists: [fakeList('l1', 'Grocery list', showEmptyCategories: true)],
@@ -66,7 +66,7 @@ void main() {
     });
 
     testWidgets('without it, empty categories stay hidden', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: [fakeItem('a', 'Milk', category: 'Dairy & Eggs')],
       );
@@ -76,7 +76,7 @@ void main() {
     testWidgets('an empty list still shows its headers when asked to', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: const [],
         lists: [fakeList('l1', 'Grocery list', showEmptyCategories: true)],
@@ -88,7 +88,7 @@ void main() {
 
   group('the list menu', () {
     testWidgets('has the expected menu entries', (tester) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await tester.tap(find.byTooltip('List options'));
       await tester.pumpAndSettle();
       for (final entry in [
@@ -117,7 +117,7 @@ void main() {
     testWidgets('List settings opens with the list\'s current values', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         lists: [
           fakeList(
@@ -147,7 +147,7 @@ void main() {
     testWidgets('with categories off the other two switches are disabled', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         lists: [fakeList('l1', 'Grocery list', useCategories: false)],
       );
@@ -165,7 +165,7 @@ void main() {
     testWidgets(
       'Manage lists shows each list with rename, delete and a handle',
       (tester) async {
-        await pumpShopIt(
+        await pumpShopped(
           tester,
           lists: [fakeList('l1', 'Grocery list'), fakeList('l2', 'Party')],
         );

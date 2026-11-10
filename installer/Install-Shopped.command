@@ -1,11 +1,11 @@
 #!/bin/bash
-# Installs or replaces ShopIt.app on this Mac.
+# Installs or replaces Shopped.app on this Mac.
 # Same version: overwrite in place. Previous version: remove the old app, then install.
-# When ShopIt is already present, you choose whether to keep lists and/or settings.
+# When Shopped is already present, you choose whether to keep lists and/or settings.
 set -euo pipefail
 
-APP_NAME="ShopIt"
-BUNDLE_ID="com.nuclearfessel.shopit"
+APP_NAME="Shopped"
+BUNDLE_ID="com.nuclearfessel.shopped"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SRC="${SCRIPT_DIR}/${APP_NAME}.app"
 DEST="/Applications/${APP_NAME}.app"
@@ -18,7 +18,7 @@ KEEP_SETTINGS=1
 
 if [[ ! -d "$SRC" ]]; then
   echo "${APP_NAME}.app was not found next to this installer."
-  echo "Keep Install-ShopIt.command beside ${APP_NAME}.app from the release zip."
+  echo "Keep Install-Shopped.command beside ${APP_NAME}.app from the release zip."
   read -r -p "Press Return to close." _
   exit 1
 fi
@@ -28,7 +28,7 @@ read_version() {
   /usr/bin/defaults read "${app}/Contents/Info" CFBundleShortVersionString 2>/dev/null || echo ""
 }
 
-quit_shopit() {
+quit_shopped() {
   if pgrep -xq "$APP_NAME" >/dev/null 2>&1; then
     osascript -e "tell application \"$APP_NAME\" to quit" >/dev/null 2>&1 || true
     sleep 1
@@ -37,8 +37,8 @@ quit_shopit() {
 }
 
 clear_lists() {
-  rm -f "$SUPPORT_DIR"/shop_it.sqlite "$SUPPORT_DIR"/shop_it.sqlite-wal "$SUPPORT_DIR"/shop_it.sqlite-shm
-  rm -f "$SUPPORT_DIR_ALT"/shop_it.sqlite "$SUPPORT_DIR_ALT"/shop_it.sqlite-wal "$SUPPORT_DIR_ALT"/shop_it.sqlite-shm
+  rm -f "$SUPPORT_DIR"/shopped.sqlite "$SUPPORT_DIR"/shopped.sqlite-wal "$SUPPORT_DIR"/shopped.sqlite-shm
+  rm -f "$SUPPORT_DIR_ALT"/shopped.sqlite "$SUPPORT_DIR_ALT"/shopped.sqlite-wal "$SUPPORT_DIR_ALT"/shopped.sqlite-shm
   echo "Cleared shopping lists, pantry, history, and recipes."
 }
 
@@ -50,7 +50,7 @@ clear_settings() {
 
 ask_data_choice() {
   echo
-  echo "ShopIt is already on this Mac. Choose what to keep:"
+  echo "Shopped is already on this Mac. Choose what to keep:"
   echo "  1) Keep lists and settings"
   echo "  2) Keep lists, reset settings"
   echo "  3) Keep settings, clear lists"
@@ -102,26 +102,26 @@ apply_data_choice() {
 NEW_VERSION="$(read_version "$SRC")"
 [[ -n "$NEW_VERSION" ]] || NEW_VERSION="unknown"
 
-quit_shopit
+quit_shopped
 
 if [[ -d "$DEST" ]]; then
   OLD_VERSION="$(read_version "$DEST")"
   [[ -n "$OLD_VERSION" ]] || OLD_VERSION="unknown"
   if [[ "$OLD_VERSION" == "$NEW_VERSION" ]]; then
-    echo "ShopIt ${OLD_VERSION} is already in Applications. Overriding it."
+    echo "Shopped ${OLD_VERSION} is already in Applications. Overriding it."
   else
-    echo "Replacing ShopIt ${OLD_VERSION} with ${NEW_VERSION}."
+    echo "Replacing Shopped ${OLD_VERSION} with ${NEW_VERSION}."
   fi
   ask_data_choice
   apply_data_choice
   rm -rf "$DEST"
 else
-  echo "Installing ShopIt ${NEW_VERSION} to Applications."
+  echo "Installing Shopped ${NEW_VERSION} to Applications."
 fi
 
 mkdir -p "/Applications"
 cp -R "$SRC" "$DEST"
 echo
-echo "ShopIt ${NEW_VERSION} is installed at ${DEST}."
+echo "Shopped ${NEW_VERSION} is installed at ${DEST}."
 echo "Bundle id ${BUNDLE_ID} is unchanged, so kept data stays available."
 read -r -p "Press Return to close." _

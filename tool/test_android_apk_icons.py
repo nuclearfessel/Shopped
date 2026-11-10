@@ -17,7 +17,7 @@ class PackagedAndroidIconsTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.apk = Path(self.temp.name) / "ShopIt.apk"
+        self.apk = Path(self.temp.name) / "Shopped.apk"
         self.manifest = {"exports": {}}
         self.payloads, lines = {}, []
         for dpi, density in DENSITIES.items():

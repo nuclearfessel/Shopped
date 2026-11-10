@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/features/catalog/resolve_barcode.dart';
-import 'package:shop_it/services/product_lookup.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/features/catalog/resolve_barcode.dart';
+import 'package:shopped/services/product_lookup.dart';
 
 void main() {
   test('Open Food Facts JSON becomes a product name', () async {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/tax_rules.dart';
+import 'package:shopped/data/tax_rules.dart';
 
 TaxClass _c(String name, String category) => classifyItem(name, category);
 

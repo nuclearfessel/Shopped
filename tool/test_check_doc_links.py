@@ -50,8 +50,8 @@ class WalkthroughLinkTests(unittest.TestCase):
         self.assertIn("missing anchor #quick-start", self.errors()[0])
 
     def test_heading_image_alt_contributes_to_slug(self):
-        _, ids = references("# ![ShopIt](icon.png) **Guide**")
-        self.assertIn("shopit-guide", ids)
+        _, ids = references("# ![Shopped](icon.png) **Guide**")
+        self.assertIn("shopped-guide", ids)
 
     def test_anchor_changes_fail(self):
         (self.root / "docs/usage.md").write_text("# Renamed")

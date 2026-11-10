@@ -1,4 +1,4 @@
-package com.nuclearfessel.shop_it
+package com.nuclearfessel.shopped
 
 import android.app.Activity
 import android.content.Context
@@ -16,7 +16,7 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "shop.it/network")
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "shopped/network")
             .setMethodCallHandler { call, result ->
                 if (call.method != "multicastLock") {
                     result.notImplemented()
@@ -30,7 +30,7 @@ class MainActivity : FlutterActivity() {
                 }
                 result.success(null)
             }
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "shop_it/barcode")
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "shopped/barcode")
             .setMethodCallHandler { call, result ->
                 if (call.method != "scan") {
                     result.notImplemented()
@@ -59,7 +59,7 @@ class MainActivity : FlutterActivity() {
                         .setDesiredBarcodeFormats(
                             if (sync) listOf("QR_CODE") else IntentIntegrator.PRODUCT_CODE_TYPES,
                         )
-                        .setPrompt(if (sync) "Scan the ShopIt QR code" else "Scan a barcode")
+                        .setPrompt(if (sync) "Scan the Shopped QR code" else "Scan a barcode")
                         .setBeepEnabled(false)
                         .setOrientationLocked(portrait)
                         .initiateScan()
@@ -90,7 +90,7 @@ class MainActivity : FlutterActivity() {
         val wifi = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         if (multicastLock?.isHeld != true) {
             try {
-                multicastLock = wifi.createMulticastLock("shop-it").apply {
+                multicastLock = wifi.createMulticastLock("shopped").apply {
                     setReferenceCounted(false)
                     acquire()
                 }
@@ -108,7 +108,7 @@ class MainActivity : FlutterActivity() {
         )
         for (mode in modes) {
             try {
-                wifiLock = wifi.createWifiLock(mode, "shop-it-wifi").apply {
+                wifiLock = wifi.createWifiLock(mode, "shopped-wifi").apply {
                     setReferenceCounted(false)
                     acquire()
                 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/ui/undo_snack_bar.dart';
+import 'package:shopped/ui/undo_snack_bar.dart';
 
 import 'support/harness.dart';
 
@@ -18,7 +18,7 @@ void main() {
   testWidgets('shows the message with an Undo and a close button', (
     tester,
   ) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     show(tester, () {});
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -30,7 +30,7 @@ void main() {
   testWidgets('goes away by itself, even though it has an action', (
     tester,
   ) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     show(tester, () {});
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -47,7 +47,7 @@ void main() {
   });
 
   testWidgets('the close button dismisses it', (tester) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     show(tester, () {});
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -58,7 +58,7 @@ void main() {
 
   testWidgets('Undo runs the action and dismisses the message', (tester) async {
     var undone = 0;
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     show(tester, () => undone++);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -69,7 +69,7 @@ void main() {
   });
 
   testWidgets('switching sections dismisses it (wide window)', (tester) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     show(tester, () {});
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -88,7 +88,7 @@ void main() {
   testWidgets('switching sections dismisses it (narrow window)', (
     tester,
   ) async {
-    await pumpShopIt(tester, width: 360, height: 700);
+    await pumpShopped(tester, width: 360, height: 700);
     show(tester, () {});
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -102,7 +102,7 @@ void main() {
   testWidgets('a newer message replaces the older one instead of queueing', (
     tester,
   ) async {
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     show(tester, () {});
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));

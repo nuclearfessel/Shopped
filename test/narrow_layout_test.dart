@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/app/app.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/data/providers.dart';
-import 'package:shop_it/features/settings/settings_dialog.dart';
+import 'package:shopped/app/app.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/data/providers.dart';
+import 'package:shopped/features/settings/settings_dialog.dart';
 
 final _t = DateTime(2026, 1, 1);
 const _longName = 'Extra mature cheddar cheese block family size';
@@ -144,7 +144,7 @@ void main() {
               ],
             ),
           ],
-          child: const ShopItApp(windowChrome: false),
+          child: const ShoppedApp(windowChrome: false),
         ),
       );
       await tester.pump(const Duration(milliseconds: 300));
@@ -310,7 +310,7 @@ void main() {
               (ref, id) => Stream.value(const <PantryItem>[]),
             ),
           ],
-          child: const ShopItApp(windowChrome: false),
+          child: const ShoppedApp(windowChrome: false),
         ),
       );
       await tester.pump(const Duration(milliseconds: 300));
@@ -388,7 +388,7 @@ void main() {
                 (ref, id) => Stream.value(const <PantryItem>[]),
               ),
             ],
-            child: const ShopItApp(windowChrome: false),
+            child: const ShoppedApp(windowChrome: false),
           ),
         );
         await tester.pump(const Duration(milliseconds: 300));

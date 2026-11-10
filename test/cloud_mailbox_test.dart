@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart' hide isNull;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/services/cloud_mailbox.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/services/cloud_mailbox.dart';
 
 void main() {
   test('sealed mailbox payloads hide list contents', () async {
@@ -31,7 +31,7 @@ void main() {
   test('the cloud topic carries the mailbox id and not the secret', () {
     final code = newHouseholdCode();
     final topic = mailboxDeviceTopic(code, 'phone');
-    expect(topic, 'shopit/p/${householdMailboxId(code)}/phone');
+    expect(topic, 'shopped/p/${householdMailboxId(code)}/phone');
     expect(topic.contains(householdSecret(code)), isFalse);
   });
 

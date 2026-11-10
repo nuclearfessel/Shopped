@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/shop_it.iml" filepath="$PROJECT_DIR$/shop_it.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/shop_it_android.iml" filepath="$PROJECT_DIR$/android/shop_it_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopped.iml" filepath="$PROJECT_DIR$/shopped.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/shopped_android.iml" filepath="$PROJECT_DIR$/android/shopped_android.iml" />
     </modules>
   </component>
 </project>

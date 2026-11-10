@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/app/app.dart';
-import 'package:shop_it/data/providers.dart';
+import 'package:shopped/app/app.dart';
+import 'package:shopped/data/providers.dart';
 
 import 'support/harness.dart';
 
 void main() {
   testWidgets('search jumps to an item already on the list', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [
         fakeItem('a', 'Milk'),
@@ -28,7 +28,7 @@ void main() {
   });
 
   testWidgets('search offers pantry items without adding them', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [fakeItem('a', 'Bread', category: 'Bakery')],
       pantry: [fakePantryItem('p', 'Yogurt')],
@@ -43,7 +43,7 @@ void main() {
   });
 
   testWidgets('an empty search field offers recent history', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [fakeItem('a', 'Milk')],
       history: [fakeHistory('h1', 'Chips', category: 'Snacks')],
@@ -57,7 +57,7 @@ void main() {
   testWidgets('suggestions cover the list instead of pushing it down', (
     tester,
   ) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [fakeItem('a', 'Milk')],
       history: [fakeHistory('h1', 'Chips', category: 'Snacks')],
@@ -70,7 +70,7 @@ void main() {
   });
 
   testWidgets('choosing a recent name closes the menu', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [fakeItem('a', 'Milk')],
       history: [fakeHistory('h1', 'Chips', category: 'Snacks')],
@@ -80,7 +80,7 @@ void main() {
     await tester.tap(find.text('Chips'));
     await tester.pump();
     expect(find.text('Recent'), findsNothing);
-    final db = ProviderScope.containerOf(tester.element(find.byType(ShopItApp)))
+    final db = ProviderScope.containerOf(tester.element(find.byType(ShoppedApp)))
         .read(databaseProvider);
     final added = await tester.runAsync(
       () => db.watchShoppingItems('l1').first,
@@ -91,7 +91,7 @@ void main() {
   testWidgets(
     'choosing a recent name adds another copy when it is already on the list',
     (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: [fakeItem('a', 'Milk')],
         history: [fakeHistory('h1', 'Milk')],
@@ -102,7 +102,7 @@ void main() {
       expect(find.text('Recent'), findsOneWidget);
 
       final db = ProviderScope.containerOf(
-        tester.element(find.byType(ShopItApp)),
+        tester.element(find.byType(ShoppedApp)),
       ).read(databaseProvider);
       await tester.runAsync(() => db.addShoppingItem('l1', 'Milk'));
       await tester.tap(find.text('Recent'));
@@ -117,7 +117,7 @@ void main() {
   testWidgets('arrow keys cycle search results on desktop', (tester) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.windows;
     try {
-      await pumpShopIt(tester, items: [fakeItem('a', 'Milk')]);
+      await pumpShopped(tester, items: [fakeItem('a', 'Milk')]);
       await tester.enterText(find.byType(TextField).first, 'oni');
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
@@ -167,7 +167,7 @@ void main() {
     (tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.windows;
       try {
-        await pumpShopIt(
+        await pumpShopped(
           tester,
           items: [fakeItem('a', 'Milk')],
           history: [
@@ -198,7 +198,7 @@ void main() {
         expect(find.text('Recent'), findsNothing);
 
         final db = ProviderScope.containerOf(
-          tester.element(find.byType(ShopItApp)),
+          tester.element(find.byType(ShoppedApp)),
         ).read(databaseProvider);
         final rows = await tester.runAsync(
           () => db.watchShoppingItems('l1').first,
@@ -215,7 +215,7 @@ void main() {
   ) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.windows;
     try {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: [fakeItem('a', 'Milk')],
         history: [fakeHistory('h1', 'Chips', category: 'Snacks')],
@@ -237,7 +237,7 @@ void main() {
   });
 
   testWidgets('choosing a catalog match closes the menu', (tester) async {
-    await pumpShopIt(tester, items: [fakeItem('a', 'Milk')]);
+    await pumpShopped(tester, items: [fakeItem('a', 'Milk')]);
     await tester.enterText(find.byType(TextField).first, 'oni');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
@@ -251,7 +251,7 @@ void main() {
   testWidgets('an Other item can be dragged into a category that has items', (
     tester,
   ) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [
         fakeItem('a', 'Crackers', category: 'Other'),
@@ -275,7 +275,7 @@ void main() {
   testWidgets('a sideways swipe still checks an item that can be dragged', (
     tester,
   ) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       items: [
         fakeItem('a', 'Crackers', category: 'Other'),

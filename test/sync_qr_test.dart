@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qr/qr.dart';
-import 'package:shop_it/features/settings/sync_qr_view.dart';
-import 'package:shop_it/services/cloud_mailbox.dart';
-import 'package:shop_it/services/sync_qr.dart';
+import 'package:shopped/features/settings/sync_qr_view.dart';
+import 'package:shopped/services/cloud_mailbox.dart';
+import 'package:shopped/services/sync_qr.dart';
 
 void main() {
   test('a sync QR code carries the household code and nothing else', () {
@@ -14,7 +14,8 @@ void main() {
     expect(householdFromQr('  $payload  '), code);
     expect(householdFromQr(code), code);
     expect(householdFromQr('012345678905'), isNull);
-    expect(householdFromQr('shopit:not-a-code'), isNull);
+    expect(householdFromQr('shopped:not-a-code'), isNull);
+    expect(householdFromQr('$legacySyncQrPrefix$code'), code);
 
     final image = QrImage(QrCode(payload: QrPayload.fromString(payload)));
     expect(image.moduleCount, greaterThan(20));

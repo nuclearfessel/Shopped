@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/ui/choice_field.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/ui/choice_field.dart';
 
 import 'support/harness.dart';
 
@@ -282,13 +282,13 @@ void main() {
     ];
 
     testWidgets('one list: just its name; two: a pull-down', (tester) async {
-      await pumpShopIt(tester, pantry: items);
+      await pumpShopped(tester, pantry: items);
       await _gotoPantry(tester);
       expect(find.text('Pantry'), findsWidgets);
       expect(find.byTooltip('Choose a pantry list'), findsNothing);
 
       await tester.pumpWidget(const SizedBox.shrink());
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: items,
         pantryLists: [
@@ -301,7 +301,7 @@ void main() {
     });
 
     testWidgets('only shows the items of the chosen list', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: [
           fakePantryItem('a', 'Yogurt'),
@@ -330,7 +330,7 @@ void main() {
       // does not move an expiry onto the wrong date.
       DateTime onDay(int delta) =>
           DateTime(start.year, start.month, start.day + delta);
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: [
           fakePantryItem('a', 'Yogurt', expiryDate: onDay(2)),
@@ -347,7 +347,7 @@ void main() {
     });
 
     testWidgets('groups the items under category headers', (tester) async {
-      await pumpShopIt(tester, pantry: items);
+      await pumpShopped(tester, pantry: items);
       await _gotoPantry(tester);
       expect(find.text('DAIRY & EGGS'), findsOneWidget);
       expect(find.text('BAKERY'), findsOneWidget);
@@ -356,7 +356,7 @@ void main() {
     testWidgets('Low/Full items get a toggle, numbered items a stepper', (
       tester,
     ) async {
-      await pumpShopIt(tester, pantry: items);
+      await pumpShopped(tester, pantry: items);
       await _gotoPantry(tester);
       // two Low/Full items: Yogurt and Beans
       expect(find.byType(SegmentedButton<String>), findsNWidgets(2));
@@ -369,7 +369,7 @@ void main() {
     testWidgets('the toggle shows what is low and what is full', (
       tester,
     ) async {
-      await pumpShopIt(tester, pantry: items);
+      await pumpShopped(tester, pantry: items);
       await _gotoPantry(tester);
       final selected = [
         for (final s in tester.widgetList<SegmentedButton<String>>(
@@ -381,7 +381,7 @@ void main() {
     });
 
     testWidgets('has the pantry list menu entries', (tester) async {
-      await pumpShopIt(tester, pantry: items);
+      await pumpShopped(tester, pantry: items);
       await _gotoPantry(tester);
       await tester.tap(find.byTooltip('List options'));
       await tester.pumpAndSettle();
@@ -404,7 +404,7 @@ void main() {
     testWidgets('Amounts opens with the list\'s current choice', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: items,
         pantryLists: [
@@ -420,7 +420,7 @@ void main() {
     });
 
     testWidgets('Manage lists manages the pantry lists', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: items,
         pantryLists: [
@@ -437,7 +437,7 @@ void main() {
     testWidgets('Move/Copy offers the shopping lists and other pantry lists', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: items,
         lists: [fakeList('l1', 'Grocery list'), fakeList('l2', 'Party')],
@@ -460,13 +460,13 @@ void main() {
     });
 
     testWidgets('an empty pantry list says so', (tester) async {
-      await pumpShopIt(tester, pantry: const []);
+      await pumpShopped(tester, pantry: const []);
       await _gotoPantry(tester);
       expect(find.text('Pantry is empty'), findsOneWidget);
     });
 
     testWidgets('no pantry lists at all: offers to create one', (tester) async {
-      await pumpShopIt(tester, pantryLists: const []);
+      await pumpShopped(tester, pantryLists: const []);
       await _gotoPantry(tester);
       expect(find.text('No pantry lists yet'), findsOneWidget);
       expect(find.text('Create a pantry list'), findsOneWidget);
@@ -475,7 +475,7 @@ void main() {
     testWidgets('fits the narrowest window with both kinds of amount', (
       tester,
     ) async {
-      await pumpShopIt(tester, width: 240, pantry: items);
+      await pumpShopped(tester, width: 240, pantry: items);
       await _gotoPantry(tester);
       expect(tester.takeException(), isNull);
     });
@@ -483,7 +483,7 @@ void main() {
 
   group('the item editor for pantry items', () {
     testWidgets('lets you choose Low/Full or a number', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: [fakePantryItem('a', 'Yogurt', mode: 'level')],
       );
@@ -505,7 +505,7 @@ void main() {
     testWidgets('number mode shows the quantity stepper instead', (
       tester,
     ) async {
-      await pumpShopIt(tester, pantry: [fakePantryItem('a', 'Rice')]);
+      await pumpShopped(tester, pantry: [fakePantryItem('a', 'Rice')]);
       await _gotoPantry(tester);
       await tester.tap(find.text('Rice'));
       await tester.pumpAndSettle();
@@ -517,7 +517,7 @@ void main() {
     });
 
     testWidgets('switching to Number reveals the stepper', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         pantry: [fakePantryItem('a', 'Yogurt', mode: 'level')],
       );
@@ -530,7 +530,7 @@ void main() {
     });
 
     testWidgets('shopping items have no Amount choice', (tester) async {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await tester.tap(find.text('Milk'));
       await tester.pumpAndSettle();
       expect(find.text('Amount'), findsNothing);

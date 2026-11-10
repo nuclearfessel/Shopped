@@ -1,12 +1,12 @@
 /// Shown from Settings → About. Matches docs/privacy.md.
-const shopItPrivacyNotice = '''
-ShopIt stores your lists on this device. There is no ShopIt account.
+const shoppedPrivacyNotice = '''
+Shopped stores your lists on this device. There is no Shopped account.
 
-Sharing is off until you turn it on. Create a code on one device and type that same code on the other. The code has two parts. The part after the dot is the key. ShopIt encrypts list contents with that key before they leave the device. The key is not sent over Wi-Fi and is not written into the cloud topic.
+Sharing is off until you turn it on. Create a code on one device and type that same code on the other. The code has two parts. The part after the dot is the key. Shopped encrypts list contents with that key before they leave the device. The key is not sent over Wi-Fi and is not written into the cloud topic.
 
 Creating, joining, or scanning that code turns Share on this Wi-Fi on, including on Windows. Lists also sync over the internet while the apps are open. Turn Share on this Wi-Fi off when this device should not be found on the local network. That choice stays off the next time the app opens.
 
-On the same Wi-Fi, the other ShopIt receives only that encrypted copy, and only if it presents the same key. That local exchange happens when Share on this Wi-Fi is on. Over the internet, ShopIt publishes the encrypted copy to public MQTT brokers (broker.hivemq.com and broker.emqx.io), using an encrypted connection. The topic contains a random mailbox id, which is the part of the code before the dot. Those brokers and anyone who learns that id can download the encrypted copy. They cannot read the lists without the key. The brokers are testing services, not private storage.
+On the same Wi-Fi, the other Shopped receives only that encrypted copy, and only if it presents the same key. That local exchange happens when Share on this Wi-Fi is on. Over the internet, Shopped publishes the encrypted copy to public MQTT brokers (broker.hivemq.com and broker.emqx.io), using an encrypted connection. The topic contains a random mailbox id, which is the part of the code before the dot. Those brokers and anyone who learns that id can download the encrypted copy. They cannot read the lists without the key. The brokers are testing services, not private storage.
 
 Leave cloud sync while online to delete this device's stored copy. If the device is offline, the copy can remain until you leave again while online. Deleting the app does not by itself delete a copy already stored at the broker.
 
@@ -14,16 +14,16 @@ Use my location sends coordinates only when you tap it. The default place-name s
 
 Scanning an unknown barcode sends that number to Open Food Facts. Known names stay on the device.
 
-ShopIt does not show ads and does not include an analytics service.
+Shopped does not show ads and does not include an analytics service.
 
-Delete lists in the app. Nominatim, ZipTax, and Open Food Facts receive one-time requests. ShopIt cannot delete those requests afterward.
+Delete lists in the app. Nominatim, ZipTax, and Open Food Facts receive one-time requests. Shopped cannot delete those requests afterward.
 
-Source code: https://github.com/nuclearfessel/ShopIt
+Source code: https://github.com/nuclearfessel/Shopped
 ''';
 
-/// Licenses for ShopIt and the third-party pieces shipped with it.
-const shopItLicenses = '''
-ShopIt
+/// Licenses for Shopped and the third-party pieces shipped with it.
+const shoppedLicenses = '''
+Shopped
 Copyright (c) 2026 Fes Naqvi
 Released under the MIT License. The full text is in the LICENSE file in the source repository.
 
@@ -38,7 +38,7 @@ Roboto
 The Roboto font is licensed under the Apache License, Version 2.0. The license text is in assets/fonts/roboto_license.txt.
 
 Open Food Facts
-Product names looked up from a barcode come from Open Food Facts (https://world.openfoodfacts.org). That database is under the Open Database License. Product data is separate from ShopIt's MIT license. Credit: Open Food Facts contributors.
+Product names looked up from a barcode come from Open Food Facts (https://world.openfoodfacts.org). That database is under the Open Database License. Product data is separate from Shopped's MIT license. Credit: Open Food Facts contributors.
 
 OpenStreetMap
 Place names come from OpenStreetMap through Nominatim unless you choose another host. Place names © OpenStreetMap contributors. Nominatim's usage policy is at https://operations.osmfoundation.org/policies/nominatim/

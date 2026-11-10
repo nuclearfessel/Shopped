@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shop_it/features/settings/about_section.dart';
+import 'package:shopped/features/settings/about_section.dart';
 
 void main() {
   setUp(() {
     PackageInfo.setMockInitialValues(
-      appName: 'ShopIt',
-      packageName: 'shop_it',
+      appName: 'Shopped',
+      packageName: 'shopped',
       version: '1.2.3',
       buildNumber: '42',
       buildSignature: '',
@@ -48,19 +48,19 @@ void main() {
               expect(logoFinder, findsOneWidget);
               final logo = tester.widget<Image>(logoFinder);
               final expectedAsset = brightness == Brightness.dark
-                  ? 'assets/brand/shopit-horizontal-dark.png'
-                  : 'assets/brand/shopit-horizontal-light.png';
+                  ? 'assets/brand/shopped-horizontal-dark.png'
+                  : 'assets/brand/shopped-horizontal-light.png';
               expect(logo.image, AssetImage(expectedAsset));
               expect(logo.height, 56);
               expect(logo.filterQuality, FilterQuality.high);
-              expect(find.bySemanticsLabel('ShopIt'), findsOneWidget);
-              expect(find.text('ShopIt'), findsNothing);
+              expect(find.bySemanticsLabel('Shopped'), findsOneWidget);
+              expect(find.text('Shopped'), findsNothing);
               expect(
                 find.text('An open source shopping, pantry, and recipe app.'),
                 findsOneWidget,
               );
               expect(find.text('Version 1.2.3'), findsOneWidget);
-              expect(find.text(shopItSiteUrl), findsOneWidget);
+              expect(find.text(shoppedSiteUrl), findsOneWidget);
               expect(find.text('Privacy'), findsOneWidget);
               expect(find.text('Licenses'), findsOneWidget);
               final bounds = tester.getRect(logoFinder);

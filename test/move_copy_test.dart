@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/ui/choice_field.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/ui/choice_field.dart';
 
 import 'support/harness.dart';
 
@@ -176,7 +176,7 @@ void main() {
     testWidgets('lists every item, including ones already in the cart', (
       tester,
     ) async {
-      await pumpShopIt(tester, lists: lists, items: items);
+      await pumpShopped(tester, lists: lists, items: items);
       await _openMoveCopy(tester);
       expect(find.text('Move or copy items'), findsOneWidget);
       expect(find.byType(CheckboxListTile), findsNWidgets(3));
@@ -186,7 +186,7 @@ void main() {
     testWidgets('Move and Copy wait for a selection and a destination', (
       tester,
     ) async {
-      await pumpShopIt(tester, lists: lists, items: items);
+      await pumpShopped(tester, lists: lists, items: items);
       await _openMoveCopy(tester);
       expect(_move(tester).onPressed, isNull);
       expect(_copy(tester).onPressed, isNull);
@@ -214,7 +214,7 @@ void main() {
     });
 
     testWidgets('Select all and Select none', (tester) async {
-      await pumpShopIt(tester, lists: lists, items: items);
+      await pumpShopped(tester, lists: lists, items: items);
       await _openMoveCopy(tester);
       await tester.tap(find.text('Select all'));
       await tester.pump();
@@ -227,7 +227,7 @@ void main() {
     testWidgets('destinations are the other lists and the pantry', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         lists: [...lists, fakeList('l3', 'Costco')],
         items: items,
@@ -251,7 +251,7 @@ void main() {
     testWidgets('with only one list the pantry is the destination', (
       tester,
     ) async {
-      await pumpShopIt(tester, items: items);
+      await pumpShopped(tester, items: items);
       await _openMoveCopy(tester);
       await tester.tap(_dialogPicker);
       await tester.pumpAndSettle();
@@ -261,7 +261,7 @@ void main() {
     testWidgets('an empty list says so and offers nothing to select', (
       tester,
     ) async {
-      await pumpShopIt(tester, items: const []);
+      await pumpShopped(tester, items: const []);
       await _openMoveCopy(tester);
       expect(find.text('This list has no items yet.'), findsOneWidget);
       final selectAll = tester.widget<TextButton>(
@@ -271,7 +271,7 @@ void main() {
     });
 
     testWidgets('Cancel closes it', (tester) async {
-      await pumpShopIt(tester, lists: lists, items: items);
+      await pumpShopped(tester, lists: lists, items: items);
       await _openMoveCopy(tester);
       await tester.tap(find.text('Cancel'));
       await tester.pumpAndSettle();
@@ -279,7 +279,7 @@ void main() {
     });
 
     testWidgets('fits a narrow window', (tester) async {
-      await pumpShopIt(tester, width: 240, lists: lists, items: items);
+      await pumpShopped(tester, width: 240, lists: lists, items: items);
       await _openMoveCopy(tester);
       expect(tester.takeException(), isNull);
     });

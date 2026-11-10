@@ -15,8 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # on 3×/4× screens without runtime SVG jaggies.
 HEIGHT = 600
 VARIANTS = (
-    "assets/brand/shopit-horizontal-dark.svg",
-    "assets/brand/shopit-horizontal-light.svg",
+    "assets/brand/shopped-horizontal-dark.svg",
+    "assets/brand/shopped-horizontal-light.svg",
 )
 
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shop_it/features/settings/about_section.dart';
+import 'package:shopped/features/settings/about_section.dart';
 import 'package:url_launcher_platform_interface/link.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
@@ -59,8 +59,8 @@ void main() {
     UrlLauncherPlatform.instance = launcher;
     addTearDown(() => UrlLauncherPlatform.instance = previous);
     PackageInfo.setMockInitialValues(
-      appName: 'ShopIt',
-      packageName: 'shop_it',
+      appName: 'Shopped',
+      packageName: 'shopped',
       version: '1.2.3',
       buildNumber: '42',
       buildSignature: '',
@@ -74,11 +74,11 @@ void main() {
       try {
         launcher.throwsPlatformException = platformException;
         await _showAbout(tester);
-        await tester.ensureVisible(find.text(shopItSiteUrl));
-        await tester.tap(find.text(shopItSiteUrl));
+        await tester.ensureVisible(find.text(shoppedSiteUrl));
+        await tester.tap(find.text(shoppedSiteUrl));
         await tester.pumpAndSettle();
         expect(
-          find.bySemanticsLabel("Couldn't open ShopIt site"),
+          find.bySemanticsLabel("Couldn't open Shopped site"),
           findsOneWidget,
         );
         expect(
@@ -94,7 +94,7 @@ void main() {
         await tester.sendKeyEvent(LogicalKeyboardKey.escape);
         await tester.pumpAndSettle();
         expect(find.byType(AlertDialog), findsNothing);
-        expect(find.text(shopItSiteUrl), findsOneWidget);
+        expect(find.text(shoppedSiteUrl), findsOneWidget);
         expect(tester.takeException(), isNull);
       } finally {
         semantics.dispose();

@@ -15,7 +15,7 @@ import UIKit
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
     let network = FlutterMethodChannel(
-      name: "shop.it/network",
+      name: "shopped/network",
       binaryMessenger: engineBridge.applicationRegistrar.messenger()
     )
     let probe = LocalNetworkProbe()
@@ -28,7 +28,7 @@ import UIKit
       result(nil)
     }
     let channel = FlutterMethodChannel(
-      name: "shop_it/barcode",
+      name: "shopped/barcode",
       binaryMessenger: engineBridge.applicationRegistrar.messenger()
     )
     channel.setMethodCallHandler { call, result in
@@ -207,7 +207,7 @@ final class LocalNetworkProbe {
     }
     if browser != nil { return }
     let browser = NWBrowser(
-      for: .bonjour(type: "_shopit._udp", domain: "local."),
+      for: .bonjour(type: "_shopped._udp", domain: "local."),
       using: .tcp
     )
     browser.stateUpdateHandler = { _ in }

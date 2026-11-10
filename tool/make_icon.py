@@ -1,4 +1,4 @@
-"""Builds all platform app icons from the approved ShopIt brand artwork.
+"""Builds all platform app icons from the approved Shopped brand artwork.
 
 Run from the repo root: python tool/make_icon.py (requires Pillow and resvg-py).
 The Daily Circle SVG is rasterized to a transparent, full-bleed mark master so
@@ -19,8 +19,8 @@ from make_adaptive_icon import main as make_android_launcher_icons
 from make_adaptive_icon import render_circle_mark
 
 SVG_SOURCE = Path("assets/brand/daily-circle-original-tangerine.svg")
-SOURCE = Path("assets/brand/shopit-app-icon-original-tangerine.png")
-ICNS_DESTINATION = Path("macos/Runner/ShopItAppIcon.icns")
+SOURCE = Path("assets/brand/shopped-app-icon-original-tangerine.png")
+ICNS_DESTINATION = Path("macos/Runner/ShoppedAppIcon.icns")
 IOS_BACKGROUND = (38, 55, 47)  # #26372F, the app-icon tile background
 RESAMPLE = Image.Resampling.LANCZOS
 MASTER_SIZE = 1024
@@ -122,7 +122,7 @@ def main():
     resized(source, 96).save("assets/app_icon.png", format="PNG", optimize=True)
     resized(source, 512).save("tool/icon_preview.png", format="PNG", optimize=True)
     # Keep the About mark aligned with the same transparent master.
-    resized(source, 256).save("assets/brand/shopit-mark.png", format="PNG", optimize=True)
+    resized(source, 256).save("assets/brand/shopped-mark.png", format="PNG", optimize=True)
 
 
 if __name__ == "__main__":

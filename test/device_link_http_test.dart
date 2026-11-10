@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/services/cloud_mailbox.dart';
-import 'package:shop_it/services/device_link.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/services/cloud_mailbox.dart';
+import 'package:shopped/services/device_link.dart';
 
 /// The widget-test binding replaces [HttpClient] with one that never connects.
 /// This zone uses the real client so two devices on this machine can sync.

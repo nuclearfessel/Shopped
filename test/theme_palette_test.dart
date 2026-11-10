@@ -4,10 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/app/app.dart';
-import 'package:shop_it/app/title_bar.dart';
-import 'package:shop_it/ui/category_color.dart';
-import 'package:shop_it/ui/keyline/keyline_icon.dart';
+import 'package:shopped/app/app.dart';
+import 'package:shopped/app/title_bar.dart';
+import 'package:shopped/ui/category_color.dart';
+import 'package:shopped/ui/keyline/keyline_icon.dart';
 
 void main() {
   final cases = <Brightness, _Palette>{
@@ -30,11 +30,11 @@ void main() {
   };
 
   test('both themes are generated from the Original Tangerine seed', () {
-    expect(shopItSeed, const Color(0xFFEF7008));
+    expect(shoppedSeed, const Color(0xFFEF7008));
     for (final brightness in Brightness.values) {
-      final theme = shopItTheme(brightness);
+      final theme = shoppedTheme(brightness);
       final generated = ColorScheme.fromSeed(
-        seedColor: shopItSeed,
+        seedColor: shoppedSeed,
         brightness: brightness,
       );
       final previous = ColorScheme.fromSeed(
@@ -62,7 +62,7 @@ void main() {
   test('each fixed role keeps its own color', () {
     for (final brightness in Brightness.values) {
       final palette = cases[brightness]!;
-      final scheme = shopItTheme(brightness).colorScheme;
+      final scheme = shoppedTheme(brightness).colorScheme;
       expect(scheme.surface, palette.background);
       expect(scheme.surfaceContainerLowest, palette.background);
       expect(scheme.onSurface, palette.text);
@@ -82,7 +82,7 @@ void main() {
   test('components use the fixed surfaces, text, and icon accent', () {
     for (final brightness in Brightness.values) {
       final palette = cases[brightness]!;
-      final theme = shopItTheme(brightness);
+      final theme = shoppedTheme(brightness);
       final scheme = theme.colorScheme;
       expect(theme.scaffoldBackgroundColor, palette.background);
       expect(theme.cardTheme.color, palette.cards);
@@ -150,7 +150,7 @@ void main() {
     tester,
   ) async {
     for (final brightness in Brightness.values) {
-      final theme = shopItTheme(brightness);
+      final theme = shoppedTheme(brightness);
       await tester.pumpWidget(
         MaterialApp(
           theme: theme,
@@ -179,7 +179,7 @@ void main() {
     tester,
   ) async {
     for (final brightness in Brightness.values) {
-      final theme = shopItTheme(brightness);
+      final theme = shoppedTheme(brightness);
       final accent = brightness == Brightness.dark ? iconOnDark : iconOnLight;
       await tester.pumpWidget(
         MaterialApp(
@@ -251,7 +251,7 @@ void main() {
     );
 
     for (final brightness in Brightness.values) {
-      final theme = shopItTheme(brightness);
+      final theme = shoppedTheme(brightness);
       await tester.pumpWidget(
         MaterialApp(
           theme: theme,
@@ -279,7 +279,7 @@ void main() {
       await tester.pump();
 
       expect(closeIcon().color, theme.colorScheme.error);
-      expect(closeIcon().color, isNot(shopItSeed));
+      expect(closeIcon().color, isNot(shoppedSeed));
       expect(closeIcon().color, isNot(accent));
       final wash = Color.alphaBlend(
         theme.colorScheme.error.withValues(alpha: 0.18),

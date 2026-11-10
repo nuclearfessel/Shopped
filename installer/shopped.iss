@@ -1,4 +1,4 @@
-; ShopIt Windows installer. The release workflow passes /DAppVersion=0.0.1.
+; Shopped Windows installer. The release workflow passes /DAppVersion=0.0.1.
 #ifndef AppVersion
   #define AppVersion "0.0.1"
 #endif
@@ -9,11 +9,11 @@
 
 [Setup]
 AppId={{8F3A1C2E-6B47-4D91-9E5A-2C7B0D4F6A18}
-AppName=ShopIt
+AppName=Shopped
 AppVersion={#AppVersion}
-AppPublisher=ShopIt
-DefaultDirName={autopf}\Shop-it
-DefaultGroupName=ShopIt
+AppPublisher=Shopped
+DefaultDirName={autopf}\Shopped
+DefaultGroupName=Shopped
 DisableProgramGroupPage=yes
 ; Welcome must stay on so the lists/settings page (after wpWelcome) is shown.
 ; With DisableWelcomePage=yes and DisableDirPage=auto, an upgrade skips both
@@ -24,27 +24,27 @@ DirExistsWarning=no
 UsePreviousAppDir=yes
 UsePreviousGroup=yes
 OutputDir=..\build\installer
-OutputBaseFilename=ShopIt-Setup-{#AppVersion}
+OutputBaseFilename=Shopped-Setup-{#AppVersion}
 Compression=lzma2
 SolidCompression=yes
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 WizardStyle=modern
 CloseApplications=force
-SetupMutex=ShopItSetupMutex
-UninstallDisplayIcon={app}\shop_it.exe
-UninstallDisplayName=ShopIt
+SetupMutex=ShoppedSetupMutex
+UninstallDisplayIcon={app}\shopped.exe
+UninstallDisplayName=Shopped
 
 [Files]
 Source: "..\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\ShopIt"; Filename: "{app}\shop_it.exe"
-Name: "{group}\Uninstall ShopIt"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\ShopIt"; Filename: "{app}\shop_it.exe"
+Name: "{group}\Shopped"; Filename: "{app}\shopped.exe"
+Name: "{group}\Uninstall Shopped"; Filename: "{uninstallexe}"
+Name: "{autodesktop}\Shopped"; Filename: "{app}\shopped.exe"
 
 [Run]
-Filename: "{app}\shop_it.exe"; Description: "Launch ShopIt"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\shopped.exe"; Description: "Launch Shopped"; Flags: nowait postinstall skipifsilent
 
 ; Only the program folder is always removed on uninstall. AppData is wiped from
 ; [Code] unless Setup is replacing a previous version (/KEEP_DATA).
@@ -90,25 +90,29 @@ begin
   Result := QueryUninstallValue('DisplayVersion', InstalledVersion) and (InstalledVersion <> '');
 end;
 
-function IsShopItInstalled(): Boolean;
+function IsShoppedInstalled(): Boolean;
 var
   Unused: String;
 begin
   Result := QueryUninstallValue('UninstallString', Unused);
 end;
 
-function HasShopItUserData(): Boolean;
+function HasShoppedUserData(): Boolean;
 begin
   Result :=
+    DirExists(ExpandConstant('{userappdata}\com.nuclearfessel\Shopped')) or
+    DirExists(ExpandConstant('{userappdata}\com.nuclearfessel\shopped')) or
     DirExists(ExpandConstant('{userappdata}\com.nuclearfessel\ShopIt')) or
     DirExists(ExpandConstant('{userappdata}\com.nuclearfessel\shop_it')) or
+    FileExists(ExpandConstant('{userappdata}\com.nuclearfessel\Shopped\shopped.sqlite')) or
     FileExists(ExpandConstant('{userappdata}\com.nuclearfessel\ShopIt\shop_it.sqlite')) or
+    FileExists(ExpandConstant('{userappdata}\com.nuclearfessel\Shopped\shared_preferences.json')) or
     FileExists(ExpandConstant('{userappdata}\com.nuclearfessel\ShopIt\shared_preferences.json'));
 end;
 
 function ShouldOfferDataChoice(): Boolean;
 begin
-  Result := IsShopItInstalled() or HasShopItUserData();
+  Result := IsShoppedInstalled() or HasShoppedUserData();
 end;
 
 function GetUninstallString(): String;
@@ -145,10 +149,27 @@ begin
     DeleteFile(Path);
 end;
 
-procedure ClearShopItLists();
+procedure ClearShoppedLists();
 var
   Root: String;
 begin
+  Root := ExpandConstant('{userappdata}\com.nuclearfessel\Shopped\');
+  DeleteIfExists(Root + 'shopped.sqlite');
+  DeleteIfExists(Root + 'shopped.sqlite-wal');
+  DeleteIfExists(Root + 'shopped.sqlite-shm');
+  Root := ExpandConstant('{userappdata}\com.nuclearfessel\shopped\');
+  DeleteIfExists(Root + 'shopped.sqlite');
+  DeleteIfExists(Root + 'shopped.sqlite-wal');
+  DeleteIfExists(Root + 'shopped.sqlite-shm');
+  Root := ExpandConstant('{localappdata}\com.nuclearfessel\Shopped\');
+  DeleteIfExists(Root + 'shopped.sqlite');
+  DeleteIfExists(Root + 'shopped.sqlite-wal');
+  DeleteIfExists(Root + 'shopped.sqlite-shm');
+  Root := ExpandConstant('{localappdata}\com.nuclearfessel\shopped\');
+  DeleteIfExists(Root + 'shopped.sqlite');
+  DeleteIfExists(Root + 'shopped.sqlite-wal');
+  DeleteIfExists(Root + 'shopped.sqlite-shm');
+  { Prior app id folders. }
   Root := ExpandConstant('{userappdata}\com.nuclearfessel\ShopIt\');
   DeleteIfExists(Root + 'shop_it.sqlite');
   DeleteIfExists(Root + 'shop_it.sqlite-wal');
@@ -167,8 +188,12 @@ begin
   DeleteIfExists(Root + 'shop_it.sqlite-shm');
 end;
 
-procedure ClearShopItSettings();
+procedure ClearShoppedSettings();
 begin
+  DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\Shopped\shared_preferences.json'));
+  DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\shopped\shared_preferences.json'));
+  DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\Shopped\shared_preferences.json'));
+  DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\shopped\shared_preferences.json'));
   DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\ShopIt\shared_preferences.json'));
   DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\shop_it\shared_preferences.json'));
   DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\ShopIt\shared_preferences.json'));
@@ -178,9 +203,9 @@ end;
 procedure ApplyDataRetentionChoice();
 begin
   if not KeepLists then
-    ClearShopItLists();
+    ClearShoppedLists();
   if not KeepSettings then
-    ClearShopItSettings();
+    ClearShoppedSettings();
 end;
 
 procedure ReadDataChoiceFromPage();
@@ -222,16 +247,16 @@ begin
   UpgradeExisting := True;
   ResolveSilentDataFlags();
 
-  if IsShopItInstalled() and GetInstalledVersion(InstalledVersion) and
+  if IsShoppedInstalled() and GetInstalledVersion(InstalledVersion) and
      (CompareText(InstalledVersion, '{#AppVersion}') = 0) then
   begin
-    Log('ShopIt ' + InstalledVersion + ' is already installed; overriding in place.');
+    Log('Shopped ' + InstalledVersion + ' is already installed; overriding in place.');
     Exit;
   end;
 
   if InstalledVersion = '' then
     InstalledVersion := 'a previous version';
-  Log('Replacing ShopIt ' + InstalledVersion + ' with {#AppVersion}.');
+  Log('Replacing Shopped ' + InstalledVersion + ' with {#AppVersion}.');
 end;
 
 procedure InitializeWizard();
@@ -241,7 +266,7 @@ begin
   DataPage := CreateInputOptionPage(
     wpWelcome,
     'Lists and settings',
-    'Choose what to keep from the ShopIt already on this computer',
+    'Choose what to keep from the Shopped already on this computer',
     'Unchecked items are removed before the new version is installed.',
     False, False);
   DataPage.Add('Keep shopping lists, pantry, history, and recipes');
@@ -279,15 +304,15 @@ begin
   else
     ResolveSilentDataFlags();
 
-  SameVersion := IsShopItInstalled() and GetInstalledVersion(InstalledVersion) and
+  SameVersion := IsShoppedInstalled() and GetInstalledVersion(InstalledVersion) and
     (CompareText(InstalledVersion, '{#AppVersion}') = 0);
 
-  if IsShopItInstalled() and (not SameVersion) then
+  if IsShoppedInstalled() and (not SameVersion) then
   begin
     if not UninstallPreviousVersion() then
     begin
       Result :=
-        'Could not remove the installed ShopIt before upgrading. Close ShopIt and try again.';
+        'Could not remove the installed Shopped before upgrading. Close Shopped and try again.';
       Exit;
     end;
   end;
@@ -295,33 +320,41 @@ begin
   ApplyDataRetentionChoice();
 end;
 
-procedure AllowShopItOnPrivateNetworks();
+procedure AllowShoppedOnPrivateNetworks();
 var
   ResultCode: Integer;
   App: String;
 begin
-  App := ExpandConstant('{app}\shop_it.exe');
+  App := ExpandConstant('{app}\shopped.exe');
+  Exec(
+    ExpandConstant('{sys}\netsh.exe'),
+    'advfirewall firewall delete rule name="Shopped"',
+    '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Exec(
     ExpandConstant('{sys}\netsh.exe'),
     'advfirewall firewall delete rule name="ShopIt"',
     '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Exec(
     ExpandConstant('{sys}\netsh.exe'),
-    'advfirewall firewall add rule name="ShopIt" dir=in action=allow program="' + App + '" enable=yes profile=private',
+    'advfirewall firewall add rule name="Shopped" dir=in action=allow program="' + App + '" enable=yes profile=private',
     '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssPostInstall then
-    AllowShopItOnPrivateNetworks();
+    AllowShoppedOnPrivateNetworks();
 end;
 
-procedure RemoveShopItData();
+procedure RemoveShoppedData();
 begin
+  DelTree(ExpandConstant('{userappdata}\com.nuclearfessel\Shopped'), True, True, True);
+  DelTree(ExpandConstant('{userappdata}\com.nuclearfessel\shopped'), True, True, True);
   DelTree(ExpandConstant('{userappdata}\com.nuclearfessel\ShopIt'), True, True, True);
   DelTree(ExpandConstant('{userappdata}\com.nuclearfessel\shop_it'), True, True, True);
   DelTree(ExpandConstant('{userappdata}\com.nuclearfessel'), True, True, True);
+  DelTree(ExpandConstant('{localappdata}\com.nuclearfessel\Shopped'), True, True, True);
+  DelTree(ExpandConstant('{localappdata}\com.nuclearfessel\shopped'), True, True, True);
   DelTree(ExpandConstant('{localappdata}\com.nuclearfessel\ShopIt'), True, True, True);
   DelTree(ExpandConstant('{localappdata}\com.nuclearfessel\shop_it'), True, True, True);
   DelTree(ExpandConstant('{localappdata}\com.nuclearfessel'), True, True, True);
@@ -335,10 +368,14 @@ begin
   begin
     Exec(
       ExpandConstant('{sys}\netsh.exe'),
+      'advfirewall firewall delete rule name="Shopped"',
+      '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    Exec(
+      ExpandConstant('{sys}\netsh.exe'),
       'advfirewall firewall delete rule name="ShopIt"',
       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
     if not KeepUserData() then
-      RemoveShopItData();
+      RemoveShoppedData();
   end;
 end;
 
@@ -348,6 +385,6 @@ begin
   if KeepUserData() or UninstallSilent then
     Exit;
   Result := MsgBox(
-    'Uninstall ShopIt and remove its lists, settings, and data folders from this computer?',
+    'Uninstall Shopped and remove its lists, settings, and data folders from this computer?',
     mbConfirmation, MB_YESNO) = IDYES;
 end;

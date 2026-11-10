@@ -105,7 +105,7 @@ class ArtworkIntegrationTests(unittest.TestCase):
                     "size": list(frame.size), "sha256": pixel_digest(frame)}
         self.manifest = self.root / "manifest.json"
         self.manifest.write_text(json.dumps(manifest))
-        # A deterministic fixture generator, not a replacement for ShopIt's renderer.
+        # A deterministic fixture generator, not a replacement for Shopped's renderer.
         (self.root / "generate.py").write_text(
             "from pathlib import Path\n"
             "import json\n"
@@ -208,7 +208,7 @@ class ArtworkIntegrationTests(unittest.TestCase):
             ([sys.executable, "-c", "raise SystemExit(7)"], 10, "status 7"),
             ([sys.executable, "-c", "import time; time.sleep(10)"], .05, "exceeded"),
             ([], 10, "requires"),
-            (["nonexistent-shopit-generator"], 10, "regeneration:"),
+            (["nonexistent-shopped-generator"], 10, "regeneration:"),
             (self.command, float("nan"), "finite and positive"),
             (self.command, float("inf"), "finite and positive"),
         ):

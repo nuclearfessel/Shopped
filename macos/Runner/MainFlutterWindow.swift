@@ -13,7 +13,7 @@ class MainFlutterWindow: NSWindow {
 
     RegisterGeneratedPlugins(registry: flutterViewController)
     let network = FlutterMethodChannel(
-      name: "shop.it/network",
+      name: "shopped/network",
       binaryMessenger: flutterViewController.engine.binaryMessenger
     )
     network.setMethodCallHandler { [weak self] call, result in
@@ -42,7 +42,7 @@ final class LocalNetworkProbe {
     }
     if browser != nil { return }
     let browser = NWBrowser(
-      for: .bonjour(type: "_shopit._udp", domain: "local."),
+      for: .bonjour(type: "_shopped._udp", domain: "local."),
       using: .tcp
     )
     browser.stateUpdateHandler = { _ in }

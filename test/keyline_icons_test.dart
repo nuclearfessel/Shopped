@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_drawing/path_drawing.dart';
-import 'package:shop_it/ui/keyline/keyline_icon.dart';
+import 'package:shopped/ui/keyline/keyline_icon.dart';
 
 import 'support/harness.dart';
 

@@ -1,19 +1,19 @@
 <h1 align="center">
-  <img src="docs/brand/shopit-horizontal-dark.png" alt="ShopIt primary logo" width="360" height="130">
+  <img src="docs/brand/shopped-horizontal-dark.png" alt="Shopped primary logo" width="360" height="130">
 </h1>
 
 <p align="center">
-  <img src="docs/assets/readme-banner-dark.svg" alt="ShopIt — make room for the everyday. Household shopping lists, pantry, and recipes for Windows, macOS, Android, and iOS." width="1600" height="520">
+  <img src="docs/assets/readme-banner-dark.svg" alt="Shopped — make room for the everyday. Household shopping lists, pantry, and recipes for Windows, macOS, Android, and iOS." width="1600" height="520">
 </p>
 
-ShopIt is an open source shopping, pantry, and recipe app for Windows, Mac, Android, and iOS. The source is in this repository. The window title, the icon, and Windows Installed apps all say ShopIt. The same lists, categories, prices, recipes, and tax settings work on each of them.
+Shopped is an open source shopping, pantry, and recipe app for Windows, Mac, Android, and iOS. The source is in this repository. The window title, the icon, and Windows Installed apps all say Shopped. The same lists, categories, prices, recipes, and tax settings work on each of them.
 
 <p align="center">
-<img src="docs/screenshots/windows.png" alt="ShopIt on Windows" width="800">
+<img src="docs/screenshots/windows.png" alt="Shopped on Windows" width="800">
 </p>
 
 <p align="center">
-<img src="docs/screenshots/android.png" alt="ShopIt on an Android phone" width="280">
+<img src="docs/screenshots/android.png" alt="Shopped on an Android phone" width="280">
 </p>
 
 ## Download
@@ -22,11 +22,11 @@ ShopIt is an open source shopping, pantry, and recipe app for Windows, Mac, Andr
 
 | Platform | Package |
 | --- | --- |
-| Windows | [ShopIt-Setup-1.0.1.exe](https://github.com/nuclearfessel/ShopIt/releases/download/v1.0.1/ShopIt-Setup-1.0.1.exe) |
-| Android | [ShopIt-1.0.1.apk](https://github.com/nuclearfessel/ShopIt/releases/download/v1.0.1/ShopIt-1.0.1.apk) |
-| Mac | [ShopIt-1.0.1-macos.zip](https://github.com/nuclearfessel/ShopIt/releases/download/v1.0.1/ShopIt-1.0.1-macos.zip) |
+| Windows | [Shopped-Setup-1.0.1.exe](https://github.com/nuclearfessel/Shopped/releases/download/v1.0.1/Shopped-Setup-1.0.1.exe) |
+| Android | [Shopped-1.0.1.apk](https://github.com/nuclearfessel/Shopped/releases/download/v1.0.1/Shopped-1.0.1.apk) |
+| Mac | [Shopped-1.0.1-macos.zip](https://github.com/nuclearfessel/Shopped/releases/download/v1.0.1/Shopped-1.0.1-macos.zip) |
 
-On Windows, run the installer — it overrides the same version in place, or replaces a previous version. When ShopIt is already installed, Setup asks whether to keep lists and/or settings. On Android, allow installs from the APK, or use the adb helpers in the android zip (they ask the same keep/clear questions). On a Mac, unzip and run **Install-ShopIt.command**, or open ShopIt.app — the command asks what to keep when replacing an install. iPhone and iPad installs go through TestFlight once an Apple Developer account is connected; a signed-device helper zip is also on the release and can keep everything or clear everything when replacing. Older packages stay in [Releases](https://github.com/nuclearfessel/ShopIt/releases) until a newer build replaces them; only the three newest releases are kept. Each release bumps the patch (`1.0.0` → `1.0.1` … `1.0.9` → `1.1.0`, and so on through `9.9.9` → `10.0.0`).
+On Windows, run the installer — it overrides the same version in place, or replaces a previous version. When Shopped is already installed, Setup asks whether to keep lists and/or settings. On Android, allow installs from the APK, or use the adb helpers in the android zip (they ask the same keep/clear questions). On a Mac, unzip and run **Install-Shopped.command**, or open Shopped.app — the command asks what to keep when replacing an install. iPhone and iPad installs go through TestFlight once an Apple Developer account is connected; a signed-device helper zip is also on the release and can keep everything or clear everything when replacing. Older packages stay in [Releases](https://github.com/nuclearfessel/Shopped/releases) until a newer build replaces them; only the three newest releases are kept. Each release bumps the patch (`1.0.0` → `1.0.1` … `1.0.9` → `1.1.0`, and so on through `9.9.9` → `10.0.0`).
 
 ## Uninstall
 
@@ -34,35 +34,35 @@ Uninstall removes the app and its shopping lists, settings, and data folders on 
 
 | Platform | How |
 | --- | --- |
-| Windows | Apps and Features, or **Uninstall ShopIt** in the Start Menu folder the installer created |
-| Mac | Unzip the release zip if needed, then open **Uninstall-ShopIt.command** next to ShopIt.app |
-| Android | Long-press the ShopIt icon and uninstall, or remove it in Settings → Apps |
-| iPhone / iPad | Long-press the ShopIt icon and delete the app |
+| Windows | Apps and Features, or **Uninstall Shopped** in the Start Menu folder the installer created |
+| Mac | Unzip the release zip if needed, then open **Uninstall-Shopped.command** next to Shopped.app |
+| Android | Long-press the Shopped icon and uninstall, or remove it in Settings → Apps |
+| iPhone / iPad | Long-press the Shopped icon and delete the app |
 
-On Android and iOS, removing the app clears its sandbox. ShopIt does not back lists up to the device cloud, so a fresh install starts empty.
+On Android and iOS, removing the app clears its sandbox. Shopped does not back lists up to the device cloud, so a fresh install starts empty.
 
 ## Features
 
-<img src="docs/assets/workflow-dark.svg" alt="ShopIt household loop: plan a shopping list, check items into the cart, track pantry items as Low, Full, or exact amounts, then scale a recipe and cook. Pantry-to-shopping suggestions require the optional Shopping and pantry setting." width="100%">
+<img src="docs/assets/workflow-dark.svg" alt="Shopped household loop: plan a shopping list, check items into the cart, track pantry items as Low, Full, or exact amounts, then scale a recipe and cook. Pantry-to-shopping suggestions require the optional Shopping and pantry setting." width="100%">
 
-<img src="docs/assets/features-dark.svg" alt="ShopIt has three connected areas: shopping lists with quantities, prices, coupons, and cart totals; pantry tracking with Low, Full, exact amounts, and Use soon; and recipes with serving scaling, missing-ingredient lists, and pantry deductions on Cook." width="100%">
+<img src="docs/assets/features-dark.svg" alt="Shopped has three connected areas: shopping lists with quantities, prices, coupons, and cart totals; pantry tracking with Low, Full, exact amounts, and Use soon; and recipes with serving scaling, missing-ingredient lists, and pantry deductions on Cook." width="100%">
 
-- **Shopping** — lists with categories, quantities, prices, coupons, and a cart. Categories stay in alphabetical order. Drag an unchecked item onto another category that already has items to file it there. Search finds items already on the open list, items in the pantry, and names you have added before; choosing Recent adds that name again. **Clear all history** in the list menu empties those recents; your lists stay as they are. **Delete all lists** removes every shopping list; the pantry is not affected. A totals bar shows cart and list totals. A name ShopIt does not already know is saved when you add it, so it shows up next time. On a phone or tablet, scan a barcode next to Add. When **Shopping and pantry** is on in Settings, the cart offers **Add to pantry**.
+- **Shopping** — lists with categories, quantities, prices, coupons, and a cart. Categories stay in alphabetical order. Drag an unchecked item onto another category that already has items to file it there. Search finds items already on the open list, items in the pantry, and names you have added before; choosing Recent adds that name again. **Clear all history** in the list menu empties those recents; your lists stay as they are. **Delete all lists** removes every shopping list; the pantry is not affected. A totals bar shows cart and list totals. A name Shopped does not already know is saved when you add it, so it shows up next time. On a phone or tablet, scan a barcode next to Add. When **Shopping and pantry** is on in Settings, the cart offers **Add to pantry**.
 - **Pantry** — what you already have. Each item can be **Low** or **Full**, or an exact amount. The list menu covers amounts, move/copy, categories, manage lists, CSV import and export, and delete. **Amounts** applies **Low or stocked** or **Exact amounts** to every item on that list. Items that expire within seven days, or that are already past that date, show in a Use soon strip. When **Shopping and pantry** is on, a Low item, an exact amount at zero, or a Use soon item can be added to the open shopping list. On a phone or tablet, scan a barcode to add or increase that item.
-- **Recipes** — save a meal, scale the servings, and add the missing ingredients to a shopping list. ShopIt skips what the pantry already covers. Cook subtracts those amounts from the pantry. Delete removes the recipe only.
+- **Recipes** — save a meal, scale the servings, and add the missing ingredients to a shopping list. Shopped skips what the pantry already covers. Cook subtracts those amounts from the pantry. Delete removes the recipe only.
 - **Sales tax** — saved rates, optional location lookup, place-lookup host, ZipTax key, and per-item control. Marking every item taxable, not taxable, or back on automatic rules is in List settings.
 - **Swipe** — in Settings, set phone and desktop swipe left and right separately to check or delete. On pantry items, check switches Low and Full.
 - **Sync** — share lists after you type the same household code on both devices, or scan the QR code shown on Windows or Mac. The code is the key and is not sent over the network. Creating, joining, or scanning the code turns Share on this Wi-Fi on, including on Windows. Wi-Fi sync and internet sync both send an encrypted copy of lists, tax rates, history, categories, recipes, and saved catalog names. Items added on any device are added to the others. Checking an item moves it to the cart everywhere. Deleting an item removes it everywhere. Share lists shows the last Wi-Fi sync and the last cloud sync separately. While lists are shared, Shopping and Pantry show one line: synced just now, waiting to sync, or the short error. [Privacy](docs/privacy.md) says what leaves the device.
 
-When the shortest side of the window is under 600, Shopping, Pantry, Recipes, and Settings sit in the bottom bar, and Settings is a full page. That is a phone: an Android phone or an iPhone stays in portrait. A larger window uses the side rail. Settings is a dialog when that window is at least 700 pixels wide, and a full page when it is narrower. Changing the size switches Settings while it is open. Tablets, Windows, and Mac can rotate or be resized. Close the page with the X or with Done. On Windows, **Ctrl+,** opens Settings; on Mac, **Command+,** does. Settings covers appearance, tax, lists, swipe, sharing, and About. **Shopping and pantry**, under Lists, is off until you turn it on. The walkthrough in [Using ShopIt](https://nuclearfessel.github.io/ShopIt/guide.html) shows each button next to the step that uses it. Scanning a barcode is on Android and iOS, including tablets. Windows and Mac do not show it. A name scanned on a phone still appears on the computer through sync.
+When the shortest side of the window is under 600, Shopping, Pantry, Recipes, and Settings sit in the bottom bar, and Settings is a full page. That is a phone: an Android phone or an iPhone stays in portrait. A larger window uses the side rail. Settings is a dialog when that window is at least 700 pixels wide, and a full page when it is narrower. Changing the size switches Settings while it is open. Tablets, Windows, and Mac can rotate or be resized. Close the page with the X or with Done. On Windows, **Ctrl+,** opens Settings; on Mac, **Command+,** does. Settings covers appearance, tax, lists, swipe, sharing, and About. **Shopping and pantry**, under Lists, is off until you turn it on. The walkthrough in [Using Shopped](https://nuclearfessel.github.io/Shopped/guide.html) shows each button next to the step that uses it. Scanning a barcode is on Android and iOS, including tablets. Windows and Mac do not show it. A name scanned on a phone still appears on the computer through sync.
 
 ## Sync
 
-<img src="docs/assets/sharing-dark.svg" alt="Illustrative ShopIt device diagram: enter the same household code on both devices. Share on the same Wi-Fi while both apps are open, or over the internet while both apps are open. List copies are encrypted, and the household code itself is not sent over the network." width="100%">
+<img src="docs/assets/sharing-dark.svg" alt="Illustrative Shopped device diagram: enter the same household code on both devices. Share on the same Wi-Fi while both apps are open, or over the internet while both apps are open. List copies are encrypted, and the household code itself is not sent over the network." width="100%">
 
 Open **Settings → Share lists** on both devices.
 
-- **Same Wi-Fi** — creating or joining the code turns **Share on this Wi-Fi** on. Keep both apps open on the same network. The Windows installer allows ShopIt on private networks. The Wi-Fi line says when the last sync succeeded, or that it has not synced yet.
+- **Same Wi-Fi** — creating or joining the code turns **Share on this Wi-Fi** on. Keep both apps open on the same network. The Windows installer allows Shopped on private networks. The Wi-Fi line says when the last sync succeeded, or that it has not synced yet.
 - **Over the internet** — create a cloud code on one device and enter it on the other, or scan the QR code from Windows or Mac. That also turns **Share on this Wi-Fi** on. Lists keep syncing over the internet while both apps are open, including on mobile data. List contents are encrypted with that code before they are stored. Closing the app sends one last cloud snapshot. The cloud line shows its own last sync time and its own error, separate from Wi-Fi.
 
 If you paired on an earlier build, leave the household on both devices and create a new code. Older codes are ignored.
@@ -73,8 +73,8 @@ While sharing is on, Shopping and Pantry show that same result in one line under
 
 ## Docs
 
-Full walkthrough: [Using ShopIt](https://nuclearfessel.github.io/ShopIt/guide.html) ([source](docs/usage.md)).
+Full walkthrough: [Using Shopped](https://nuclearfessel.github.io/Shopped/guide.html) ([source](docs/usage.md)).
 
 ## License
 
-ShopIt is open source under the [MIT License](LICENSE).
+Shopped is open source under the [MIT License](LICENSE).

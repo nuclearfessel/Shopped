@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shop_it/features/settings/about_section.dart';
+import 'package:shopped/features/settings/about_section.dart';
 import 'package:url_launcher_platform_interface/link.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
@@ -32,7 +32,7 @@ Future<void> _showAbout(WidgetTester tester) async {
 }
 
 Future<void> _tapSource(WidgetTester tester) async {
-  await tester.tap(find.text(shopItSiteUrl));
+  await tester.tap(find.text(shoppedSiteUrl));
   await tester.pumpAndSettle();
 }
 
@@ -45,8 +45,8 @@ void main() {
     UrlLauncherPlatform.instance = launcher;
     addTearDown(() => UrlLauncherPlatform.instance = previous);
     PackageInfo.setMockInitialValues(
-      appName: 'ShopIt',
-      packageName: 'shop_it',
+      appName: 'Shopped',
+      packageName: 'shopped',
       version: '1.2.3',
       buildNumber: '42',
       buildSignature: '',
@@ -59,7 +59,7 @@ void main() {
     await _showAbout(tester);
     await _tapSource(tester);
 
-    expect(launcher.urls, ['https://nuclearfessel.github.io/ShopIt/']);
+    expect(launcher.urls, ['https://nuclearfessel.github.io/Shopped/']);
     expect(find.byType(AlertDialog), findsNothing);
     expect(tester.takeException(), isNull);
   });
@@ -78,19 +78,19 @@ void main() {
         await _showAbout(tester);
         await _tapSource(tester);
 
-        expect(launcher.urls, ['https://nuclearfessel.github.io/ShopIt/']);
+        expect(launcher.urls, ['https://nuclearfessel.github.io/Shopped/']);
         expect(find.byType(AlertDialog), findsOneWidget);
-        expect(find.text("Couldn't open ShopIt site"), findsOneWidget);
+        expect(find.text("Couldn't open Shopped site"), findsOneWidget);
         expect(
           find.text(
-            "ShopIt couldn't open the site link. "
+            "Shopped couldn't open the site link. "
             'Open this address in your browser instead:\n\n'
-            'https://nuclearfessel.github.io/ShopIt/',
+            'https://nuclearfessel.github.io/Shopped/',
           ),
           findsOneWidget,
         );
         expect(
-          find.bySemanticsLabel("Couldn't open ShopIt site"),
+          find.bySemanticsLabel("Couldn't open Shopped site"),
           findsOneWidget,
         );
         expect(
@@ -121,7 +121,7 @@ void main() {
       await _showAbout(tester);
       await _tapSource(tester);
       expect(find.byType(AlertDialog), findsNothing);
-      expect(launcher.urls, ['https://nuclearfessel.github.io/ShopIt/']);
+      expect(launcher.urls, ['https://nuclearfessel.github.io/Shopped/']);
 
       await tester.pumpWidget(const MaterialApp(home: SizedBox()));
       if (throwsPlatformException) {

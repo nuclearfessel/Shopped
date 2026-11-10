@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shop_it/features/settings/about_section.dart';
+import 'package:shopped/features/settings/about_section.dart';
 
 // Use real platform metadata, not PackageInfo.setMockInitialValues().
 void main() {
@@ -34,7 +34,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Version $expectedVersion'), findsOneWidget);
-    expect(find.text('ShopIt'), findsOneWidget);
+    expect(find.text('Shopped'), findsOneWidget);
     expect(find.text('Version unavailable'), findsNothing);
     expect(tester.takeException(), isNull);
   });

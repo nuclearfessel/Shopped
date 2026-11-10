@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/category_order.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/features/categories/category_color_dialog.dart';
-import 'package:shop_it/ui/category_color.dart';
+import 'package:shopped/data/category_order.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/features/categories/category_color_dialog.dart';
+import 'package:shopped/ui/category_color.dart';
 
 import 'support/harness.dart';
 
@@ -39,7 +39,7 @@ void main() {
     final items = [fakeItem('a', 'Apples', category: 'Produce')];
 
     testWidgets('use the category colour when one is set', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: items,
         categories: [_c('Produce', 0, color: 0xFFE53935), _c('Other', 1)],
@@ -49,7 +49,7 @@ void main() {
     });
 
     testWidgets('fall back to an automatic colour without one', (tester) async {
-      await pumpShopIt(tester, items: items);
+      await pumpShopped(tester, items: items);
       final header = tester.widget<Text>(find.text('PRODUCE'));
       expect(header.style?.color, isNotNull);
       expect(header.style?.color, isNot(const Color(0xFFE53935)));
@@ -58,7 +58,7 @@ void main() {
     testWidgets('tapping a header opens the colour dialog for it', (
       tester,
     ) async {
-      await pumpShopIt(tester, items: items);
+      await pumpShopped(tester, items: items);
       await tester.tap(find.byTooltip('Change the color of "Produce"'));
       await tester.pumpAndSettle();
       expect(find.text('Color for "Produce"'), findsOneWidget);
@@ -173,7 +173,7 @@ void main() {
 
   group('Manage categories', () {
     testWidgets('lists every category with its controls', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         categories: [
           _c('Produce', 0, color: 0xFFE53935),
@@ -195,7 +195,7 @@ void main() {
     });
 
     testWidgets('shows them alphabetically', (tester) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         categories: [_c('Produce', 0), _c('Bakery', 1), _c('Other', 2)],
       );
@@ -212,7 +212,7 @@ void main() {
     testWidgets('the dot shows the color the header really has', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         items: [fakeItem('a', 'Apples', category: 'Produce')],
         categories: [_c('Produce', 0, color: 0xFFE53935), _c('Bakery', 1)],
@@ -257,7 +257,7 @@ void main() {
     testWidgets('deleting asks first and explains what happens', (
       tester,
     ) async {
-      await pumpShopIt(
+      await pumpShopped(
         tester,
         categories: [_c('Produce', 0), _c('Bakery', 1), _c('Other', 2)],
       );

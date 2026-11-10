@@ -1,9 +1,9 @@
 #!/bin/bash
-# Removes ShopIt.app and the lists, settings, and folders it created on this Mac.
+# Removes Shopped.app and the lists, settings, and folders it created on this Mac.
 set -euo pipefail
 
-APP_NAME="ShopIt"
-BUNDLE_ID="com.nuclearfessel.shopit"
+APP_NAME="Shopped"
+BUNDLE_ID="com.nuclearfessel.shopped"
 
 echo "This removes $APP_NAME from this Mac,"
 echo "including shopping lists, settings, and data folders."
@@ -38,11 +38,11 @@ remove_path "$HOME/Applications/${APP_NAME}.app"
 remove_path "$HOME/Desktop/${APP_NAME}.app"
 remove_path "$HOME/Downloads/${APP_NAME}.app"
 
-# If this script sits next to ShopIt.app (as in the release zip), remove that copy too.
+# If this script sits next to Shopped.app (as in the release zip), remove that copy too.
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 remove_path "${SCRIPT_DIR}/${APP_NAME}.app"
 
-# Application Support holds shop_it.sqlite and related files.
+# Application Support holds shopped.sqlite and related files.
 remove_path "$HOME/Library/Application Support/${BUNDLE_ID}"
 # Older Flutter layouts sometimes used the product name.
 remove_path "$HOME/Library/Application Support/${APP_NAME}"

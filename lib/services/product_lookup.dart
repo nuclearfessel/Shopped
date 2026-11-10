@@ -28,7 +28,7 @@ class ProductLookup {
             uri,
             headers: const {
               'User-Agent':
-                  'ShopIt/1.0 (https://github.com/nuclearfessel/ShopIt)',
+                  'Shopped/1.0 (https://github.com/nuclearfessel/Shopped)',
               'Accept': 'application/json',
             },
           )

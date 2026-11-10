@@ -1,6 +1,6 @@
 # App icon packaging checks
 
-Run from the ShopIt repository root:
+Run from the Shopped repository root:
 
 ```sh
 python -m pip install -r tool/icon-requirements.txt
@@ -37,7 +37,7 @@ expectations and tests in `validate_app_icons.py` / `test_validate_app_icons.py`
 They deliberately do not import the generator's size lists.
 
 The validator exits 1 with file-specific errors on failure; use
-`--root /path/to/ShopIt` to run it from another working directory.
+`--root /path/to/Shopped` to run it from another working directory.
 
 ## Optional artwork validation
 

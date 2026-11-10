@@ -19,7 +19,7 @@ const _cloudCodeKey = 'cloud_household';
 const _lastWifiSyncKey = 'last_wifi_sync';
 const _lastCloudSyncKey = 'last_cloud_sync';
 const _wifiShareOffKey = 'wifi_share_explicit_off';
-const _network = MethodChannel('shop.it/network');
+const _network = MethodChannel('shopped/network');
 
 /// Whether this device is sharing lists on Wi-Fi and/or over the internet.
 class DeviceLinkState {
@@ -76,7 +76,7 @@ class DeviceLinkState {
         parts.add(
           lastWifiSync != null
               ? 'Synced on this Wi-Fi.'
-              : 'Looking for ShopIt on this Wi-Fi.',
+              : 'Looking for Shopped on this Wi-Fi.',
         );
       } else if (peerNames.length == 1) {
         parts.add('Sharing with ${peerNames.first} on this Wi-Fi.');
@@ -290,7 +290,7 @@ class DeviceLinkController extends Notifier<DeviceLinkState> {
     final code = householdFromQr(raw);
     if (code == null) {
       state = state.copyWith(
-        cloudError: 'That QR code is not a ShopIt sync code.',
+        cloudError: 'That QR code is not a Shopped sync code.',
       );
       return;
     }

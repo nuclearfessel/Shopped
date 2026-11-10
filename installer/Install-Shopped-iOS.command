@@ -1,16 +1,16 @@
 #!/bin/bash
-# Installs or replaces ShopIt on a connected iPhone/iPad.
+# Installs or replaces Shopped on a connected iPhone/iPad.
 # Same version: override in place. Previous version: replace in place when possible.
-# When ShopIt is already installed, you choose whether to keep data. iOS cannot
+# When Shopped is already installed, you choose whether to keep data. iOS cannot
 # separate lists from settings from this installer, so those choices keep or
 # clear both.
 #
-# Expects a signed ShopIt.ipa (or .app) next to this script, or a path argument.
+# Expects a signed Shopped.ipa (or .app) next to this script, or a path argument.
 # Requires Xcode's devicectl, ideviceinstaller, or ios-deploy, plus a paired device.
 set -euo pipefail
 
-APP_NAME="ShopIt"
-BUNDLE_ID="com.nuclearfessel.shopit"
+APP_NAME="Shopped"
+BUNDLE_ID="com.nuclearfessel.shopped"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 KEEP_DATA=1
 
@@ -20,7 +20,7 @@ pick_payload() {
     return
   fi
   local match
-  match="$(ls -1 "$SCRIPT_DIR"/ShopIt-*.ipa 2>/dev/null | sort -V | tail -n 1 || true)"
+  match="$(ls -1 "$SCRIPT_DIR"/Shopped-*.ipa 2>/dev/null | sort -V | tail -n 1 || true)"
   [[ -n "$match" ]] && { echo "$match"; return; }
   match="$(ls -1 "$SCRIPT_DIR"/*.ipa 2>/dev/null | head -n 1 || true)"
   [[ -n "$match" ]] && { echo "$match"; return; }
@@ -53,7 +53,7 @@ payload_version() {
   fi
   local base
   base="$(basename "$payload")"
-  if [[ "$base" =~ ShopIt-([0-9]+(\.[0-9]+)*).ipa ]]; then
+  if [[ "$base" =~ Shopped-([0-9]+(\.[0-9]+)*).ipa ]]; then
     echo "${BASH_REMATCH[1]}"
     return
   fi
@@ -102,7 +102,7 @@ uninstall_existing() {
 
 ask_data_choice() {
   echo
-  echo "ShopIt is already on the device. Choose what to keep:"
+  echo "Shopped is already on the device. Choose what to keep:"
   echo "  1) Keep lists and settings"
   echo "  2) Keep lists, reset settings"
   echo "  3) Keep settings, clear lists"
@@ -168,7 +168,7 @@ install_with_ios_deploy() {
 
 PAYLOAD="$(pick_payload "${1:-}" || true)"
 if [[ -z "${PAYLOAD:-}" ]]; then
-  echo "No signed ShopIt.ipa (or ShopIt.app) found."
+  echo "No signed Shopped.ipa (or Shopped.app) found."
   echo "Pass a path, or place the signed package next to this script."
   echo "iOS requires a development or distribution-signed build to install on a device."
   read -r -p "Press Return to close." _
@@ -206,9 +206,9 @@ if app_installed_idevice; then
   OLD_VERSION="$(installed_version_idevice)"
   [[ -n "$OLD_VERSION" ]] || OLD_VERSION="unknown"
   if [[ "$OLD_VERSION" == "$NEW_VERSION" ]]; then
-    echo "ShopIt ${OLD_VERSION} is already installed. Overriding it in place."
+    echo "Shopped ${OLD_VERSION} is already installed. Overriding it in place."
   else
-    echo "Replacing ShopIt ${OLD_VERSION} with ${NEW_VERSION}."
+    echo "Replacing Shopped ${OLD_VERSION} with ${NEW_VERSION}."
   fi
   ask_data_choice
   if [[ "$KEEP_DATA" -eq 0 ]]; then
@@ -218,7 +218,7 @@ if app_installed_idevice; then
     echo "Keeping lists and settings."
   fi
 else
-  echo "Installing ShopIt ${NEW_VERSION}."
+  echo "Installing Shopped ${NEW_VERSION}."
 fi
 
 if command -v xcrun >/dev/null 2>&1 && xcrun --find devicectl >/dev/null 2>&1; then

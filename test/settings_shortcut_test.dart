@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/features/settings/settings_dialog.dart';
+import 'package:shopped/features/settings/settings_dialog.dart';
 
 import 'support/harness.dart';
 
@@ -17,7 +17,7 @@ void main() {
   testWidgets('Ctrl+, opens Settings on Windows', (tester) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.windows;
     try {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await _pressComma(tester, LogicalKeyboardKey.controlLeft);
       expect(find.byType(SettingsDialog), findsOneWidget);
     } finally {
@@ -28,7 +28,7 @@ void main() {
   testWidgets('Command+, opens Settings on Mac', (tester) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
     try {
-      await pumpShopIt(tester);
+      await pumpShopped(tester);
       await _pressComma(tester, LogicalKeyboardKey.metaLeft);
       expect(find.byType(SettingsDialog), findsOneWidget);
     } finally {

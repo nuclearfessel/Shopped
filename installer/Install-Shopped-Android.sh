@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Installs or replaces ShopIt on a connected Android device via adb.
+# Installs or replaces Shopped on a connected Android device via adb.
 # Same version: override in place (adb install -r).
-# When ShopIt is already installed, you choose whether to keep lists and/or settings.
+# When Shopped is already installed, you choose whether to keep lists and/or settings.
 set -euo pipefail
 
-PACKAGE="com.nuclearfessel.shop_it"
+PACKAGE="com.nuclearfessel.shopped"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 KEEP_LISTS=1
 KEEP_SETTINGS=1
@@ -15,7 +15,7 @@ pick_apk() {
     return
   fi
   local match
-  match="$(ls -1 "$SCRIPT_DIR"/ShopIt-*.apk 2>/dev/null | sort -V | tail -n 1 || true)"
+  match="$(ls -1 "$SCRIPT_DIR"/Shopped-*.apk 2>/dev/null | sort -V | tail -n 1 || true)"
   if [[ -n "$match" ]]; then
     echo "$match"
     return
@@ -54,7 +54,7 @@ apk_version_name() {
   fi
   local base
   base="$(basename "$apk")"
-  if [[ "$base" =~ ShopIt-([0-9]+(\.[0-9]+)*).apk ]]; then
+  if [[ "$base" =~ Shopped-([0-9]+(\.[0-9]+)*).apk ]]; then
     echo "${BASH_REMATCH[1]}"
     return
   fi
@@ -74,7 +74,7 @@ package_installed() {
 
 ask_data_choice() {
   echo
-  echo "ShopIt is already on the device. Choose what to keep:"
+  echo "Shopped is already on the device. Choose what to keep:"
   echo "  1) Keep lists and settings"
   echo "  2) Keep lists, reset settings"
   echo "  3) Keep settings, clear lists"
@@ -95,7 +95,7 @@ ask_data_choice() {
 
 # Selective wipe needs run-as (debuggable builds). Release sideloads often cannot.
 try_clear_lists() {
-  adb shell "run-as $PACKAGE sh -c 'rm -f files/shop_it.sqlite files/shop_it.sqlite-wal files/shop_it.sqlite-shm'" >/dev/null 2>&1
+  adb shell "run-as $PACKAGE sh -c 'rm -f files/shopped.sqlite files/shopped.sqlite-wal files/shopped.sqlite-shm'" >/dev/null 2>&1
 }
 
 try_clear_settings() {
@@ -154,7 +154,7 @@ apply_data_choice() {
 
 APK="$(pick_apk "${1:-}" || true)"
 if [[ -z "${APK:-}" ]]; then
-  echo "No ShopIt APK found. Pass a path or place ShopIt-*.apk next to this script."
+  echo "No Shopped APK found. Pass a path or place Shopped-*.apk next to this script."
   exit 1
 fi
 APK="$(cd "$(dirname "$APK")" && pwd)/$(basename "$APK")"
@@ -167,14 +167,14 @@ if package_installed; then
   OLD_VERSION="$(installed_version_name)"
   [[ -n "$OLD_VERSION" ]] || OLD_VERSION="unknown"
   if [[ "$OLD_VERSION" == "$NEW_VERSION" ]]; then
-    echo "ShopIt ${OLD_VERSION} is already installed. Overriding it in place."
+    echo "Shopped ${OLD_VERSION} is already installed. Overriding it in place."
   else
-    echo "Replacing ShopIt ${OLD_VERSION} with ${NEW_VERSION}."
+    echo "Replacing Shopped ${OLD_VERSION} with ${NEW_VERSION}."
   fi
   ask_data_choice
   apply_data_choice
 else
-  echo "Installing ShopIt ${NEW_VERSION}."
+  echo "Installing Shopped ${NEW_VERSION}."
 fi
 
 # -r replaces an existing install. -d allows installing an older build when needed.

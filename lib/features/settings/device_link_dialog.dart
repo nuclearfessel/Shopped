@@ -76,7 +76,7 @@ class _DeviceLinkDialogState extends ConsumerState<DeviceLinkDialog> {
               if (link.sharing && Platform.isWindows) ...[
                 const SizedBox(height: 12),
                 Text(
-                  'If Windows asks whether to allow ShopIt on private '
+                  'If Windows asks whether to allow Shopped on private '
                   'networks, choose allow. An iPhone or Android phone cannot '
                   'connect on Wi-Fi until you do.',
                   style: theme.textTheme.bodySmall,
@@ -110,7 +110,7 @@ class _DeviceLinkDialogState extends ConsumerState<DeviceLinkDialog> {
                 )
               else
                 Tip(
-                  'Share lists with ShopIt on the other device on this Wi-Fi',
+                  'Share lists with Shopped on the other device on this Wi-Fi',
                   child: FilledButton(
                     onPressed: link.busy ? null : notifier.startSharing,
                     child: const Text('Share on this Wi-Fi'),

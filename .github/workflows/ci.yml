@@ -42,13 +42,13 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           BEFORE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: python tool/compare_icon_artwork.py --before-ref "$BEFORE_SHA" --output-dir "$RUNNER_TEMP/shopit-icon-comparison"
+        run: python tool/compare_icon_artwork.py --before-ref "$BEFORE_SHA" --output-dir "$RUNNER_TEMP/shopped-icon-comparison"
       - name: Retain icon comparison for review
         if: always() && github.event_name == 'pull_request'
         uses: actions/upload-artifact@v7
         with:
-          name: shopit-icon-comparison
-          path: ${{ runner.temp }}/shopit-icon-comparison/
+          name: shopped-icon-comparison
+          path: ${{ runner.temp }}/shopped-icon-comparison/
           if-no-files-found: warn
       - name: Validate checked-in app icons
         run: python tool/validate_app_icons.py

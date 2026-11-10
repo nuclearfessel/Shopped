@@ -161,7 +161,7 @@ Future<PlaceInfo?> reversePlace(
           uri,
           headers: {
             'User-Agent':
-                'ShopIt/1.0 (https://github.com/nuclearfessel/ShopIt)',
+                'Shopped/1.0 (https://github.com/nuclearfessel/Shopped)',
           },
         )
         .timeout(const Duration(seconds: 15));

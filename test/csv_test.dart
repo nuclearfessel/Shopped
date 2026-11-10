@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/csv.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/data/list_csv.dart';
-import 'package:shop_it/services/file_service.dart';
+import 'package:shopped/data/csv.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/data/list_csv.dart';
+import 'package:shopped/services/file_service.dart';
 
 import 'support/harness.dart';
 
@@ -164,7 +164,7 @@ void main() {
   group('export and import menus', () {
     testWidgets('shopping export saves the list as CSV', (tester) async {
       final files = FakeFileService();
-      await pumpShopIt(tester, fileService: files);
+      await pumpShopped(tester, fileService: files);
       await _menu(tester, 'Export list');
       expect(files.savedName, 'Grocery list.csv');
       final rows = decodeCsv(files.savedText!);
@@ -175,7 +175,7 @@ void main() {
 
     testWidgets('a cancelled export says nothing', (tester) async {
       final files = FakeFileService()..cancelSave = true;
-      await pumpShopIt(tester, fileService: files);
+      await pumpShopped(tester, fileService: files);
       await _menu(tester, 'Export list');
       expect(find.textContaining('Exported'), findsNothing);
     });
@@ -184,14 +184,14 @@ void main() {
       final files = FakeFileService(
         picked: const PickedText(name: 'blank', text: 'Name,Qty\n'),
       );
-      await pumpShopIt(tester, fileService: files);
+      await pumpShopped(tester, fileService: files);
       await _menu(tester, 'Import list');
       expect(find.text('No items were found in "blank"'), findsOneWidget);
       expect(find.text('Import as a new list'), findsNothing);
     });
 
     testWidgets('cancelling the file picker does nothing', (tester) async {
-      await pumpShopIt(tester, fileService: FakeFileService());
+      await pumpShopped(tester, fileService: FakeFileService());
       await _menu(tester, 'Import list');
       expect(find.text('Import as a new list'), findsNothing);
       expect(find.byType(SnackBar), findsNothing);
@@ -203,7 +203,7 @@ void main() {
       final files = FakeFileService(
         picked: const PickedText(name: 'Weekly shop', text: 'Name\nApples\n'),
       );
-      await pumpShopIt(tester, fileService: files);
+      await pumpShopped(tester, fileService: files);
       await _menu(tester, 'Import list');
       expect(find.text('Import as a new list'), findsOneWidget);
       expect(find.widgetWithText(TextField, 'Weekly shop'), findsOneWidget);
@@ -216,7 +216,7 @@ void main() {
       final files = FakeFileService(
         picked: const PickedText(name: 'Garage', text: 'Name\nGlue\n'),
       );
-      await pumpShopIt(tester, fileService: files);
+      await pumpShopped(tester, fileService: files);
       await tester.tap(find.byTooltip('Go to Pantry'));
       await tester.pumpAndSettle();
       await _menu(tester, 'Export list');

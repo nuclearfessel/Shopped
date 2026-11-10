@@ -8,7 +8,7 @@ INSTALLER = ROOT / "installer"
 
 class InstallDataChoiceTests(unittest.TestCase):
     def test_windows_setup_has_data_page_and_silent_flags(self):
-        text = (INSTALLER / "shop_it.iss").read_text(encoding="utf-8")
+        text = (INSTALLER / "shopped.iss").read_text(encoding="utf-8")
         self.assertIn("CreateInputOptionPage", text)
         # Must follow Welcome. A page after Destination is skipped on upgrade
         # when DisableDirPage=auto.
@@ -20,18 +20,18 @@ class InstallDataChoiceTests(unittest.TestCase):
         self.assertIn("/CLEAR_LISTS", text)
         self.assertIn("/CLEAR_SETTINGS", text)
         self.assertIn("/CLEAR_DATA", text)
-        self.assertIn("ClearShopItLists", text)
-        self.assertIn("ClearShopItSettings", text)
-        self.assertIn("HasShopItUserData", text)
+        self.assertIn("ClearShoppedLists", text)
+        self.assertIn("ClearShoppedSettings", text)
+        self.assertIn("HasShoppedUserData", text)
         self.assertIn("shared_preferences.json", text)
-        self.assertIn("shop_it.sqlite", text)
+        self.assertIn("shopped.sqlite", text)
 
     def test_mac_android_ios_helpers_prompt_for_data_choice(self):
         scripts = [
-            INSTALLER / "Install-ShopIt.command",
-            INSTALLER / "Install-ShopIt-Android.sh",
-            INSTALLER / "Install-ShopIt-Android.ps1",
-            INSTALLER / "Install-ShopIt-iOS.command",
+            INSTALLER / "Install-Shopped.command",
+            INSTALLER / "Install-Shopped-Android.sh",
+            INSTALLER / "Install-Shopped-Android.ps1",
+            INSTALLER / "Install-Shopped-iOS.command",
         ]
         for path in scripts:
             text = path.read_text(encoding="utf-8")

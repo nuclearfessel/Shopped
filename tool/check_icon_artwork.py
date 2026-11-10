@@ -145,7 +145,7 @@ def check_regenerated_artwork(root, command, manifest_path=DEFAULT_MANIFEST, tim
             path = Path(name)
             if path.is_absolute() or ".." in path.parts or "\\" in name:
                 raise ValueError(f"unsafe export path: {name}")
-        with tempfile.TemporaryDirectory(prefix="shopit-icon-artwork-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="shopped-icon-artwork-") as temporary:
             staging = Path(temporary) / "checkout"
             shutil.copytree(
                 root, staging, symlinks=True,

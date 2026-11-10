@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
+import 'package:shopped/data/database.dart';
 
 void main() {
   late AppDatabase db;

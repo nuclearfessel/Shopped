@@ -7,13 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_it/app/form_factor.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/data/device_sync.dart';
-import 'package:shop_it/data/providers.dart';
-import 'package:shop_it/features/settings/device_link_dialog.dart';
-import 'package:shop_it/features/settings/settings_dialog.dart';
-import 'package:shop_it/services/device_link.dart';
+import 'package:shopped/app/form_factor.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/data/device_sync.dart';
+import 'package:shopped/data/providers.dart';
+import 'package:shopped/features/settings/device_link_dialog.dart';
+import 'package:shopped/features/settings/settings_dialog.dart';
+import 'package:shopped/services/device_link.dart';
 
 /// What the real link does: the client sends its lists, the host merges them,
 /// then the client merges whatever the host sends back.
@@ -484,13 +484,13 @@ void main() {
   });
 
   test('a beacon says which device is sharing and where', () {
-    final beacon = ShopItBeacon.tryParse('SHOPIT1\t47821\tabc\tthe phone');
-    expect(beacon?.port, shopItSyncPort);
+    final beacon = ShoppedBeacon.tryParse('SHOPPED1\t47821\tabc\tthe phone');
+    expect(beacon?.port, shoppedSyncPort);
     expect(beacon?.id, 'abc');
     expect(beacon?.name, 'the phone');
-    expect(beacon?.encode(), 'SHOPIT1\t47821\tabc\tthe phone');
-    expect(ShopItBeacon.tryParse('hello'), null);
-    expect(ShopItBeacon.tryParse('SHOPIT1\tnope\tabc\tphone'), null);
+    expect(beacon?.encode(), 'SHOPPED1\t47821\tabc\tthe phone');
+    expect(ShoppedBeacon.tryParse('hello'), null);
+    expect(ShoppedBeacon.tryParse('SHOPPED1\tnope\tabc\tphone'), null);
   });
 
   testWidgets('settings explains how to share lists', (tester) async {
@@ -537,7 +537,7 @@ void main() {
     expect(find.text('Create cloud code'), findsOneWidget);
     expect(
       find.byTooltip(
-        'Share lists with ShopIt on the other device on this Wi-Fi',
+        'Share lists with Shopped on the other device on this Wi-Fi',
       ),
       findsOneWidget,
     );
@@ -550,13 +550,13 @@ void main() {
       200,
     );
     expect(find.text('ABOUT'), findsOneWidget);
-    expect(find.bySemanticsLabel('ShopIt'), findsOneWidget);
+    expect(find.bySemanticsLabel('Shopped'), findsOneWidget);
     expect(
       find.text('An open source shopping, pantry, and recipe app.'),
       findsOneWidget,
     );
     expect(
-      find.text('https://nuclearfessel.github.io/ShopIt/'),
+      find.text('https://nuclearfessel.github.io/Shopped/'),
       findsOneWidget,
     );
     expect(find.widgetWithText(AlertDialog, 'About'), findsNothing);

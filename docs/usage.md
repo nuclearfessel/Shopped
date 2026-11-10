@@ -1,14 +1,14 @@
-# Using ShopIt
+# Using Shopped
 
 <p align="center">
-  <img src="brand/shopit-horizontal-dark.png" alt="ShopIt primary logo" width="280" height="101">
+  <img src="brand/shopped-horizontal-dark.png" alt="Shopped primary logo" width="280" height="101">
 </p>
 
-<img src="assets/readme-banner-dark.svg" alt="ShopIt — make room for the everyday. Household shopping lists, pantry, and recipes for Windows, macOS, Android, and iOS." width="1600" height="520">
+<img src="assets/readme-banner-dark.svg" alt="Shopped — make room for the everyday. Household shopping lists, pantry, and recipes for Windows, macOS, Android, and iOS." width="1600" height="520">
 
-The app is named **ShopIt** on the window title, under the icon, in the Mac menu bar, and in Windows Installed apps.
+The app is named **Shopped** on the window title, under the icon, in the Mac menu bar, and in Windows Installed apps.
 
-ShopIt runs the same way on Windows, Mac, Android, and iOS. Use <img src="icons/shopping.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Shopping** for what you need to buy, <img src="icons/pantry.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Pantry** for what you already have, and <img src="icons/recipes.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Recipes** for meals you plan to cook. When the shortest side is under 600, all four sit in the bottom bar and <img src="icons/settings.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Settings"> **Settings** is a full page. An Android phone or an iPhone stays in portrait. A larger window uses the side rail. Settings is a dialog when that window is at least 700 pixels wide, and a full page when it is narrower. Changing the size switches Settings while it is open. On Windows, **Ctrl+,** opens Settings; on Mac, **Command+,** does. Close the page with the X at the top right or with Done.
+Shopped runs the same way on Windows, Mac, Android, and iOS. Use <img src="icons/shopping.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Shopping** for what you need to buy, <img src="icons/pantry.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Pantry** for what you already have, and <img src="icons/recipes.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Recipes** for meals you plan to cook. When the shortest side is under 600, all four sit in the bottom bar and <img src="icons/settings.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Settings"> **Settings** is a full page. An Android phone or an iPhone stays in portrait. A larger window uses the side rail. Settings is a dialog when that window is at least 700 pixels wide, and a full page when it is narrower. Changing the size switches Settings while it is open. On Windows, **Ctrl+,** opens Settings; on Mac, **Command+,** does. Close the page with the X at the top right or with Done.
 
 The list menu is <img src="icons/more.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="List options">.
 
@@ -17,16 +17,16 @@ The list menu is <img src="icons/more.png" width="22" height="22" align="middle"
 Windows and Mac use the side rail. An Android phone and an iPhone use the bottom bar and stay in portrait. An Android tablet and an iPad use the side rail and can turn. The barcode button is on the phones and tablets.
 
 <p align="center">
-<img src="screenshots/windows.png" alt="ShopIt on Windows" width="800">
+<img src="screenshots/windows.png" alt="Shopped on Windows" width="800">
 </p>
 
 <p align="center">
-<img src="screenshots/android.png" alt="ShopIt on an Android phone" width="280">
+<img src="screenshots/android.png" alt="Shopped on an Android phone" width="280">
 </p>
 
-<img src="assets/workflow-dark.svg" alt="ShopIt household loop: plan a shopping list, check items into the cart, track pantry items as Low, Full, or exact amounts, then scale a recipe and cook. Pantry-to-shopping suggestions require the optional Shopping and pantry setting." width="100%">
+<img src="assets/workflow-dark.svg" alt="Shopped household loop: plan a shopping list, check items into the cart, track pantry items as Low, Full, or exact amounts, then scale a recipe and cook. Pantry-to-shopping suggestions require the optional Shopping and pantry setting." width="100%">
 
-<img src="assets/features-dark.svg" alt="ShopIt has three connected areas: shopping lists with quantities, prices, coupons, and cart totals; pantry tracking with Low, Full, exact amounts, and Use soon; and recipes with serving scaling, missing-ingredient lists, and pantry deductions on Cook." width="100%">
+<img src="assets/features-dark.svg" alt="Shopped has three connected areas: shopping lists with quantities, prices, coupons, and cart totals; pantry tracking with Low, Full, exact amounts, and Use soon; and recipes with serving scaling, missing-ingredient lists, and pantry deductions on Cook." width="100%">
 
 ## Controls
 
@@ -60,7 +60,7 @@ Windows and Mac use the side rail. An Android phone and an iPhone use the bottom
 </tr>
 <tr>
 <td><img src="icons/plus.png" width="36" height="36" alt="" role="presentation"></td>
-<td><strong>Add</strong> puts the name in the search field onto the list. A name ShopIt does not already know is saved, so search can find it later.</td>
+<td><strong>Add</strong> puts the name in the search field onto the list. A name Shopped does not already know is saved, so search can find it later.</td>
 </tr>
 <tr>
 <td><img src="icons/scan.png" width="36" height="36" alt="" role="presentation"></td>
@@ -139,14 +139,14 @@ The list menu covers a new list, move/copy, check and uncheck, categories, list 
 
 The field at the top looks through more than the catalog.
 
-- **On this list** — the name is already on the open shopping list. Choosing it does not add a second copy. ShopIt shows that it is already there and moves the list to that item.
+- **On this list** — the name is already on the open shopping list. Choosing it does not add a second copy. Shopped shows that it is already there and moves the list to that item.
 - **In pantry** — you already have it in the pantry. Choosing it does not add it to the shopping list.
 - **Recent** — a name from History. Choosing it adds the item again, even if that name is already on this list. <img src="icons/history.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="History"> still opens the full history. The trash can beside a name there removes that recent only. **Clear all history** in the list menu removes every recent at once. Lists are not affected. The name stays searchable, and the item stays on any list that already has it.
 - Catalog matches come after those. Press Enter or tap <img src="icons/plus.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Add"> to add something that is not already on the list or in the pantry.
 
-With the field focused and empty, ShopIt shows up to six recent names so repeat groceries are one tap away. On Windows and Mac, the Up and Down arrow keys move through the suggestions, including those empty-field recents.
+With the field focused and empty, Shopped shows up to six recent names so repeat groceries are one tap away. On Windows and Mac, the Up and Down arrow keys move through the suggestions, including those empty-field recents.
 
-A name that is not already in ShopIt is saved when you add it to a shopping list or to the pantry. The next search offers it with the built-in items. Adding that same name again does not store a second copy. A new name is filed under **Other**. To pick the category first, tap <img src="icons/pen.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Edit">, choose the category, then add. That category is what the name uses from then on. A pantry name is saved for search, and it does not appear under Recent. Recent is names you have added to a shopping list.
+A name that is not already in Shopped is saved when you add it to a shopping list or to the pantry. The next search offers it with the built-in items. Adding that same name again does not store a second copy. A new name is filed under **Other**. To pick the category first, tap <img src="icons/pen.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Edit">, choose the category, then add. That category is what the name uses from then on. A pantry name is saved for search, and it does not appear under Recent. Recent is names you have added to a shopping list.
 
 On a phone or tablet, <img src="icons/scan.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Scan"> sits next to Add. A known code adds that name. An unknown code looks up the package, then adds it. If there is no match, you name it; the code is kept so the next scan finds it. Windows and Mac have no scan button. A name added from a scan on the phone still appears on the computer through sync.
 
@@ -190,7 +190,7 @@ Open <img src="icons/recipes.png" width="22" height="22" align="middle" style="v
 
 1. Tap the new-recipe button and name it.
 2. Set how many it serves.
-3. Add ingredients by the same names you would search for in ShopIt, with an amount and unit. Search suggestions work the same way as on a shopping list.
+3. Add ingredients by the same names you would search for in Shopped, with an amount and unit. Search suggestions work the same way as on a shopping list.
 4. **Add to list** asks which shopping list and how many servings to shop for. Amounts scale from the recipe. Names the pantry already covers are skipped; the rest go on the list. A new line's note says which recipe it is for.
 5. **Cook** takes those amounts off the pantry. A full/low item is marked low.
 6. **Delete** removes the recipe. Shopping and pantry lists are not changed.
@@ -221,7 +221,7 @@ Each one is **Check or uncheck** or **Delete**. On a shopping list, check moves 
 
 ## Sync between phone and computer
 
-<img src="assets/sharing-dark.svg" alt="Illustrative ShopIt device diagram: enter the same household code on both devices. Share on the same Wi-Fi while both apps are open, or over the internet while both apps are open. List copies are encrypted, and the household code itself is not sent over the network." width="100%">
+<img src="assets/sharing-dark.svg" alt="Illustrative Shopped device diagram: enter the same household code on both devices. Share on the same Wi-Fi while both apps are open, or over the internet while both apps are open. List copies are encrypted, and the household code itself is not sent over the network." width="100%">
 
 On both devices, open **Settings → Share lists**.
 
@@ -236,7 +236,7 @@ While sharing is on, Shopping and Pantry show one short line under the list name
 
 ### Same Wi-Fi
 
-Create a code on one device and type it on the other. The code is the key, so ShopIt does not send it over the network. Creating, joining, or scanning the code turns **Share on this Wi-Fi** on, including on Windows. Keep both apps open on the same network. Lists appear on the other device only after both have that code.
+Create a code on one device and type it on the other. The code is the key, so Shopped does not send it over the network. Creating, joining, or scanning the code turns **Share on this Wi-Fi** on, including on Windows. Keep both apps open on the same network. Lists appear on the other device only after both have that code.
 
 Turn **Share on this Wi-Fi** off when this device should not be found on the local network. That choice stays off the next time the app opens.
 
@@ -266,4 +266,4 @@ If both devices already have a shopping or pantry list with the same name, sync 
 
 In **Settings**, choose <img src="icons/monitor.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **System**, <img src="icons/sun.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Light**, or <img src="icons/moon.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="" role="presentation"> **Dark**. On Windows, **Ctrl+,** opens Settings. On Mac, **Command+,** does.
 
-**About** is the last section in Settings. It shows ShopIt, the version, a link to the ShopIt site, and **Privacy** and **Licenses**. Privacy and Licenses open in place. They do not open another app.
+**About** is the last section in Settings. It shows Shopped, the version, a link to the Shopped site, and **Privacy** and **Licenses**. Privacy and Licenses open in place. They do not open another app.

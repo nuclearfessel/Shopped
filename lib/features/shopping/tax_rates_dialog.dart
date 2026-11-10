@@ -263,7 +263,7 @@ Future<void> _askForPlaceService(BuildContext context) async {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'ShopIt asks this host to turn coordinates into a place name. '
+            'Shopped asks this host to turn coordinates into a place name. '
             'The default is nominatim.openstreetmap.org. Clear the field '
             'to use that again. Place names © OpenStreetMap contributors.',
             style: Theme.of(ctx).textTheme.bodySmall,

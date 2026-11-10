@@ -18,7 +18,7 @@ TOC_END = "<!-- GUIDE_TOC_END -->"
 
 
 def strip_chrome(md: str) -> str:
-    md = re.sub(r"^#\s+Using ShopIt\s*\n+", "", md)
+    md = re.sub(r"^#\s+Using Shopped\s*\n+", "", md)
     md = re.sub(r'^<p\s+align="center">[\s\S]*?</p>\s*', "", md, count=1, flags=re.I)
     md = re.sub(
         r'^<img\s+src="assets/readme-banner-dark\.svg"[\s\S]*?>\s*',

@@ -1,4 +1,4 @@
-"""Tests for the ShopIt release version bump scheme."""
+"""Tests for the Shopped release version bump scheme."""
 import tempfile
 import unittest
 from pathlib import Path
@@ -23,7 +23,7 @@ class BumpSemverTests(unittest.TestCase):
 
 class BumpPubspecTests(unittest.TestCase):
     def test_rewrites_version_and_build(self):
-        text = "name: shop_it\nversion: 1.0.0+33\n"
+        text = "name: shopped\nversion: 1.0.0+33\n"
         updated, name, code = bump_pubspec_text(text)
         self.assertEqual(name, "1.0.1")
         self.assertEqual(code, 34)

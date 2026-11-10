@@ -1,4 +1,4 @@
-name: shop_it
+name: shopped
 description: "Shopping list and pantry tracker"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -87,9 +87,9 @@ flutter:
   assets:
     - assets/app_icon.png
     - assets/catalog.json
-    - assets/brand/shopit-mark.png
-    - assets/brand/shopit-horizontal-dark.png
-    - assets/brand/shopit-horizontal-light.png
+    - assets/brand/shopped-mark.png
+    - assets/brand/shopped-horizontal-dark.png
+    - assets/brand/shopped-horizontal-light.png
 
   # Roboto (Apache 2.0, copied from the Flutter SDK) so the typeface is the same
   # on Windows and Android instead of Windows' Segoe UI.

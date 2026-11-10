@@ -47,7 +47,7 @@ GoRouter _createRouter() => GoRouter(
 
 /// Original Tangerine. Material 3 builds primary, secondary, outline, and
 /// error from this seed; the surfaces below replace the generated ones.
-const shopItSeed = Color(0xFFEF7008);
+const shoppedSeed = Color(0xFFEF7008);
 
 /// Icons on neutral surfaces: deeper tangerine on light, gold on dark.
 const iconOnDark = Color(0xFFFEC256);
@@ -72,12 +72,12 @@ const _darkText = Color(0xFFFFF8EA);
 const _hintOpacity = 0.75;
 const _labelOpacity = 0.85;
 
-ThemeData shopItTheme(Brightness brightness) {
+ThemeData shoppedTheme(Brightness brightness) {
   final dark = brightness == Brightness.dark;
   final icon = dark ? iconOnDark : iconOnLight;
   final scheme =
       ColorScheme.fromSeed(
-        seedColor: shopItSeed,
+        seedColor: shoppedSeed,
         brightness: brightness,
       ).copyWith(
         surface: dark ? _darkBackground : _lightBackground,
@@ -168,18 +168,18 @@ ThemeData shopItTheme(Brightness brightness) {
   );
 }
 
-class ShopItApp extends ConsumerStatefulWidget {
-  const ShopItApp({super.key, this.windowChrome = true});
+class ShoppedApp extends ConsumerStatefulWidget {
+  const ShoppedApp({super.key, this.windowChrome = true});
 
   /// Draw the custom title bar (Windows only). Tests turn this off because it
   /// needs the window_manager plugin.
   final bool windowChrome;
 
   @override
-  ConsumerState<ShopItApp> createState() => _ShopItAppState();
+  ConsumerState<ShoppedApp> createState() => _ShoppedAppState();
 }
 
-class _ShopItAppState extends ConsumerState<ShopItApp> {
+class _ShoppedAppState extends ConsumerState<ShoppedApp> {
   final _router = _createRouter();
 
   @override
@@ -193,10 +193,10 @@ class _ShopItAppState extends ConsumerState<ShopItApp> {
     // Keeps a saved link to the other device alive while the app is open.
     ref.watch(deviceLinkProvider);
     return MaterialApp.router(
-      title: 'ShopIt',
+      title: 'Shopped',
       debugShowCheckedModeBanner: false,
-      theme: shopItTheme(Brightness.light),
-      darkTheme: shopItTheme(Brightness.dark),
+      theme: shoppedTheme(Brightness.light),
+      darkTheme: shoppedTheme(Brightness.dark),
       themeMode: ref.watch(themeModeProvider),
       routerConfig: _router,
       // On Windows the native title bar is hidden; draw our own.

@@ -67,7 +67,7 @@ class _AppTitleBarState extends State<AppTitleBar> with WindowListener {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ShopIt',
+                          'Shopped',
                           style: Theme.of(context).textTheme.titleSmall
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),

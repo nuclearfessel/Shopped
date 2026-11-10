@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_it/app/app.dart';
-import 'package:shop_it/app/theme_mode.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/data/providers.dart';
-import 'package:shop_it/features/settings/settings_dialog.dart';
-import 'package:shop_it/ui/keyline/keyline_icon.dart';
+import 'package:shopped/app/app.dart';
+import 'package:shopped/app/theme_mode.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/data/providers.dart';
+import 'package:shopped/features/settings/settings_dialog.dart';
+import 'package:shopped/ui/keyline/keyline_icon.dart';
 
 import 'support/harness.dart' show capture;
 
@@ -75,7 +75,7 @@ void main() {
                 (ref, id) => Stream.value(const <PantryItem>[]),
               ),
             ],
-            child: const ShopItApp(windowChrome: false),
+            child: const ShoppedApp(windowChrome: false),
           ),
         ),
       );

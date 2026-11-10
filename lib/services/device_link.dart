@@ -11,13 +11,13 @@ import '../data/database.dart';
 import '../data/device_sync.dart';
 import 'cloud_mailbox.dart';
 
-/// Port Shop-it listens on when this device is sharing lists.
-const shopItSyncPort = 47821;
+/// Port Shopped listens on when this device is sharing lists.
+const shoppedSyncPort = 47821;
 
-/// Port used to notice other copies of Shop-it on the same Wi-Fi.
-const shopItBeaconPort = 47822;
+/// Port used to notice other copies of Shopped on the same Wi-Fi.
+const shoppedBeaconPort = 47822;
 
-const shopItSyncHeader = 'x-shop-it-mac';
+const shoppedSyncHeader = 'x-shopped-mac';
 
 /// The id this install announces as. Preferences failing must not stop
 /// sharing, so a new id is used for the session when they do.
@@ -86,8 +86,8 @@ String friendlySyncError(Object error) {
 }
 
 /// What one device announces so the others can find it.
-class ShopItBeacon {
-  const ShopItBeacon({
+class ShoppedBeacon {
+  const ShoppedBeacon({
     required this.port,
     required this.id,
     required this.name,
@@ -97,21 +97,21 @@ class ShopItBeacon {
   final String id;
   final String name;
 
-  String encode() => 'SHOPIT1\t$port\t$id\t$name';
+  String encode() => 'SHOPPED1\t$port\t$id\t$name';
 
-  static ShopItBeacon? tryParse(String raw) {
+  static ShoppedBeacon? tryParse(String raw) {
     final parts = raw.split('\t');
-    if (parts.length < 4 || parts[0] != 'SHOPIT1') return null;
+    if (parts.length < 4 || parts[0] != 'SHOPPED1') return null;
     final port = int.tryParse(parts[1]);
     final id = parts[2];
     final name = parts.sublist(3).join('\t').trim();
     if (port == null || port <= 0 || port > 65535) return null;
     if (id.isEmpty || name.isEmpty) return null;
-    return ShopItBeacon(port: port, id: id, name: name);
+    return ShoppedBeacon(port: port, id: id, name: name);
   }
 }
 
-/// Another Shop-it that announced itself on this network.
+/// Another Shopped that announced itself on this network.
 class NearbyDevice {
   const NearbyDevice({
     required this.id,
@@ -225,11 +225,11 @@ String? subnetBroadcast(String ipv4) {
   return '${parts[0]}.${parts[1]}.${parts[2]}.255';
 }
 
-/// Broadcasts "Shop-it is here" and remembers the replies.
+/// Broadcasts "Shopped is here" and remembers the replies.
 class DeviceDiscovery {
   RawDatagramSocket? _socket;
   Timer? _announce;
-  var _httpPort = shopItSyncPort;
+  var _httpPort = shoppedSyncPort;
   var _deviceId = '';
   var _name = '';
   final _peers = <String, ({NearbyDevice device, DateTime seen})>{};
@@ -253,7 +253,7 @@ class DeviceDiscovery {
     _name = name;
     final socket = await RawDatagramSocket.bind(
       InternetAddress.anyIPv4,
-      shopItBeaconPort,
+      shoppedBeaconPort,
       reuseAddress: true,
     );
     try {
@@ -284,7 +284,7 @@ class DeviceDiscovery {
     _dropStale(notify: true);
     if (_socket == null) return;
     final bytes = utf8.encode(
-      ShopItBeacon(port: _httpPort, id: _deviceId, name: _name).encode(),
+      ShoppedBeacon(port: _httpPort, id: _deviceId, name: _name).encode(),
     );
     // A separate socket per announcement. Sending a broadcast the adapter
     // rejects must not close the socket that is listening for replies.
@@ -320,7 +320,7 @@ class DeviceDiscovery {
         // Android can reject this option. A directed broadcast may
         // still leave from this address.
       }
-      sender.send(bytes, target.to, shopItBeaconPort);
+      sender.send(bytes, target.to, shoppedBeaconPort);
       return true;
     } on Object {
       // This adapter cannot take the announcement. The next one tries.
@@ -338,7 +338,7 @@ class DeviceDiscovery {
     if (packet == null) return;
     if (packet.address.type != InternetAddressType.IPv4) return;
     if (packet.address.isLoopback) return;
-    final beacon = ShopItBeacon.tryParse(utf8.decode(packet.data));
+    final beacon = ShoppedBeacon.tryParse(utf8.decode(packet.data));
     if (beacon == null || beacon.id == _deviceId) return;
     final next = NearbyDevice(
       id: beacon.id,
@@ -381,7 +381,7 @@ class DeviceHost {
   Future<int> start({
     required AppDatabase db,
     InternetAddress? bindAddress,
-    int port = shopItSyncPort,
+    int port = shoppedSyncPort,
   }) async {
     await stop();
     _db = db;
@@ -430,7 +430,7 @@ class DeviceHost {
         return;
       }
       final code = readHousehold?.call();
-      final presented = request.headers.value(shopItSyncHeader) ?? '';
+      final presented = request.headers.value(shoppedSyncHeader) ?? '';
       if (code == null ||
           !isHouseholdCode(code) ||
           !await mailboxBodyMacMatches(code, body, presented)) {
@@ -539,7 +539,7 @@ Future<String?> syncWithDevice({
   try {
     final request = await client.post(host, port, '/v1/sync').timeout(timeout);
     request.headers.set(
-      shopItSyncHeader,
+      shoppedSyncHeader,
       await mailboxBodyMac(household, bytes),
     );
     request.headers.contentType = ContentType.text;

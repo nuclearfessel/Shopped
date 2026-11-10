@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
+import 'package:shopped/data/database.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -284,7 +284,7 @@ void main() {
   test('upgrading adds missing built-ins without duplicating names', () async {
     final file = File(
       '${Directory.systemTemp.path}${Platform.pathSeparator}'
-      'shopit-catalog-${DateTime.now().microsecondsSinceEpoch}.sqlite',
+      'shopped-catalog-${DateTime.now().microsecondsSinceEpoch}.sqlite',
     );
     addTearDown(() async {
       if (await file.exists()) await file.delete();

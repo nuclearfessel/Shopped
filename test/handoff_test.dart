@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/features/settings/device_link_controller.dart';
-import 'package:shop_it/features/settings/list_handoff.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/features/settings/device_link_controller.dart';
+import 'package:shopped/features/settings/list_handoff.dart';
 
 import 'support/harness.dart';
 
@@ -129,7 +129,7 @@ void main() {
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({});
-    await pumpShopIt(tester);
+    await pumpShopped(tester);
     expect(find.text('Add to pantry'), findsNothing);
     expect(find.byTooltip('Add to pantry'), findsNothing);
 
@@ -151,7 +151,7 @@ void main() {
   testWidgets('the cart offers to add checked items to the one pantry', (
     tester,
   ) async {
-    await pumpShopIt(tester, listHandoff: true);
+    await pumpShopped(tester, listHandoff: true);
     await tester.ensureVisible(find.text('Add to pantry'));
     await tester.tap(find.text('Add to pantry'));
     await tester.pump();
@@ -159,7 +159,7 @@ void main() {
   });
 
   testWidgets('more than one pantry list asks which one', (tester) async {
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       listHandoff: true,
       pantryLists: [
@@ -180,7 +180,7 @@ void main() {
   ) async {
     final today = DateTime.now();
     final start = DateTime(today.year, today.month, today.day);
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       listHandoff: true,
       pantry: [

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
-	<string>ShopItAppIcon</string>
+	<string>ShoppedAppIcon</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -25,17 +25,17 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSLocationUsageDescription</key>
-	<string>ShopIt uses your location when you tap Use my location to look up a sales tax rate.</string>
+	<string>Shopped uses your location when you tap Use my location to look up a sales tax rate.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>ShopIt looks for another device on this Wi-Fi so you can share lists.</string>
+	<string>Shopped looks for another device on this Wi-Fi so you can share lists.</string>
 	<key>NSBonjourServices</key>
 	<array>
-		<string>_shopit._udp</string>
+		<string>_shopped._udp</string>
 	</array>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>

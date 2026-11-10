@@ -1,6 +1,6 @@
-﻿# Installs or replaces ShopIt on a connected Android device via adb.
+﻿# Installs or replaces Shopped on a connected Android device via adb.
 # Same version: override in place (adb install -r).
-# When ShopIt is already installed, you choose whether to keep lists and/or settings.
+# When Shopped is already installed, you choose whether to keep lists and/or settings.
 param(
   [Parameter(Mandatory = $false)]
   [string]$ApkPath,
@@ -10,12 +10,12 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$Package = "com.nuclearfessel.shop_it"
+$Package = "com.nuclearfessel.shopped"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $KeepLists = $true
 $KeepSettings = $true
 
-function Find-ShopItApk {
+function Find-ShoppedApk {
   param([string]$Explicit)
   if ($Explicit) {
     if (-not (Test-Path -LiteralPath $Explicit)) {
@@ -23,14 +23,14 @@ function Find-ShopItApk {
     }
     return (Resolve-Path -LiteralPath $Explicit).Path
   }
-  $named = Get-ChildItem -LiteralPath $ScriptDir -Filter "ShopIt-*.apk" -File -ErrorAction SilentlyContinue |
+  $named = Get-ChildItem -LiteralPath $ScriptDir -Filter "Shopped-*.apk" -File -ErrorAction SilentlyContinue |
     Sort-Object Name |
     Select-Object -Last 1
   if ($named) { return $named.FullName }
   $any = Get-ChildItem -LiteralPath $ScriptDir -Filter "*.apk" -File -ErrorAction SilentlyContinue |
     Select-Object -First 1
   if ($any) { return $any.FullName }
-  throw "No ShopIt APK found. Pass -ApkPath or place ShopIt-*.apk next to this script."
+  throw "No Shopped APK found. Pass -ApkPath or place Shopped-*.apk next to this script."
 }
 
 function Require-Adb {
@@ -55,7 +55,7 @@ function Get-ApkVersionName {
     }
   }
   $name = [IO.Path]::GetFileName($Apk)
-  if ($name -match "^ShopIt-([0-9]+(?:\.[0-9]+)+)\.apk$") {
+  if ($name -match "^Shopped-([0-9]+(?:\.[0-9]+)+)\.apk$") {
     return $Matches[1]
   }
   return "unknown"
@@ -78,7 +78,7 @@ function Get-InstalledVersionName {
 
 function Set-DataChoiceFromPrompt {
   Write-Host ""
-  Write-Host "ShopIt is already on the device. Choose what to keep:"
+  Write-Host "Shopped is already on the device. Choose what to keep:"
   Write-Host "  1) Keep lists and settings"
   Write-Host "  2) Keep lists, reset settings"
   Write-Host "  3) Keep settings, clear lists"
@@ -115,7 +115,7 @@ function Clear-AllAppData {
 }
 
 function Try-ClearLists {
-  & adb shell "run-as $Package sh -c 'rm -f files/shop_it.sqlite files/shop_it.sqlite-wal files/shop_it.sqlite-shm'" 2>$null | Out-Null
+  & adb shell "run-as $Package sh -c 'rm -f files/shopped.sqlite files/shopped.sqlite-wal files/shopped.sqlite-shm'" 2>$null | Out-Null
   return ($LASTEXITCODE -eq 0)
 }
 
@@ -168,16 +168,16 @@ function Apply-DataChoice {
   }
 }
 
-$apk = Find-ShopItApk -Explicit $ApkPath
+$apk = Find-ShoppedApk -Explicit $ApkPath
 Require-Adb
 $newVersion = Get-ApkVersionName -Apk $apk
 
 if (Test-PackageInstalled) {
   $oldVersion = Get-InstalledVersionName
   if ($oldVersion -eq $newVersion) {
-    Write-Host "ShopIt $oldVersion is already installed. Overriding it in place."
+    Write-Host "Shopped $oldVersion is already installed. Overriding it in place."
   } else {
-    Write-Host "Replacing ShopIt $oldVersion with $newVersion."
+    Write-Host "Replacing Shopped $oldVersion with $newVersion."
   }
   if ($DataChoice) {
     Set-DataChoiceFromFlag -Choice $DataChoice
@@ -186,7 +186,7 @@ if (Test-PackageInstalled) {
   }
   Apply-DataChoice
 } else {
-  Write-Host "Installing ShopIt $newVersion."
+  Write-Host "Installing Shopped $newVersion."
 }
 
 & adb install -r -d $apk

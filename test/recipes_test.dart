@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/data/device_sync.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/data/device_sync.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;

@@ -137,12 +137,12 @@ def create_report(root, output, manifest_path=DEFAULT_MANIFEST, *,
     html = (
         '<!doctype html><html lang="en"><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        "<title>ShopIt icon comparison</title><style>"
+        "<title>Shopped icon comparison</title><style>"
         "body{font:16px system-ui;background:#f7f8f9;color:#141618;margin:32px auto;"
         "max-width:1100px;padding:0 20px}section{margin:32px 0;padding:20px;"
         "background:#eceef1;border:1px solid #bcc0c7;border-radius:12px}"
         "h2{font-size:16px;overflow-wrap:anywhere}img{max-width:100%;height:auto}"
-        "pre{overflow:auto;font-size:12px}</style><h1>ShopIt icon comparison</h1>"
+        "pre{overflow:auto;font-size:12px}</style><h1>Shopped icon comparison</h1>"
         f"<p>{changed} changed entries out of {len(records)}. "
         "Magenta shows visible-channel differences; transparent RGB is ignored. "
         "This report never approves a baseline change or replaces validation.</p>"

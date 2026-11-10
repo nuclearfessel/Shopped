@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/features/settings/swipe_actions.dart';
+import 'package:shopped/features/settings/swipe_actions.dart';
 
 void main() {
   test('swipe actions default to check on the right and delete on the left', () {

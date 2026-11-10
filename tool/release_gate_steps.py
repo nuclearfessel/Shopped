@@ -27,7 +27,7 @@ WINDOWS_GATE = """      - name: Set up Python for Windows icon gate
         run: |
           python -m pip install -r tool/native-requirements.txt
           if ($LASTEXITCODE -ne 0) { throw "Icon checker dependencies failed" }
-          $exe = "build/windows/x64/runner/Release/shop_it.exe"
+          $exe = "build/windows/x64/runner/Release/shopped.exe"
           python tool/check_built_icons.py --windows-exe "$exe"
           if ($LASTEXITCODE -ne 0) { throw "Compiled Windows icon failed" }
           python tool/check_built_version.py --windows-exe "$exe" --expected-version "${{ needs.version.outputs.name }}" --expected-build "${{ needs.version.outputs.code }}"
@@ -39,12 +39,12 @@ WINDOWS_PAYLOAD_GATE = """      - name: Verify Windows installer payload
         shell: pwsh
         run: |
           # This is a disposable hosted runner, never a user's installed app.
-          $installer = (Resolve-Path "build/installer/ShopIt-Setup-${{ needs.version.outputs.name }}.exe").Path
-          $target = Join-Path $env:RUNNER_TEMP "ShopIt-icon-verification"
+          $installer = (Resolve-Path "build/installer/Shopped-Setup-${{ needs.version.outputs.name }}.exe").Path
+          $target = Join-Path $env:RUNNER_TEMP "Shopped-icon-verification"
           $arguments = "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=`"$target`""
           $result = Start-Process -FilePath $installer -ArgumentList $arguments -Wait -PassThru
           if ($result.ExitCode -ne 0) { throw "Verification install failed" }
-          $exe = Join-Path $target "shop_it.exe"
+          $exe = Join-Path $target "shopped.exe"
           python tool/check_built_icons.py --windows-exe "$exe"
           if ($LASTEXITCODE -ne 0) { throw "Installer-payload icon failed" }
           python tool/check_built_version.py --windows-exe "$exe" --expected-version "${{ needs.version.outputs.name }}" --expected-build "${{ needs.version.outputs.code }}"
@@ -62,10 +62,10 @@ MACOS_GATE = """      - name: Set up Python for macOS icon gate
         run: |
           set -euo pipefail
           python -m pip install -r tool/native-requirements.txt
-          PAYLOAD="$RUNNER_TEMP/ShopIt-icon-verification"
+          PAYLOAD="$RUNNER_TEMP/Shopped-icon-verification"
           mkdir -p "$PAYLOAD"
-          ditto -x -k "ShopIt-${{ needs.version.outputs.name }}-macos.zip" "$PAYLOAD"
-          for APP in "build/macos/Build/Products/Release/ShopIt.app" "$PAYLOAD/ShopIt.app"; do
+          ditto -x -k "Shopped-${{ needs.version.outputs.name }}-macos.zip" "$PAYLOAD"
+          for APP in "build/macos/Build/Products/Release/Shopped.app" "$PAYLOAD/Shopped.app"; do
             python tool/check_built_icons.py --macos-app "$APP"
             python tool/check_built_version.py --macos-app "$APP" --expected-version "${{ needs.version.outputs.name }}" --expected-build "${{ needs.version.outputs.code }}"
           done
@@ -86,7 +86,7 @@ ANDROID_GATE = """      - name: Set up Python for APK icon gate
           test -n "$SDK"
           AAPT="$(find "$SDK/build-tools" -type f -name aapt | sort -V | tail -n 1)"
           test -n "$AAPT"
-          python tool/check_android_apk_icons.py --android-apk "ShopIt-${{ needs.version.outputs.name }}.apk" --aapt "$AAPT"
+          python tool/check_android_apk_icons.py --android-apk "Shopped-${{ needs.version.outputs.name }}.apk" --aapt "$AAPT"
 
 """
 

@@ -22,7 +22,7 @@ Future<void> main() async {
     await windowManager.ensureInitialized();
     await windowManager.waitUntilReadyToShow(
       WindowOptions(
-        title: 'ShopIt',
+        title: 'Shopped',
         size: const Size(1000, 720),
         // Narrower than this the layouts can't fit.
         minimumSize: const Size(360, 520),
@@ -47,7 +47,7 @@ Future<void> main() async {
         initialThemeModeProvider.overrideWithValue(themeMode),
         initialListHandoffProvider.overrideWithValue(listHandoff),
       ],
-      child: const ShopItApp(),
+      child: const ShoppedApp(),
     ),
   );
 }

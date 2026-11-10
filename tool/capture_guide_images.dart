@@ -7,9 +7,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_it/app/app.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/ui/keyline/keyline_icon.dart';
+import 'package:shopped/app/app.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/ui/keyline/keyline_icon.dart';
 
 import '../test/support/harness.dart';
 
@@ -80,7 +80,7 @@ void main() {
     ];
 
     final searchKey = GlobalKey();
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       width: 1100,
       height: 760,
@@ -101,7 +101,7 @@ void main() {
     );
 
     final menuKey = GlobalKey();
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       width: 1100,
       height: 820,
@@ -119,7 +119,7 @@ void main() {
     );
 
     final pantryKey = GlobalKey();
-    await pumpShopIt(
+    await pumpShopped(
       tester,
       width: 1100,
       height: 760,

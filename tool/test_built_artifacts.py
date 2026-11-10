@@ -86,9 +86,9 @@ class NativeArtifactsTests(unittest.TestCase):
                 self.icns.extend(tags[size] + struct.pack(">I", len(payload) + 8) + payload)
                 self.manifest["exports"][f"macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_{size}.png"] = record
         self.resources[14][101][1033] = bytes(group)
-        self.exe = self.root / "ShopIt.exe"
+        self.exe = self.root / "Shopped.exe"
         self.write_pe()
-        self.app = self.root / "ShopIt.app"
+        self.app = self.root / "Shopped.app"
         resources = self.app / "Contents/Resources"
         resources.mkdir(parents=True)
         self.icon = resources / "AppIcon.icns"

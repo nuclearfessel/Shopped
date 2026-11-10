@@ -140,7 +140,7 @@ class CloudMailboxDoc {
   factory CloudMailboxDoc.fromJson(Map<dynamic, dynamic> json) {
     if (json['v'] != cloudMailboxVersion) {
       throw const SyncException(
-        'The cloud mailbox is from a different version of ShopIt.',
+        'The cloud mailbox is from a different version of Shopped.',
       );
     }
     final raw = json['devices'];
@@ -581,10 +581,10 @@ MqttServerClient buildCloudMqttClient({
   return client;
 }
 
-String _householdTopic(String code) => 'shopit/p/${householdMailboxId(code)}/+';
+String _householdTopic(String code) => 'shopped/p/${householdMailboxId(code)}/+';
 
 String _deviceTopic(String code, String deviceId) =>
-    'shopit/p/${householdMailboxId(code)}/$deviceId';
+    'shopped/p/${householdMailboxId(code)}/$deviceId';
 
 /// Topic for one device. The secret half of [code] is not included.
 String mailboxDeviceTopic(String code, String deviceId) =>
@@ -592,7 +592,7 @@ String mailboxDeviceTopic(String code, String deviceId) =>
 
 String? _deviceIdFromTopic(String topic) {
   final parts = topic.split('/');
-  if (parts.length != 4 || parts[0] != 'shopit' || parts[1] != 'p') return null;
+  if (parts.length != 4 || parts[0] != 'shopped' || parts[1] != 'p') return null;
   final id = parts[3];
   return id.isEmpty ? null : id;
 }
@@ -658,7 +658,7 @@ Future<String?> openMailboxPayload(String code, String stored) async {
 
 Future<SecretKey> _mailboxKey(String code) async {
   final hash = await Sha256().hash(
-    utf8.encode('shop-it-mailbox-v2:${householdSecret(code)}'),
+    utf8.encode('shopped-mailbox-v2:${householdSecret(code)}'),
   );
   return SecretKey(hash.bytes);
 }

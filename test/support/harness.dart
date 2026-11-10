@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shop_it/app/app.dart';
-import 'package:shop_it/app/theme_mode.dart';
-import 'package:shop_it/features/settings/list_handoff.dart';
-import 'package:shop_it/data/database.dart';
-import 'package:shop_it/data/providers.dart';
-import 'package:shop_it/services/file_service.dart';
+import 'package:shopped/app/app.dart';
+import 'package:shopped/app/theme_mode.dart';
+import 'package:shopped/features/settings/list_handoff.dart';
+import 'package:shopped/data/database.dart';
+import 'package:shopped/data/providers.dart';
+import 'package:shopped/services/file_service.dart';
 
 final _t = DateTime(2026, 1, 1);
 
@@ -94,7 +94,7 @@ CatalogItem fakeCatalog(String name, {String parent = ''}) => CatalogItem(
 );
 
 /// Pumps the whole app at [width] x [height] with fake data (no database).
-Future<void> pumpShopIt(
+Future<void> pumpShopped(
   WidgetTester tester, {
   double width = 1000,
   double height = 800,
@@ -178,7 +178,7 @@ Future<void> pumpShopIt(
         ],
       ),
     ],
-    child: const ShopItApp(windowChrome: false),
+    child: const ShoppedApp(windowChrome: false),
   );
   if (boundary != null) app = RepaintBoundary(key: boundary, child: app);
   await tester.pumpWidget(app);

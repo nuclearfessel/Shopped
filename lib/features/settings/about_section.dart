@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'legal_copy.dart';
 
-const shopItSiteUrl = 'https://nuclearfessel.github.io/ShopIt/';
+const shoppedSiteUrl = 'https://nuclearfessel.github.io/Shopped/';
 
 /// The About block at the bottom of Settings, on Windows and Android.
 class AboutSection extends StatefulWidget {
@@ -38,16 +38,16 @@ class _AboutSectionState extends State<AboutSection> {
   Future<void> _openSite() async {
     var opened = false;
     try {
-      opened = await launchUrl(Uri.parse(shopItSiteUrl));
+      opened = await launchUrl(Uri.parse(shoppedSiteUrl));
     } on PlatformException {
       // A missing browser or a platform launch failure needs visible feedback.
     }
     if (!mounted || opened) return;
     _showNotice(
       context,
-      "Couldn't open ShopIt site",
-      "ShopIt couldn't open the site link. "
-          'Open this address in your browser instead:\n\n$shopItSiteUrl',
+      "Couldn't open Shopped site",
+      "Shopped couldn't open the site link. "
+          'Open this address in your browser instead:\n\n$shoppedSiteUrl',
     );
   }
 
@@ -61,8 +61,8 @@ class _AboutSectionState extends State<AboutSection> {
     // Pre-rasterized PNGs stay smooth on every platform; flutter_svg jaggies
     // the curved Daily Circle seams at About size.
     final lockupAsset = theme.brightness == Brightness.dark
-        ? 'assets/brand/shopit-horizontal-dark.png'
-        : 'assets/brand/shopit-horizontal-light.png';
+        ? 'assets/brand/shopped-horizontal-dark.png'
+        : 'assets/brand/shopped-horizontal-light.png';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -72,7 +72,7 @@ class _AboutSectionState extends State<AboutSection> {
           fit: BoxFit.contain,
           alignment: Alignment.centerLeft,
           filterQuality: FilterQuality.high,
-          semanticLabel: 'ShopIt',
+          semanticLabel: 'Shopped',
         ),
         const SizedBox(height: 8),
         Text(
@@ -81,21 +81,21 @@ class _AboutSectionState extends State<AboutSection> {
         ),
         const SizedBox(height: 4),
         _AboutLink(
-          label: shopItSiteUrl,
-          tooltip: 'Open the ShopIt site',
+          label: shoppedSiteUrl,
+          tooltip: 'Open the Shopped site',
           onTap: _openSite,
         ),
         const SizedBox(height: 4),
         _AboutLink(
           label: 'Privacy',
-          tooltip: 'Read what ShopIt sends and how to delete it',
-          onTap: () => _showNotice(context, 'Privacy', shopItPrivacyNotice),
+          tooltip: 'Read what Shopped sends and how to delete it',
+          onTap: () => _showNotice(context, 'Privacy', shoppedPrivacyNotice),
         ),
         const SizedBox(height: 4),
         _AboutLink(
           label: 'Licenses',
-          tooltip: 'Read the licenses for ShopIt and the pieces it includes',
-          onTap: () => _showNotice(context, 'Licenses', shopItLicenses),
+          tooltip: 'Read the licenses for Shopped and the pieces it includes',
+          onTap: () => _showNotice(context, 'Licenses', shoppedLicenses),
         ),
         if (version != null) ...[
           const SizedBox(height: 4),

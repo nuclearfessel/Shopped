@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Uninstalling ShopIt must leave no lists or settings behind. -->
+<!-- Uninstalling Shopped must leave no lists or settings behind. -->
 <data-extraction-rules>
     <cloud-backup>
         <exclude domain="root" />
