@@ -18,6 +18,10 @@ platform :ios do
     keychain_password = ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
     keychain_path = File.expand_path("~/Library/Keychains/#{keychain_name}-db")
 
+    # Previous CI VMs created Distribution certs, then discarded the private keys.
+    # Apple allows only 3; revoke orphans so this runner can create one it owns.
+    revoke_orphaned_distribution_certificates!
+
     get_certificates(
       api_key: api_key,
       keychain_path: keychain_path,
@@ -98,5 +102,31 @@ platform :ios do
       skip_waiting_for_build_processing: true,
       distribute_external: false
     )
+  end
+end
+
+def revoke_orphaned_distribution_certificates!
+  require "spaceship"
+
+  token = Spaceship::ConnectAPI::Token.create(
+    key_id: ENV.fetch("APP_STORE_CONNECT_KEY_ID"),
+    issuer_id: ENV.fetch("APP_STORE_CONNECT_ISSUER_ID"),
+    key: ENV.fetch("APP_STORE_CONNECT_PRIVATE_KEY")
+  )
+  Spaceship::ConnectAPI.token = token
+
+  Spaceship::ConnectAPI::Certificate.all.each do |cert|
+    type = cert.certificate_type.to_s
+    next unless type.include?("DISTRIBUTION")
+
+    UI.important(
+      "Revoking Distribution certificate #{cert.id} (#{type}) so CI can " \
+      "create one with a private key on this runner"
+    )
+    begin
+      cert.delete!
+    rescue StandardError => error
+      UI.error("Could not revoke #{cert.id}: #{error}")
+    end
   end
 end
