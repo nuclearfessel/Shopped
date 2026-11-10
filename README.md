@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="docs/brand/shopped-horizontal-dark.png" alt="Shopped primary logo" width="360" height="130">
+  <img src="docs/brand/shopped-horizontal-dark.png" alt="Shopped primary logo" width="360" height="110">
 </h1>
 
 <p align="center">

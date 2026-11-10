@@ -1,0 +1,31 @@
+{
+  "library": "Keyline Icons",
+  "website": "https://keylineicons.com/",
+  "repository": "https://github.com/keyline-icons/keyline-icons",
+  "revision": "e8650c6d95d0fc30facbc8c7f755433be4d28847",
+  "style": "stroke",
+  "corners": "rounded",
+  "license": "MIT",
+  "icons": [
+    {
+      "name": "shopping-cart",
+      "source": "https://raw.githubusercontent.com/keyline-icons/keyline-icons/e8650c6d95d0fc30facbc8c7f755433be4d28847/icons/stroke/shopping-cart.svg",
+      "sha256": "0a0fc7dbdfbcf96209af01946559704b294aefc02af02c0115ac6b66592828f7"
+    },
+    {
+      "name": "refrigerator",
+      "source": "https://raw.githubusercontent.com/keyline-icons/keyline-icons/e8650c6d95d0fc30facbc8c7f755433be4d28847/icons/stroke/refrigerator.svg",
+      "sha256": "3354718ab4acad762f51247776b5d943070dbed23e382b29f658bf98dac90187"
+    },
+    {
+      "name": "cooking-pot",
+      "source": "https://raw.githubusercontent.com/keyline-icons/keyline-icons/e8650c6d95d0fc30facbc8c7f755433be4d28847/icons/stroke/cooking-pot.svg",
+      "sha256": "8ae1a83100f321bc7dad43af04b648e81891aa1b11f1a7ea75160714d5c2ffdc"
+    },
+    {
+      "name": "clipboard-list",
+      "source": "https://raw.githubusercontent.com/keyline-icons/keyline-icons/e8650c6d95d0fc30facbc8c7f755433be4d28847/icons/stroke/clipboard-list.svg",
+      "sha256": "8c7fb8393da9bd391aca3c5f11ad6182dc6f990b9c24e17d4d4ae545aab7b7b0"
+    }
+  ]
+}
