@@ -18,13 +18,13 @@ Shopped is an open source shopping, pantry, and recipe app for Windows, Mac, And
 
 ## Download
 
-**Current version: 1.0.1**
+**Current version: 1.1.2**
 
 | Platform | Package |
 | --- | --- |
-| Windows | [Shopped-Setup-1.0.1.exe](https://github.com/nuclearfessel/Shopped/releases/download/v1.0.1/Shopped-Setup-1.0.1.exe) |
-| Android | [Shopped-1.0.1.apk](https://github.com/nuclearfessel/Shopped/releases/download/v1.0.1/Shopped-1.0.1.apk) |
-| Mac | [Shopped-1.0.1-macos.zip](https://github.com/nuclearfessel/Shopped/releases/download/v1.0.1/Shopped-1.0.1-macos.zip) |
+| Windows | [Shopped-Setup-1.1.2.exe](https://github.com/nuclearfessel/Shopped/releases/download/v1.1.2/Shopped-Setup-1.1.2.exe) |
+| Android | [Shopped-1.1.2.apk](https://github.com/nuclearfessel/Shopped/releases/download/v1.1.2/Shopped-1.1.2.apk) |
+| Mac | [Shopped-1.1.2-macos.zip](https://github.com/nuclearfessel/Shopped/releases/download/v1.1.2/Shopped-1.1.2-macos.zip) |
 
 On Windows, run the installer — it overrides the same version in place, or replaces a previous version. When Shopped is already installed, Setup asks whether to keep lists and/or settings. On Android, allow installs from the APK, or use the adb helpers in the android zip (they ask the same keep/clear questions). On a Mac, unzip and run **Install-Shopped.command**, or open Shopped.app — the command asks what to keep when replacing an install. iPhone and iPad installs go through TestFlight once an Apple Developer account is connected; a signed-device helper zip is also on the release and can keep everything or clear everything when replacing. Older packages stay in [Releases](https://github.com/nuclearfessel/Shopped/releases) until a newer build replaces them; only the three newest releases are kept. Each release bumps the patch (`1.0.0` → `1.0.1` … `1.0.9` → `1.1.0`, and so on through `9.9.9` → `10.0.0`).
 

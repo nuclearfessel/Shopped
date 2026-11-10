@@ -1,0 +1,37 @@
+---
+description: Keep README and product-page download versions in sync with each release
+alwaysApply: true
+---
+
+# Release version in docs
+
+Whenever a Shopped app version is released or bumped, supporting download docs must show that same version. Do not leave stale version numbers in user-facing download text.
+
+## Required surfaces
+
+These must match the released `major.minor.patch` from `pubspec.yaml` / the GitHub Release:
+
+- `README.md` Download section (`Current version`, package names, download URLs)
+- `docs/index.html` product page (`Get Shopped`, `Current version`, download cards)
+
+Do not rewrite the README versioning *examples* in prose (the ``1.0.0`` → ``1.0.1`` band explanation).
+
+## How to update
+
+Use the repo helper; do not hand-edit version strings when the helper can do it:
+
+```sh
+python tool/sync_release_docs.py --version X.Y.Z
+```
+
+Or with no argument, to match `pubspec.yaml`:
+
+```sh
+python tool/sync_release_docs.py
+```
+
+The Release workflow runs this automatically after a successful publish (`Record version in pubspec and docs`). If you change download docs outside that path, still run the helper so versions stay aligned.
+
+## Scope
+
+If you add another download page or install doc that hardcodes the release version, register it in `tool/sync_release_docs.py` (`DOC_PATHS`) and cover it with tests.
