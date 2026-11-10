@@ -1,0 +1,92 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Sign Shopped, build an IPA, and upload to TestFlight"
+  lane :testflight_release do
+    api_key = app_store_connect_api_key(
+      key_id: ENV.fetch("APP_STORE_CONNECT_KEY_ID"),
+      issuer_id: ENV.fetch("APP_STORE_CONNECT_ISSUER_ID"),
+      key_content: ENV.fetch("APP_STORE_CONNECT_PRIVATE_KEY"),
+      duration: 1200,
+      in_house: false
+    )
+
+    setup_ci(force: true) if ENV["CI"]
+
+    get_certificates(api_key: api_key)
+    get_provisioning_profile(
+      api_key: api_key,
+      app_identifier: "com.nuclearfessel.shopped",
+      force: true
+    )
+
+    profile_name = lane_context[SharedValues::SIGH_NAME]
+    profile_path = lane_context[SharedValues::SIGH_PROFILE_PATH]
+    team_id = lane_context[SharedValues::SIGH_TEAM_ID]
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      targets: ["Runner"],
+      build_configurations: ["Release"],
+      code_sign_identity: "iPhone Distribution",
+      bundle_identifier: "com.nuclearfessel.shopped",
+      profile_name: profile_name,
+      team_id: team_id
+    )
+    update_project_team(path: "Runner.xcodeproj", teamid: team_id)
+
+    export_plist = File.expand_path("ExportOptions.plist", __dir__)
+    File.write(
+      export_plist,
+      <<~PLIST
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+        	<key>method</key>
+        	<string>app-store-connect</string>
+        	<key>teamID</key>
+        	<string>#{team_id}</string>
+        	<key>signingStyle</key>
+        	<string>manual</string>
+        	<key>provisioningProfiles</key>
+        	<dict>
+        		<key>com.nuclearfessel.shopped</key>
+        		<string>#{profile_name}</string>
+        	</dict>
+        	<key>uploadSymbols</key>
+        	<true/>
+        	<key>compileBitcode</key>
+        	<false/>
+        	<key>destination</key>
+        	<string>export</string>
+        </dict>
+        </plist>
+      PLIST
+    )
+
+    build_name = ENV.fetch("BUILD_NAME")
+    build_number = ENV.fetch("BUILD_NUMBER")
+
+    Dir.chdir("..") do
+      sh(
+        "flutter", "build", "ipa", "--release",
+        "--build-name=#{build_name}",
+        "--build-number=#{build_number}",
+        "--export-options-plist=#{export_plist}"
+      )
+    end
+
+    ipa = Dir[File.expand_path("../../build/ios/ipa/*.ipa", __dir__)].first
+    UI.user_error!("No IPA found under build/ios/ipa") if ipa.nil?
+    UI.message("Uploading #{ipa} (profile #{profile_path})")
+
+    upload_to_testflight(
+      api_key: api_key,
+      ipa: ipa,
+      skip_waiting_for_build_processing: true,
+      distribute_external: false
+    )
+  end
+end

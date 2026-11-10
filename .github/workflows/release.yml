@@ -287,7 +287,7 @@ jobs:
   ios:
     needs: [version, check]
     runs-on: macos-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -301,38 +301,52 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build iOS app
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: ios
+
+      - name: Build signed IPA and upload to TestFlight
+        working-directory: ios
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+          BUILD_NAME: ${{ needs.version.outputs.name }}
+          BUILD_NUMBER: ${{ needs.version.outputs.code }}
         run: |
-          flutter build ios --release --no-codesign \
-            --build-name=${{ needs.version.outputs.name }} \
-            --build-number=${{ needs.version.outputs.code }}
+          set -euo pipefail
+          if [[ -z "${APP_STORE_CONNECT_KEY_ID}" || -z "${APP_STORE_CONNECT_ISSUER_ID}" || -z "${APP_STORE_CONNECT_PRIVATE_KEY}" ]]; then
+            echo "Missing App Store Connect secrets. Add APP_STORE_CONNECT_KEY_ID, APP_STORE_CONNECT_ISSUER_ID, and APP_STORE_CONNECT_PRIVATE_KEY."
+            exit 1
+          fi
+          bundle exec fastlane testflight_release
+
+      - name: Package iOS install zip
+        run: |
+          set -euo pipefail
           STAGE="$GITHUB_WORKSPACE/build/ios-package"
           mkdir -p "$STAGE"
           cp installer/Install-Shopped-iOS.command "$STAGE/"
           chmod +x "$STAGE/Install-Shopped-iOS.command"
-          # Unsigned payload for local re-signing; the install script needs a
-          # device-provisioned IPA or .app before it can push to a phone.
-          APP="build/ios/iphoneos/Runner.app"
-          if [[ -d "$APP" ]]; then
-            cp -R "$APP" "$STAGE/Shopped.app"
-            (
-              cd "$STAGE"
-              zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-ios-install.zip" \
-                Install-Shopped-iOS.command Shopped.app
-            )
-          else
-            (
-              cd "$STAGE"
-              zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-ios-install.zip" \
-                Install-Shopped-iOS.command
-            )
-          fi
+          IPA=$(ls -1 build/ios/ipa/*.ipa | head -n 1)
+          cp "$IPA" "$STAGE/Shopped-${{ needs.version.outputs.name }}.ipa"
+          cp "$IPA" "Shopped-${{ needs.version.outputs.name }}.ipa"
+          (
+            cd "$STAGE"
+            zip -r "$GITHUB_WORKSPACE/Shopped-${{ needs.version.outputs.name }}-ios-install.zip" \
+              Install-Shopped-iOS.command "Shopped-${{ needs.version.outputs.name }}.ipa"
+          )
 
-      - name: Upload iOS install helper
+      - name: Upload iOS packages
         uses: actions/upload-artifact@v7
         with:
           name: ios-install
-          path: Shopped-${{ needs.version.outputs.name }}-ios-install.zip
+          path: |
+            Shopped-${{ needs.version.outputs.name }}-ios-install.zip
+            Shopped-${{ needs.version.outputs.name }}.ipa
 
   publish:
     needs: [version, android, windows, macos, ios]
@@ -353,13 +367,14 @@ jobs:
           VERSION: ${{ needs.version.outputs.name }}
           TAG: ${{ needs.version.outputs.tag }}
         run: |
-          notes="Shopped ${VERSION}. Windows: run Shopped-Setup-${VERSION}.exe (overrides the same version, replaces a previous version and keeps lists/settings). Android: open Shopped-${VERSION}.apk, or use Install-Shopped-Android.sh/.ps1 from Shopped-${VERSION}-android.zip with adb. Mac: unzip Shopped-${VERSION}-macos.zip and run Install-Shopped.command. iOS: sign the app from Shopped-${VERSION}-ios-install.zip, then run Install-Shopped-iOS.command on a Mac with a paired device. Uninstall from Windows Apps and Features (or the Start Menu Uninstall shortcut), from Android/iOS by removing the app, or on a Mac with Uninstall-Shopped.command. Uninstall removes the app and its lists, settings, and data folders."
+          notes="Shopped ${VERSION}. Windows: run Shopped-Setup-${VERSION}.exe (overrides the same version, replaces a previous version and keeps lists/settings). Android: open Shopped-${VERSION}.apk, or use Install-Shopped-Android.sh/.ps1 from Shopped-${VERSION}-android.zip with adb. Mac: unzip Shopped-${VERSION}-macos.zip and run Install-Shopped.command. iOS: this release uploads a signed build to TestFlight automatically — install or update from the TestFlight app on your iPhone/iPad (App Store Connect → TestFlight when the build is Ready to Test). The ios-install zip also includes the signed IPA. Uninstall from Windows Apps and Features (or the Start Menu Uninstall shortcut), from Android/iOS by removing the app, or on a Mac with Uninstall-Shopped.command. Uninstall removes the app and its lists, settings, and data folders."
           assets=(
             "packages/Shopped-${VERSION}.apk"
             "packages/Shopped-${VERSION}-android.zip"
             "packages/Shopped-Setup-${VERSION}.exe"
             "packages/Shopped-${VERSION}-macos.zip"
             "packages/Shopped-${VERSION}-ios-install.zip"
+            "packages/Shopped-${VERSION}.ipa"
           )
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "Release $TAG already exists; replacing its packages."

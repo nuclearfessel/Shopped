@@ -12,3 +12,13 @@ android/.gradle/
 android/app/debug/
 android/app/profile/
 android/app/release/
+
+# Fastlane local leftovers
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/screenshots/**/*.png
+ios/fastlane/test_output
+ios/*.mobileprovision
+ios/*.cer
+ios/*.p12
+ios/*.certSigningRequest
