@@ -35,8 +35,11 @@ platform :ios do
 
     profile_name = lane_context[SharedValues::SIGH_NAME]
     profile_path = lane_context[SharedValues::SIGH_PROFILE_PATH]
-    team_id = FastlaneCore::ProvisioningProfile.team_id(profile_path)
+    parsed_profile = FastlaneCore::ProvisioningProfile.parse(profile_path)
+    team_id = Array(parsed_profile["TeamIdentifier"]).first
+    team_id ||= parsed_profile.dig("Entitlements", "com.apple.developer.team-identifier")
     UI.user_error!("Could not read Team ID from provisioning profile at #{profile_path}") if team_id.to_s.empty?
+    UI.message("Using Team ID #{team_id} from #{profile_name}")
 
     update_code_signing_settings(
       use_automatic_signing: false,
