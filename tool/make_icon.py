@@ -2,9 +2,11 @@
 
 Run from the repo root: python tool/make_icon.py (requires Pillow and resvg-py).
 
-Windows, Android, and in-app thumbs still use the transparent Daily Circle mark.
+Windows and Android install the reviewed platform handoffs under
+``assets/brand/windows/`` and ``assets/brand/android/``.
 iOS and macOS App Store catalogs are the reviewed opaque cream-tile exports under
 ``assets/brand/app-store/`` (Apple applies the corner mask).
+In-app thumbs still use the transparent Daily Circle mark.
 """
 from io import BytesIO
 import shutil
@@ -18,6 +20,8 @@ from make_adaptive_icon import main as make_android_launcher_icons
 SVG_SOURCE = Path("assets/brand/daily-circle-original-tangerine.svg")
 SOURCE = Path("assets/brand/shopped-app-icon-original-tangerine.png")
 APP_STORE = Path("assets/brand/app-store")
+WINDOWS_ICO_SOURCE = Path("assets/brand/windows/shopped-windows.ico")
+WINDOWS_ICO_DESTINATION = Path("windows/runner/resources/app_icon.ico")
 IOS_CATALOG = Path("ios/Runner/Assets.xcassets/AppIcon.appiconset")
 MACOS_CATALOG = Path("macos/Runner/Assets.xcassets/AppIcon.appiconset")
 ICNS_DESTINATION = Path("macos/Runner/ShoppedAppIcon.icns")
@@ -48,19 +52,23 @@ def install_app_store_catalog(source_catalog: Path, destination: Path) -> None:
     shutil.copytree(source_catalog, destination)
 
 
+def install_windows_icon() -> None:
+    """Install the reviewed multi-resolution Windows ICO."""
+    if not WINDOWS_ICO_SOURCE.is_file():
+        raise FileNotFoundError(f"missing Windows ICO: {WINDOWS_ICO_SOURCE}")
+    WINDOWS_ICO_DESTINATION.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(WINDOWS_ICO_SOURCE, WINDOWS_ICO_DESTINATION)
+
+
 def main():
     source = render_master()
     SOURCE.parent.mkdir(parents=True, exist_ok=True)
     source.save(SOURCE, format="PNG", optimize=True)
 
-    # Windows multi-resolution ICO; transparent pixels remain transparent.
-    source.save(
-        "windows/runner/resources/app_icon.ico",
-        format="ICO",
-        sizes=[(size, size) for size in (16, 24, 32, 48, 64, 128, 256)],
-    )
+    # Reviewed Windows multi-resolution ICO (transparent mark, seven frames).
+    install_windows_icon()
 
-    # Android adaptive, legacy, and round launcher icons (full-bleed circle).
+    # Reviewed Android adaptive, legacy, and round launcher icons.
     make_android_launcher_icons()
 
     # Reviewed opaque App Store catalogs for iOS and macOS.

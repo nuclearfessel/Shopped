@@ -26,13 +26,13 @@ class IconPackagingTests(unittest.TestCase):
         self.master.save(self.ico, sizes=[(s, s) for s in sorted(validator.WINDOWS_SIZES)])
         for density, pixels in validator.ANDROID_SIZES.items():
             self.write_png(
-                self.android_path(density), pixels, transparent=False, plate=(20, 20, 20)
+                self.android_path(density), pixels, transparent=False, plate=(255, 248, 234)
             )
             self.write_png(
                 self.android_round_path(density),
                 pixels,
                 transparent=False,
-                plate=(20, 20, 20),
+                plate=(255, 248, 234),
             )
         for platform, slots in (("ios", validator.IOS_SLOTS), ("macos", validator.MACOS_SLOTS)):
             directory = self.root / platform / validator.CATALOG_PATH

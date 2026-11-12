@@ -17,7 +17,7 @@ Checks cover:
 - Windows: exactly seven ICO frames (16, 24, 32, 48, 64, 128, 256), individually
   decoded, with valid nonoverlapping payloads and transparent exterior corners.
 - Android: legacy launcher PNGs at mdpi 48, hdpi 72, xhdpi 96, xxhdpi 144, and
-  xxxhdpi 192 pixels, with transparent corners.
+  xxxhdpi 192 pixels, as opaque RGB cream-plate squares (no alpha channel).
 - iOS/macOS: required catalog slots, local PNG references, pixel dimensions
   calculated from point size and scale (including iPad's 83.5 pt icon), and
   duplicate/missing entries. iOS and macOS App Store catalogs forbid alpha

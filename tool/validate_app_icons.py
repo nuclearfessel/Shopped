@@ -135,7 +135,7 @@ def validate(root):
     check(ico_path, lambda: check_ico(root / ico_path))
     for density, pixels in ANDROID_SIZES.items():
         path = Path(f"android/app/src/main/res/mipmap-{density}/ic_launcher.png")
-        # Opaque dark plate + full-bleed mark so OS surfaces never invent a
+        # Opaque cream plate + full-bleed mark so OS surfaces never invent a
         # white circle behind transparent pixels.
         check(path, lambda p=path, px=pixels: check_png(root / p, px, "opaque"))
         round_path = Path(

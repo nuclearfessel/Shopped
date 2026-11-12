@@ -7,126 +7,126 @@
     248,
     234
   ],
-  "baseline_note": "Reviewed platform exports have encoding-independent visible-RGBA digests. Do not re-record baselines automatically in CI. Windows/Android use the transparent Daily Circle master. iOS/macOS use the opaque cream App Store catalogs under assets/brand/app-store/.",
+  "baseline_note": "Reviewed platform exports have encoding-independent visible-RGBA digests. Do not re-record baselines automatically in CI. Windows uses the reviewed transparent ICO under assets/brand/windows/. Android uses the cream-plate launcher handoff under assets/brand/android/. iOS/macOS use the opaque cream App Store catalogs under assets/brand/app-store/.",
   "exports": {
     "windows/runner/resources/app_icon.ico#32": {
       "size": [
         32,
         32
       ],
-      "sha256": "b1015dd1a130732a4bdfb7f9a4bfc147ba092a89d68d1a99cda76dfac6f8c63f"
+      "sha256": "36ecf466fed640523acc3c079ab3da43104f8973a711f1c2b7306bfda06c275d"
     },
     "windows/runner/resources/app_icon.ico#64": {
       "size": [
         64,
         64
       ],
-      "sha256": "ed2607985234c777006a503445546f4b6efc06eb34f5411423bbea51d629fb1d"
+      "sha256": "8c0ca0efd0a2be74269249c54f8365fa40e1493251379dfacf984180d72c9f20"
     },
     "windows/runner/resources/app_icon.ico#128": {
       "size": [
         128,
         128
       ],
-      "sha256": "fa6e7488c3d57c6b5c0ab0528a5248d4079097c089e469e95bdac822967f391a"
+      "sha256": "bbb913ea8bf7ebfe07e59f5776ed475cc80a0861176c65227fcc55e5b8dd43d4"
     },
     "windows/runner/resources/app_icon.ico#256": {
       "size": [
         256,
         256
       ],
-      "sha256": "95f3d0f327fe1f0332b2d317d3d42bc84ed635ff5e661f88f4b7aab9efe868e3"
+      "sha256": "7d0144ef82fa27e07ef91c069e797adb0a2cd9eb1a5a896559b67b4a3a5473de"
     },
     "windows/runner/resources/app_icon.ico#16": {
       "size": [
         16,
         16
       ],
-      "sha256": "68072f65124ae01d31ce86018971d4848536fa963d406dadb3fde285b8286cfd"
+      "sha256": "9e9deee057d23fde1267ec399b1243212775ae42250554dd839fd43b19b14ced"
     },
     "windows/runner/resources/app_icon.ico#48": {
       "size": [
         48,
         48
       ],
-      "sha256": "606f111fbd2e1de0b92c393e9a6599d30f6cc3cedc7c68281e569ad8c17d7587"
+      "sha256": "554b44a82414cda5c8e200cd47f984144af7f429904387f54fef4fb4fed140cc"
     },
     "windows/runner/resources/app_icon.ico#24": {
       "size": [
         24,
         24
       ],
-      "sha256": "cdb0803ef6d07c064baf35e79ac0ca7992a6a21a5d4f16b2671e57fd3588fd32"
+      "sha256": "b6e8b0745021158fd06b94ce33d3ffb0f3e1358b39d2420d808534ecc6e767f2"
     },
     "android/app/src/main/res/mipmap-mdpi/ic_launcher.png": {
       "size": [
         48,
         48
       ],
-      "sha256": "4b187277b044321540ac9a21723d20b380ea9932c311f26c1bfe739aeb0f473f"
+      "sha256": "c195cee41fcfa4fc23fced83f1e859d484111fdee65aa8595a28dbddb89b1e4b"
     },
     "android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png": {
       "size": [
         48,
         48
       ],
-      "sha256": "4b187277b044321540ac9a21723d20b380ea9932c311f26c1bfe739aeb0f473f"
+      "sha256": "c195cee41fcfa4fc23fced83f1e859d484111fdee65aa8595a28dbddb89b1e4b"
     },
     "android/app/src/main/res/mipmap-hdpi/ic_launcher.png": {
       "size": [
         72,
         72
       ],
-      "sha256": "561981a96143026a94159245618eb3fd987302f491af0150e791388757d4ba4c"
+      "sha256": "a5f43cd49a0bee41cdeca0c04aa329bd091898e3b3d52d0c2c2fefdc9e3145b5"
     },
     "android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png": {
       "size": [
         72,
         72
       ],
-      "sha256": "561981a96143026a94159245618eb3fd987302f491af0150e791388757d4ba4c"
+      "sha256": "a5f43cd49a0bee41cdeca0c04aa329bd091898e3b3d52d0c2c2fefdc9e3145b5"
     },
     "android/app/src/main/res/mipmap-xhdpi/ic_launcher.png": {
       "size": [
         96,
         96
       ],
-      "sha256": "2f62727435cd6a823c541eebab345302c0a4056a16ba13da10510dc4ecc70c8f"
+      "sha256": "6a3346e9dbf7e68b8a9658fe3af2166af908b22d2bd9d35e5c35474bf61b2759"
     },
     "android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png": {
       "size": [
         96,
         96
       ],
-      "sha256": "2f62727435cd6a823c541eebab345302c0a4056a16ba13da10510dc4ecc70c8f"
+      "sha256": "6a3346e9dbf7e68b8a9658fe3af2166af908b22d2bd9d35e5c35474bf61b2759"
     },
     "android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png": {
       "size": [
         144,
         144
       ],
-      "sha256": "c923f914c8fe62a8911dab7252c1c7707a4493006f4a3de403479de48c1fac61"
+      "sha256": "bf85c9c12e93f366049ad37c404230258623f54869cad46fc9c6fc66566b8a12"
     },
     "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png": {
       "size": [
         144,
         144
       ],
-      "sha256": "c923f914c8fe62a8911dab7252c1c7707a4493006f4a3de403479de48c1fac61"
+      "sha256": "bf85c9c12e93f366049ad37c404230258623f54869cad46fc9c6fc66566b8a12"
     },
     "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
       "size": [
         192,
         192
       ],
-      "sha256": "1c2a4034e5ac8e940202999e0f51c45b8dc122105d70a37a4d4985b716e3aa94"
+      "sha256": "f8bcb852037ff47de431e1fffbc3386e06b688930b14e8a1cd3cdb2355d68970"
     },
     "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png": {
       "size": [
         192,
         192
       ],
-      "sha256": "1c2a4034e5ac8e940202999e0f51c45b8dc122105d70a37a4d4985b716e3aa94"
+      "sha256": "f8bcb852037ff47de431e1fffbc3386e06b688930b14e8a1cd3cdb2355d68970"
     },
     "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-20@2x.png": {
       "size": [
