@@ -42,7 +42,7 @@ class IconPackagingTests(unittest.TestCase):
                 entry = {"idiom": idiom, "size": size, "scale": scale, "filename": f"icon-{index}.png"}
                 entries.append(entry)
                 self.write_png(directory / entry["filename"], validator.catalog_pixels(entry),
-                               transparent=platform == "macos")
+                               transparent=False)
             self.save_catalog(platform, {"images": entries, "info": {"version": 1, "author": "xcode"}})
 
     def android_path(self, density="mdpi"):
@@ -129,7 +129,7 @@ class IconPackagingTests(unittest.TestCase):
         path = self.catalog_icon()
         with Image.open(path) as image:
             image.convert("RGBA").save(path)
-        self.assert_failure("iOS icon must not contain an alpha")
+        self.assert_failure("must not contain an alpha")
 
     def test_ios_palette_transparency_fails(self):
         path = self.catalog_icon()
@@ -146,14 +146,14 @@ class IconPackagingTests(unittest.TestCase):
         for platform in ("ios", "macos"):
             with self.subTest(platform=platform):
                 path = self.catalog_icon(platform)
-                self.write_png(path, 17, transparent=platform == "macos")
+                self.write_png(path, 17, transparent=False)
                 self.assert_failure(f"{path.name}: expected")
 
-    def test_macos_transparency_is_required(self):
+    def test_macos_alpha_channel_fails(self):
         path = self.catalog_icon("macos")
         with Image.open(path) as image:
-            image.convert("RGB").save(path)
-        self.assert_failure("lost intended transparency")
+            image.convert("RGBA").save(path)
+        self.assert_failure("must not contain an alpha")
 
     def test_missing_and_duplicate_catalog_roles_fail(self):
         for platform in ("ios", "macos"):

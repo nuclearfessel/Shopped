@@ -3,39 +3,18 @@
   "size": 1024,
   "rgba_sha256": "3b657dbad4b05b0d4bfc05a29092f589dacddf00b7ec836c0b494c88ccc40b95",
   "ios_background": [
-    38,
-    55,
-    47
+    255,
+    248,
+    234
   ],
-  "baseline_note": "Reviewed platform exports have encoding-independent visible-RGBA digests. Do not re-record baselines automatically in CI. Rasterizer differences require review, not relaxed tolerances. Master is the transparent full-bleed Daily Circle (no cream/green plate) so toolbar/taskbar marks read larger.",
+  "baseline_note": "Reviewed platform exports have encoding-independent visible-RGBA digests. Do not re-record baselines automatically in CI. Windows/Android use the transparent Daily Circle master. iOS/macOS use the opaque cream App Store catalogs under assets/brand/app-store/.",
   "exports": {
-    "windows/runner/resources/app_icon.ico#16": {
-      "size": [
-        16,
-        16
-      ],
-      "sha256": "68072f65124ae01d31ce86018971d4848536fa963d406dadb3fde285b8286cfd"
-    },
-    "windows/runner/resources/app_icon.ico#24": {
-      "size": [
-        24,
-        24
-      ],
-      "sha256": "cdb0803ef6d07c064baf35e79ac0ca7992a6a21a5d4f16b2671e57fd3588fd32"
-    },
     "windows/runner/resources/app_icon.ico#32": {
       "size": [
         32,
         32
       ],
       "sha256": "b1015dd1a130732a4bdfb7f9a4bfc147ba092a89d68d1a99cda76dfac6f8c63f"
-    },
-    "windows/runner/resources/app_icon.ico#48": {
-      "size": [
-        48,
-        48
-      ],
-      "sha256": "606f111fbd2e1de0b92c393e9a6599d30f6cc3cedc7c68281e569ad8c17d7587"
     },
     "windows/runner/resources/app_icon.ico#64": {
       "size": [
@@ -58,7 +37,35 @@
       ],
       "sha256": "95f3d0f327fe1f0332b2d317d3d42bc84ed635ff5e661f88f4b7aab9efe868e3"
     },
+    "windows/runner/resources/app_icon.ico#16": {
+      "size": [
+        16,
+        16
+      ],
+      "sha256": "68072f65124ae01d31ce86018971d4848536fa963d406dadb3fde285b8286cfd"
+    },
+    "windows/runner/resources/app_icon.ico#48": {
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "606f111fbd2e1de0b92c393e9a6599d30f6cc3cedc7c68281e569ad8c17d7587"
+    },
+    "windows/runner/resources/app_icon.ico#24": {
+      "size": [
+        24,
+        24
+      ],
+      "sha256": "cdb0803ef6d07c064baf35e79ac0ca7992a6a21a5d4f16b2671e57fd3588fd32"
+    },
     "android/app/src/main/res/mipmap-mdpi/ic_launcher.png": {
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "4b187277b044321540ac9a21723d20b380ea9932c311f26c1bfe739aeb0f473f"
+    },
+    "android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png": {
       "size": [
         48,
         48
@@ -72,7 +79,21 @@
       ],
       "sha256": "561981a96143026a94159245618eb3fd987302f491af0150e791388757d4ba4c"
     },
+    "android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png": {
+      "size": [
+        72,
+        72
+      ],
+      "sha256": "561981a96143026a94159245618eb3fd987302f491af0150e791388757d4ba4c"
+    },
     "android/app/src/main/res/mipmap-xhdpi/ic_launcher.png": {
+      "size": [
+        96,
+        96
+      ],
+      "sha256": "2f62727435cd6a823c541eebab345302c0a4056a16ba13da10510dc4ecc70c8f"
+    },
+    "android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png": {
       "size": [
         96,
         96
@@ -86,188 +107,6 @@
       ],
       "sha256": "c923f914c8fe62a8911dab7252c1c7707a4493006f4a3de403479de48c1fac61"
     },
-    "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
-      "size": [
-        192,
-        192
-      ],
-      "sha256": "1c2a4034e5ac8e940202999e0f51c45b8dc122105d70a37a4d4985b716e3aa94"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png": {
-      "size": [
-        40,
-        40
-      ],
-      "sha256": "19f1b3a9275af46217bef99a18d095a0624ced09a5096301efcd750781100f01"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png": {
-      "size": [
-        60,
-        60
-      ],
-      "sha256": "efe64731b93cb1768d3a080a0eb9ab17dfe03d298dc63fa2760db428b5d7176b"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png": {
-      "size": [
-        29,
-        29
-      ],
-      "sha256": "a9cdf1b2313aef097a589a31c33aec116699c2cb65e628d1b1fc9b5fe67103db"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png": {
-      "size": [
-        58,
-        58
-      ],
-      "sha256": "24e24af9bb3f6604ba77feb7cf3de963f0448b84dbada77f43cf135d3c827991"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png": {
-      "size": [
-        87,
-        87
-      ],
-      "sha256": "211b74e418c5882c930fff5299400befeb7b8fb7178b1d2c6eaf56164643f994"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png": {
-      "size": [
-        80,
-        80
-      ],
-      "sha256": "58dc93ce00c5a281284dbdfc567f0762d3f1fd4406c9f1ab9c4a7d3397fc189d"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png": {
-      "size": [
-        120,
-        120
-      ],
-      "sha256": "608768bc50d547387cb6008a4c679af214bd46f7b99ac3df2ea170f8e54223d3"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png": {
-      "size": [
-        120,
-        120
-      ],
-      "sha256": "608768bc50d547387cb6008a4c679af214bd46f7b99ac3df2ea170f8e54223d3"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png": {
-      "size": [
-        180,
-        180
-      ],
-      "sha256": "fa99f58a9d639a44faa140e3c8412e5f3093bd85adfb3c668057cab4930f544d"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png": {
-      "size": [
-        20,
-        20
-      ],
-      "sha256": "9dd776f9a5a671dd235f77783f6e063986f16ec0a984b2ab77d1fae9d41b4345"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png": {
-      "size": [
-        40,
-        40
-      ],
-      "sha256": "19f1b3a9275af46217bef99a18d095a0624ced09a5096301efcd750781100f01"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png": {
-      "size": [
-        76,
-        76
-      ],
-      "sha256": "50258fd126e5febb2dbff0b6dcf8144f4162cfb53c0c5a91fa467dad1e2cb881"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png": {
-      "size": [
-        152,
-        152
-      ],
-      "sha256": "169bf600c8894a6f508dcbaf1739040321f73fde1771640a7e56ab1d7e22c5a1"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png": {
-      "size": [
-        167,
-        167
-      ],
-      "sha256": "a1e8742eb133e1dfd3030c3e1c51a12e3a258e65bf7fb19999d4efddf6169378"
-    },
-    "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png": {
-      "size": [
-        1024,
-        1024
-      ],
-      "sha256": "8faea953a0a239609dab6baa9ea6fc8f0fbc2b247f73db61d8011ab7e9bd6c75"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_16.png": {
-      "size": [
-        16,
-        16
-      ],
-      "sha256": "d752efb0bea7ce2a89d34b293152146c4986556c9766ac87f6429f3928124c46"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_32.png": {
-      "size": [
-        32,
-        32
-      ],
-      "sha256": "c712791c7cb134b42411ac9803677705d2f9fe1b8c7fa2d21adee4da94f28644"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_64.png": {
-      "size": [
-        64,
-        64
-      ],
-      "sha256": "451eae12bea0dfbe6fafe6cd07f9336f8b07bb0da30e36ff37b5199c0c90e074"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_128.png": {
-      "size": [
-        128,
-        128
-      ],
-      "sha256": "57a1fd00cfcef7f7aee99ec1fd0be7a162d139f5e473d9c869f4af63ada4bddd"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_256.png": {
-      "size": [
-        256,
-        256
-      ],
-      "sha256": "bbec74ff1fc443ee3e2165321a1a77574f6bb4061635f353f05383ccac14b339"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_512.png": {
-      "size": [
-        512,
-        512
-      ],
-      "sha256": "e996d31b90075efcdc4530eba1768b094a864a488402f300d6db3e16d28d401f"
-    },
-    "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png": {
-      "size": [
-        1024,
-        1024
-      ],
-      "sha256": "06a0d554132da7ba8b012d0c0714ef754c55cfc9cf1952070e4dae457f398ae5"
-    },
-    "android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png": {
-      "size": [
-        48,
-        48
-      ],
-      "sha256": "4b187277b044321540ac9a21723d20b380ea9932c311f26c1bfe739aeb0f473f"
-    },
-    "android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png": {
-      "size": [
-        72,
-        72
-      ],
-      "sha256": "561981a96143026a94159245618eb3fd987302f491af0150e791388757d4ba4c"
-    },
-    "android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png": {
-      "size": [
-        96,
-        96
-      ],
-      "sha256": "2f62727435cd6a823c541eebab345302c0a4056a16ba13da10510dc4ecc70c8f"
-    },
     "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png": {
       "size": [
         144,
@@ -275,12 +114,215 @@
       ],
       "sha256": "c923f914c8fe62a8911dab7252c1c7707a4493006f4a3de403479de48c1fac61"
     },
+    "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+      "size": [
+        192,
+        192
+      ],
+      "sha256": "1c2a4034e5ac8e940202999e0f51c45b8dc122105d70a37a4d4985b716e3aa94"
+    },
     "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png": {
       "size": [
         192,
         192
       ],
       "sha256": "1c2a4034e5ac8e940202999e0f51c45b8dc122105d70a37a4d4985b716e3aa94"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-20@2x.png": {
+      "size": [
+        40,
+        40
+      ],
+      "sha256": "3ae86b8ef9c6ec6e7c2fd1a834e393cee08c5c4af0e7408ea62603116e3639cd"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-20@3x.png": {
+      "size": [
+        60,
+        60
+      ],
+      "sha256": "5fd573050c26a6a7b3518ead04cc7cc6d952020a7e4814ae5ca32ea6d8605565"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-29@2x.png": {
+      "size": [
+        58,
+        58
+      ],
+      "sha256": "0adffa075d4b8ea08ba97feef657b2f5e1a169e657789ae90cc82cf8956e5695"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-29@3x.png": {
+      "size": [
+        87,
+        87
+      ],
+      "sha256": "4ce0b3791c018017fda644dd625e329c3704eb9b20c6a29df55a37b9b0d0dcbb"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-40@2x.png": {
+      "size": [
+        80,
+        80
+      ],
+      "sha256": "cf682002e5afdb50334635a8742da2bb74679d1305042b5e49652dbf8285918a"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-40@3x.png": {
+      "size": [
+        120,
+        120
+      ],
+      "sha256": "181c9c4e712b43b67239665e823ed1c7895c016c3feb817d649d3606d7f7a948"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-60@2x.png": {
+      "size": [
+        120,
+        120
+      ],
+      "sha256": "181c9c4e712b43b67239665e823ed1c7895c016c3feb817d649d3606d7f7a948"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-iphone-60@3x.png": {
+      "size": [
+        180,
+        180
+      ],
+      "sha256": "5576912e089e9a90dea00495744f3ef633b65c15c1819fb9ff47768fb765877d"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-20@1x.png": {
+      "size": [
+        20,
+        20
+      ],
+      "sha256": "130dafed197ae9493c4ffce79ff3f149ffdd16bc413936f3dc0d2aa16214a514"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-20@2x.png": {
+      "size": [
+        40,
+        40
+      ],
+      "sha256": "3ae86b8ef9c6ec6e7c2fd1a834e393cee08c5c4af0e7408ea62603116e3639cd"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-29@1x.png": {
+      "size": [
+        29,
+        29
+      ],
+      "sha256": "613076e7e4040f4479ec4fd0136a1e261505530c4e05f7f65ff7a032011ffde6"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-29@2x.png": {
+      "size": [
+        58,
+        58
+      ],
+      "sha256": "0adffa075d4b8ea08ba97feef657b2f5e1a169e657789ae90cc82cf8956e5695"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-40@1x.png": {
+      "size": [
+        40,
+        40
+      ],
+      "sha256": "3ae86b8ef9c6ec6e7c2fd1a834e393cee08c5c4af0e7408ea62603116e3639cd"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-40@2x.png": {
+      "size": [
+        80,
+        80
+      ],
+      "sha256": "cf682002e5afdb50334635a8742da2bb74679d1305042b5e49652dbf8285918a"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-76@1x.png": {
+      "size": [
+        76,
+        76
+      ],
+      "sha256": "8aff893d4460dfd8743b4d878ef24b848bed5e5d75a2cf10a765fdc42580093d"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-76@2x.png": {
+      "size": [
+        152,
+        152
+      ],
+      "sha256": "dacc3d15fd93311ed865b2431e416deb20db5b7597ce5a7a1fcb9d7858d22db5"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ipad-83.5@2x.png": {
+      "size": [
+        167,
+        167
+      ],
+      "sha256": "de88a11a7b437a3d08e318656b7bb66c890bea41e6516bd8c4db25ab587d706f"
+    },
+    "ios/Runner/Assets.xcassets/AppIcon.appiconset/icon-ios-marketing-1024@1x.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "280374a833e8d40a677eda6350e31064e9a34c3a74f5158a46961ee0dbf5e385"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-16@1x.png": {
+      "size": [
+        16,
+        16
+      ],
+      "sha256": "675ff55e97859343979e7bb2d20e82da9a940ed9d8d13f141b990ef839ca3520"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-16@2x.png": {
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "44980ac6dd080430e769d40f808a40cfece8c497e1036a5ddae12baccaced46b"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-32@1x.png": {
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "44980ac6dd080430e769d40f808a40cfece8c497e1036a5ddae12baccaced46b"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-32@2x.png": {
+      "size": [
+        64,
+        64
+      ],
+      "sha256": "0b1f1cb259de881f0241e2f6b51a178520f89615245178b9ae3986c06aa28f47"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-128@1x.png": {
+      "size": [
+        128,
+        128
+      ],
+      "sha256": "adda39f2333026e69485995b9be511964681dbbe1e752acee97e9701719588f9"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-128@2x.png": {
+      "size": [
+        256,
+        256
+      ],
+      "sha256": "3519a25d28877bf5848f71ca574d645dbd9719fb0109ea34aa997098cf1e83dc"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-256@1x.png": {
+      "size": [
+        256,
+        256
+      ],
+      "sha256": "3519a25d28877bf5848f71ca574d645dbd9719fb0109ea34aa997098cf1e83dc"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-256@2x.png": {
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "e5249428440237d5b41691fb83c33e665ab21e89d2c78b37fa884b6515b391ce"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-512@1x.png": {
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "e5249428440237d5b41691fb83c33e665ab21e89d2c78b37fa884b6515b391ce"
+    },
+    "macos/Runner/Assets.xcassets/AppIcon.appiconset/icon-mac-512@2x.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "280374a833e8d40a677eda6350e31064e9a34c3a74f5158a46961ee0dbf5e385"
     }
   }
 }

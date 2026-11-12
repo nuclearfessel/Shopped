@@ -20,8 +20,8 @@ Checks cover:
   xxxhdpi 192 pixels, with transparent corners.
 - iOS/macOS: required catalog slots, local PNG references, pixel dimensions
   calculated from point size and scale (including iPad's 83.5 pt icon), and
-  duplicate/missing entries. iOS forbids alpha channels and PNG transparency
-  metadata, even if pixels are fully opaque. macOS preserves exterior alpha.
+  duplicate/missing entries. iOS and macOS App Store catalogs forbid alpha
+  channels and PNG transparency metadata; both are opaque RGB squares.
 - PNG integrity/decoding, fully flattened exports, and accidentally empty images.
 
 At tiny sizes the approved tile's antialiasing leaves near-transparent corners,

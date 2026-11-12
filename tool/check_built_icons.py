@@ -115,6 +115,17 @@ def check_macos(bundle, manifest):
         if length < 8 or position + length > len(data):
             raise ValueError("invalid ICNS entry length")
         position += length
+    catalog_dir = Path("macos/Runner/Assets.xcassets/AppIcon.appiconset")
+    exports_by_pixels = {}
+    for key in manifest.get("exports", {}):
+        relative = Path(key.split("#", 1)[0])
+        if relative.parent.as_posix() != catalog_dir.as_posix():
+            continue
+        record = manifest["exports"][key]
+        size = record.get("size")
+        if isinstance(size, list) and len(size) == 2 and size[0] == size[1]:
+            exports_by_pixels.setdefault(size[0], key)
+
     seen = set()
     with Image.open(icon) as image:
         for size in image.icns.itersizes():
@@ -122,9 +133,13 @@ def check_macos(bundle, manifest):
             if pixels not in (16, 32, 64, 128, 256, 512, 1024):
                 continue
             frame = image.icns.getimage(size)
+            key = exports_by_pixels.get(pixels)
+            if key is None:
+                raise ValueError(
+                    f"no reviewed macOS catalog export for {pixels}x{pixels} in artwork manifest"
+                )
             try:
-                check_export(frame, manifest,
-                             f"macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_{pixels}.png")
+                check_export(frame, manifest, key)
             except ValueError as error:
                 raise ValueError(f"macOS {name}, representation {size}: {error}") from error
             seen.add(pixels)

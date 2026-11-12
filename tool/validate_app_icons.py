@@ -21,10 +21,11 @@ ANDROID_SIZES = {
     "mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192,
 }
 CATALOG_PATH = "Runner/Assets.xcassets/AppIcon.appiconset"
+# Explicit All Sizes catalog from the Apple App Store icon handoff (no iPhone 29@1x).
 IOS_SLOTS = (
     {("iphone", size, scale) for size, scales in {
         "20x20": ("2x", "3x"),
-        "29x29": ("1x", "2x", "3x"),
+        "29x29": ("2x", "3x"),
         "40x40": ("2x", "3x"),
         "60x60": ("2x", "3x"),
     }.items() for scale in scales}
@@ -50,7 +51,7 @@ def check_pixels(image, pixels, alpha_policy):
     has_alpha = "A" in image.getbands() or "transparency" in image.info
     if alpha_policy == "opaque":
         # Apple forbids the alpha channel itself, even if every pixel is opaque.
-        require(not has_alpha, "iOS icon must not contain an alpha channel or tRNS transparency")
+        require(not has_alpha, "App Store icon must not contain an alpha channel or tRNS transparency")
         return
     require(has_alpha, "lost intended transparency (no alpha channel/transparency)")
     alpha = image.convert("RGBA").getchannel("A")
@@ -171,7 +172,9 @@ def validate(root):
                             and filename.lower().endswith(".png"),
                             f"filename must be a local PNG basename: {filename!r}")
                     pixels = catalog_pixels(entry)
-                    policy = "opaque" if platform == "ios" else "transparent"
+                    # iOS and macOS App Store catalogs are opaque RGB squares;
+                    # the OS applies the mask. Windows/Android keep their own rules.
+                    policy = "opaque"
                     check(directory / filename,
                           lambda: check_png(root / directory / filename, pixels, policy))
 
