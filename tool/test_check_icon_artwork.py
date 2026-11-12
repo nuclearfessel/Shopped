@@ -123,7 +123,11 @@ class ArtworkIntegrationTests(unittest.TestCase):
             "        bg.alpha_composite(image)\n"
             "        image = bg.convert('RGB')\n"
             "    elif '/mipmap-' in name:\n"
-            "        bg = Image.new('RGBA', image.size, (20,20,20,255))\n"
+            "        bg = Image.new('RGBA', image.size, (255,248,234,255))\n"
+            "        bg.alpha_composite(image)\n"
+            "        image = bg.convert('RGB')\n"
+            "    elif name.startswith('macos/'):\n"
+            "        bg = Image.new('RGBA', image.size, (38,55,47,255))\n"
             "        bg.alpha_composite(image)\n"
             "        image = bg.convert('RGB')\n"
             "    image.save(name)\n")
