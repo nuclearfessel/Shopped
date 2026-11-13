@@ -21,7 +21,7 @@ def strip_chrome(md: str) -> str:
     md = re.sub(r"^#\s+Using Shopped\s*\n+", "", md)
     md = re.sub(r'^<p\s+align="center">[\s\S]*?</p>\s*', "", md, count=1, flags=re.I)
     md = re.sub(
-        r'^<img\s+src="assets/readme-banner-dark\.svg"[\s\S]*?>\s*',
+        r'^<img\s+src="assets/(?:brand/Graphics/)?readme-banner-dark\.svg"[\s\S]*?>\s*',
         "",
         md,
         count=1,
@@ -81,7 +81,7 @@ def polish_html(html: str) -> tuple[str, str]:
 
     # Diagram SVGs as figures (unwrap accidental <p> wrappers from Markdown).
     html = re.sub(
-        r'(?:<p>)?\s*(<img\s+[^>]*src="assets/(?:workflow|features|sharing)-dark\.svg"[^>]*>)\s*(?:</p>)?',
+        r'(?:<p>)?\s*(<img\s+[^>]*src="assets/(?:brand/Graphics/)?(?:workflow|features|sharing)-dark\.svg"[^>]*>)\s*(?:</p>)?',
         r'<figure class="guide-figure guide-figure-wide">\1</figure>',
         html,
         flags=re.I,

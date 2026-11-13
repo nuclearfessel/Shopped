@@ -13,47 +13,57 @@
       property="og:description"
       content="Walk through Shopping, Pantry, Recipes, Settings, and sync."
     />
-    <meta property="og:image" content="assets/readme-banner-dark.png" />
-    <link rel="icon" href="brand/shopped-horizontal-dark.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Nunito+Sans:opsz,wght@6..12,500;6..12,700&display=swap"
-      rel="stylesheet"
+    <meta
+      property="og:image"
+      content="https://nuclearfessel.github.io/Shopped/assets/brand/Graphics/social-card-light.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <link
+      rel="icon"
+      href="assets/brand/Brand/logo-color.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="assets/brand/Web/brand.css" />
     <link rel="stylesheet" href="site.css" />
+    <script src="theme.js"></script>
   </head>
-  <body class="guide-page" id="top">
-    <div class="wrap guide-wrap">
+  <body class="brand-site guide-page" id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
       <header class="site-header">
-        <a class="mark" href="./">
+        <a class="site-brand" href="./">
           <img
-            src="brand/shopped-horizontal-dark.png"
+            src="assets/brand/Brand/shopped-horizontal-light.svg"
+            data-theme-src-light="assets/brand/Brand/shopped-horizontal-light.svg"
+            data-theme-src-dark="assets/brand/Brand/shopped-horizontal-dark.svg"
             alt="Shopped"
-            width="832"
-            height="300"
+            width="511"
+            height="160"
           />
         </a>
-        <nav class="nav" aria-label="Primary">
+        <nav class="site-nav" aria-label="Primary">
           <a href="./#download">Download</a>
           <a href="guide.html" aria-current="page">Guide</a>
-          <a href="https://github.com/nuclearfessel/Shopped">Source</a>
+          <a href="https://github.com/nuclearfessel/Shopped">GitHub</a>
+          <button type="button" class="theme-toggle" data-theme-toggle>
+            <span data-theme-label>System</span>
+          </button>
         </nav>
       </header>
 
-      <main>
+      <main id="main">
         <header class="guide-intro">
-          <p class="eyebrow">User Guide</p>
           <h1>Using Shopped</h1>
           <p class="lede">
-            Shopping, pantry, recipes, settings, and sync — how to use Shopped
-            on every screen.
+            Everyday shopping, pantry, and recipes — with settings and sync when
+            you need them.
           </p>
         </header>
 
-        <details class="guide-toc" id="toc" open>
-          <summary class="guide-toc-summary">On this page</summary>
-          <nav class="guide-toc-links" aria-label="On this page">
+        <div class="guide-layout">
+          <aside class="guide-nav" aria-label="On this page">
+            <p class="guide-nav-title">On this page</p>
             <!-- GUIDE_TOC_START -->
             <a href="#on-each-platform">On each platform</a>
             <a href="#controls">Controls</a>
@@ -65,26 +75,44 @@
             <a href="#sync-between-phone-and-computer">Sync between phone and computer</a>
             <a href="#appearance-and-about">Appearance and About</a>
             <!-- GUIDE_TOC_END -->
-          </nav>
-        </details>
+          </aside>
 
-        <article class="guide-body" id="guide-body">
+          <div>
+            <details class="guide-toc" id="toc">
+              <summary class="guide-toc-summary">On this page</summary>
+              <nav class="guide-toc-links" aria-label="On this page">
+                <a href="#on-each-platform">On each platform</a>
+                <a href="#controls">Controls</a>
+                <a href="#shopping">Shopping</a>
+                <a href="#pantry">Pantry</a>
+                <a href="#recipes">Recipes</a>
+                <a href="#sales-tax">Sales tax</a>
+                <a href="#swipe">Swipe</a>
+                <a href="#sync-between-phone-and-computer">Sync between phone and computer</a>
+                <a href="#appearance-and-about">Appearance and About</a>
+              </nav>
+            </details>
+
+            <article class="guide-body" id="guide-body">
           <!-- GUIDE_BODY_START -->
+<p>Shopped keeps shopping, pantry, and recipes in one household routine. The same lists and settings work on Windows, Mac, Android, and iOS.</p>
+<p>The list menu is <img style="vertical-align: -0.2em" class="guide-icon" src="icons/more.png" width="22" height="22" alt="List options">.</p>
+<figure class="guide-figure guide-figure-wide"><img src="assets/brand/Graphics/workflow-light.svg" data-theme-src-light="assets/brand/Graphics/workflow-light.svg" data-theme-src-dark="assets/brand/Graphics/workflow-dark.svg" alt="Plan a shopping list, shop and check items, track pantry amounts, then choose and cook a recipe. Shopping and pantry suggestions require opting in." width="1472" height="660"></figure>
+
+<h2 id="on-each-platform">On each platform</h2>
 <p>The app is named <strong>Shopped</strong> on the window title, under the icon, in the Mac menu bar, and in Windows Installed apps.</p>
 <p>Shopped runs the same way on Windows, Mac, Android, and iOS. Use <img style="vertical-align: -0.2em" class="guide-icon" src="icons/shopping.png" width="22" height="22" alt="" role="presentation"> <strong>Shopping</strong> for what you need to buy, <img style="vertical-align: -0.2em" class="guide-icon" src="icons/pantry.png" width="22" height="22" alt="" role="presentation"> <strong>Pantry</strong> for what you already have, and <img style="vertical-align: -0.2em" class="guide-icon" src="icons/recipes.png" width="22" height="22" alt="" role="presentation"> <strong>Recipes</strong> for meals you plan to cook. When the shortest side is under 600, all four sit in the bottom bar and <img style="vertical-align: -0.2em" class="guide-icon" src="icons/settings.png" width="22" height="22" alt="Settings"> <strong>Settings</strong> is a full page. An Android phone or an iPhone stays in portrait. A larger window uses the side rail. Settings is a dialog when that window is at least 700 pixels wide, and a full page when it is narrower. Changing the size switches Settings while it is open. On Windows, <strong>Ctrl+,</strong> opens Settings; on Mac, <strong>Command+,</strong> does. Close the page with the X at the top right or with Done.</p>
-<p>The list menu is <img style="vertical-align: -0.2em" class="guide-icon" src="icons/more.png" width="22" height="22" alt="List options">.</p>
-<h2 id="on-each-platform">On each platform</h2>
 <p>Windows and Mac use the side rail. An Android phone and an iPhone use the bottom bar and stay in portrait. An Android tablet and an iPad use the side rail and can turn. The barcode button is on the phones and tablets.</p>
 <div class="guide-shots"><figure class="guide-figure guide-figure-desktop"><img src="screenshots/windows.png" alt="Shopped on Windows" width="800"></figure><figure class="guide-figure guide-figure-phone"><img src="screenshots/android.png" alt="Shopped on an Android phone" width="280"></figure></div>
 
-<figure class="guide-figure guide-figure-wide"><img src="assets/workflow-dark.svg" alt="Shopped household loop: plan a shopping list, check items into the cart, track pantry items as Low, Full, or exact amounts, then scale a recipe and cook. Pantry-to-shopping suggestions require the optional Shopping and pantry setting." width="100%"></figure>
-<figure class="guide-figure guide-figure-wide"><img src="assets/features-dark.svg" alt="Shopped has three connected areas: shopping lists with quantities, prices, coupons, and cart totals; pantry tracking with Low, Full, exact amounts, and Use soon; and recipes with serving scaling, missing-ingredient lists, and pantry deductions on Cook." width="100%"></figure>
+<figure class="guide-figure guide-figure-wide"><img src="assets/brand/Graphics/features-light.svg" data-theme-src-light="assets/brand/Graphics/features-light.svg" data-theme-src-dark="assets/brand/Graphics/features-dark.svg" alt="Shopped's three equal areas: Shopping, Pantry and Recipes. Keyline icons, MIT licensed." width="1472" height="340"></figure>
 <h2 id="controls">Controls</h2>
-<table>
+<div class="table-scroll"><table>
+<caption>Shopped controls and what each icon does</caption>
 <thead>
 <tr>
-<th>Icon</th>
-<th>Icon use</th>
+<th scope="col">Icon</th>
+<th scope="col">Icon use</th>
 </tr>
 </thead>
 <tbody>
@@ -161,7 +189,7 @@
 <td><strong>Dark</strong> uses the dark theme.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 
 <h2 id="shopping">Shopping</h2>
 <figure class="guide-figure"><img src="screenshots/search.png" alt="Search showing Milk already on the list, Oat milk from recent history, and catalog matches" width="720"></figure>
@@ -239,7 +267,7 @@
 </ul>
 <p>Each one is <strong>Check or uncheck</strong> or <strong>Delete</strong>. On a shopping list, check moves the item into or out of the cart. On a pantry list, check switches Low and Full, or 0 and 1 for an exact amount. Delete removes that item.</p>
 <h2 id="sync-between-phone-and-computer">Sync between phone and computer</h2>
-<figure class="guide-figure guide-figure-wide"><img src="assets/sharing-dark.svg" alt="Illustrative Shopped device diagram: enter the same household code on both devices. Share on the same Wi-Fi while both apps are open, or over the internet while both apps are open. List copies are encrypted, and the household code itself is not sent over the network." width="100%"></figure>
+<figure class="guide-figure guide-figure-wide"><img src="assets/brand/Graphics/sharing-light.svg" data-theme-src-light="assets/brand/Graphics/sharing-light.svg" data-theme-src-dark="assets/brand/Graphics/sharing-dark.svg" alt="Illustrative Shopped desktop and phone sharing diagram. Pair with the same household code; use Wi-Fi or internet sharing." width="1472" height="660"></figure>
 <p>On both devices, open <strong>Settings → Share lists</strong>.</p>
 <p>The summary at the top tells you which channels are on. Under it, each channel has its own line:</p>
 <ul>
@@ -271,7 +299,9 @@
 <p>In <strong>Settings</strong>, choose <img style="vertical-align: -0.2em" class="guide-icon" src="icons/monitor.png" width="22" height="22" alt="" role="presentation"> <strong>System</strong>, <img style="vertical-align: -0.2em" class="guide-icon" src="icons/sun.png" width="22" height="22" alt="" role="presentation"> <strong>Light</strong>, or <img style="vertical-align: -0.2em" class="guide-icon" src="icons/moon.png" width="22" height="22" alt="" role="presentation"> <strong>Dark</strong>. On Windows, <strong>Ctrl+,</strong> opens Settings. On Mac, <strong>Command+,</strong> does.</p>
 <p><strong>About</strong> is the last section in Settings. It shows Shopped, the version, a link to the Shopped site, and <strong>Privacy</strong> and <strong>Licenses</strong>. Privacy and Licenses open in place. They do not open another app.</p>
           <!-- GUIDE_BODY_END -->
-        </article>
+            </article>
+          </div>
+        </div>
       </main>
 
       <footer class="site-footer">
@@ -282,6 +312,7 @@
           >.
           Source text:
           <a href="usage.md">usage.md</a>.
+          <a href="assets/brand/Photography/PHOTO-CREDITS.md">Photo credits</a>.
         </p>
       </footer>
     </div>
@@ -292,7 +323,7 @@
       id="back-to-top"
       hidden
       aria-label="Back to top"
-      >Back to top</a
+      >Top</a
     >
     <script>
       (function () {
@@ -308,7 +339,7 @@
         function syncToc() {
           if (!toc) return;
           if (narrow.matches) toc.removeAttribute("open");
-          else toc.setAttribute("open", "");
+          else toc.removeAttribute("open");
         }
 
         function closeTocOutside(event) {

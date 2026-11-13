@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shopped — Make room for the everyday</title>
+    <title>Shopped — A full pantry. A clearer head.</title>
     <meta
       name="description"
       content="Shopped is an open source shopping, pantry, and recipe app for Windows, macOS, Android, and iOS."
@@ -11,83 +11,203 @@
     <meta property="og:title" content="Shopped" />
     <meta
       property="og:description"
-      content="Make room for the everyday. Lists, pantry, and recipes—together."
+      content="A full pantry. A clearer head. Shopping, pantry, and recipes for one household."
     />
-    <meta property="og:image" content="assets/readme-banner-dark.png" />
-    <link rel="icon" href="brand/shopped-horizontal-dark.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta
+      property="og:image"
+      content="https://nuclearfessel.github.io/Shopped/assets/brand/Graphics/social-card-light.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Nunito+Sans:opsz,wght@6..12,500;6..12,700&display=swap"
-      rel="stylesheet"
+      rel="icon"
+      href="assets/brand/Brand/logo-color.png"
+      type="image/png"
     />
+    <link rel="stylesheet" href="assets/brand/Web/brand.css" />
     <link rel="stylesheet" href="site.css" />
+    <script src="theme.js"></script>
   </head>
-  <body>
-    <div class="wrap">
+  <body class="brand-site">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
       <header class="site-header">
-        <a class="mark" href="./">
+        <a class="site-brand" href="./">
           <img
-            src="brand/shopped-horizontal-dark.png"
+            src="assets/brand/Brand/shopped-horizontal-light.svg"
+            data-theme-src-light="assets/brand/Brand/shopped-horizontal-light.svg"
+            data-theme-src-dark="assets/brand/Brand/shopped-horizontal-dark.svg"
             alt="Shopped"
-            width="832"
-            height="300"
+            width="511"
+            height="160"
           />
         </a>
-        <nav class="nav" aria-label="Primary">
+        <nav class="site-nav" aria-label="Primary">
           <a href="#download">Download</a>
           <a href="guide.html">Guide</a>
-          <a href="https://github.com/nuclearfessel/Shopped">Source</a>
+          <a href="https://github.com/nuclearfessel/Shopped">GitHub</a>
+          <button type="button" class="theme-toggle" data-theme-toggle>
+            <span data-theme-label>System</span>
+          </button>
         </nav>
       </header>
 
-      <main>
+      <main id="main">
         <section class="hero" aria-label="Shopped">
-          <img
-            class="hero-banner"
-            src="assets/readme-banner-dark.svg"
-            width="1600"
-            height="520"
-            alt="Shopped — Make room for the everyday. Lists, pantry, and recipes together on Windows, macOS, Android, and iOS."
-          />
           <div class="hero-copy">
-            <p class="eyebrow">Household shopping · Pantry · Recipes</p>
-            <h1>Make room for the everyday.</h1>
+            <h1>A full pantry.<br />A clearer head.</h1>
             <p class="lede">
-              Open source lists, pantry, and recipes for one household — on
-              Windows, macOS, Android, and iOS.
+              The shopping, pantry, and recipe app for making more of what you
+              have — open source on Windows, macOS, Android, and iOS.
             </p>
             <div class="cta-row">
               <a class="button button-primary" href="#download">Get Shopped 1.1.5</a>
+              <a class="button button-secondary" href="guide.html">Read the guide</a>
               <a
                 class="button button-secondary"
                 href="https://github.com/nuclearfessel/Shopped"
-                >View on GitHub</a
+                >View source</a
               >
             </div>
+          </div>
+          <div>
+            <div class="photo-triptych" role="group" aria-label="Shopping, pantry, and recipes">
+              <figure>
+                <img
+                  src="assets/brand/Photography/shopping-panel.jpg"
+                  alt="Hands selecting produce at a grocery store"
+                  width="480"
+                  height="960"
+                />
+                <figcaption>Shopping</figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="assets/brand/Photography/pantry-panel.jpg"
+                  alt="Glass jars and bottles arranged on pantry shelves"
+                  width="480"
+                  height="960"
+                />
+                <figcaption>Pantry</figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="assets/brand/Photography/recipes-panel.jpg"
+                  alt="Chopped vegetables prepared for a salad"
+                  width="480"
+                  height="960"
+                />
+                <figcaption>Recipes</figcaption>
+              </figure>
+            </div>
+            <p class="photo-credit">
+              Photos:
+              <a href="assets/brand/Photography/PHOTO-CREDITS.md"
+                >Leonie Wise · Shixart1985 · Liat Portal</a
+              >
+              — CC0 · CC BY 2.0 · CC BY-SA 4.0 / cropped.
+            </p>
           </div>
         </section>
 
         <section class="section" aria-labelledby="look-heading">
           <h2 id="look-heading">In the app</h2>
           <p>
-            Evergreen surfaces, cream type, and tangerine accents — shopping,
-            pantry, and recipes on every screen.
+            Real screens from Shopped — shopping lists on Windows and Android.
+            Captions name the platform; diagrams elsewhere are labeled as
+            illustrative.
           </p>
           <div class="shots">
+            <figure class="shot-frame">
+              <img
+                src="screenshots/windows.png"
+                width="2400"
+                height="1520"
+                alt="Shopped shopping list on Windows"
+              />
+              <figcaption>Windows</figcaption>
+            </figure>
+            <figure class="shot-frame shot-phone">
+              <img
+                src="screenshots/android.png"
+                width="824"
+                height="1830"
+                alt="Shopped shopping list on Android"
+              />
+              <figcaption>Android</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="areas-heading">
+          <h2 id="areas-heading">A place for every step</h2>
+          <p>From the first list to the last ingredient.</p>
+          <div class="areas">
+            <div class="area-row">
+              <img
+                src="assets/brand/Licenses/keyline-icons/shopping-cart.svg"
+                width="40"
+                height="40"
+                alt=""
+              />
+              <div>
+                <h3>Shopping</h3>
+                <p>Start with what you need.</p>
+              </div>
+            </div>
+            <div class="area-row">
+              <img
+                src="assets/brand/Licenses/keyline-icons/refrigerator.svg"
+                width="40"
+                height="40"
+                alt=""
+              />
+              <div>
+                <h3>Pantry</h3>
+                <p>Keep track of what is already there.</p>
+              </div>
+            </div>
+            <div class="area-row">
+              <img
+                src="assets/brand/Licenses/keyline-icons/cooking-pot.svg"
+                width="40"
+                height="40"
+                alt=""
+              />
+              <div>
+                <h3>Recipes</h3>
+                <p>Bring your ingredients together.</p>
+              </div>
+            </div>
+          </div>
+          <p class="photo-credit">
+            Keyline icons:
+            <a href="assets/brand/Licenses/keyline-icons/LICENSE.txt">MIT License</a>.
+          </p>
+        </section>
+
+        <section class="section" aria-labelledby="sharing-heading">
+          <h2 id="sharing-heading">One household across your devices</h2>
+          <div class="sharing-block">
+            <div class="lede-block">
+              <p>
+                Pair devices with the same household code. Share on the same
+                Wi-Fi while both apps are open, or over the internet when they
+                connect at different times.
+              </p>
+              <p>
+                <a href="guide.html#sync-between-phone-and-computer"
+                  >How sync works in the guide</a
+                >
+              </p>
+            </div>
             <img
-              class="shot shot-desktop"
-              src="screenshots/windows.png"
-              width="2400"
-              height="1520"
-              alt="Shopped shopping list on Windows"
-            />
-            <img
-              class="shot shot-phone"
-              src="screenshots/android.png"
-              width="824"
-              height="1830"
-              alt="Shopped shopping list on Android"
+              src="assets/brand/Graphics/sharing-light.svg"
+              data-theme-src-light="assets/brand/Graphics/sharing-light.svg"
+              data-theme-src-dark="assets/brand/Graphics/sharing-dark.svg"
+              width="1472"
+              height="660"
+              alt="Illustrative Shopped desktop and phone sharing diagram. Pair with the same household code; use Wi-Fi or internet sharing."
             />
           </div>
         </section>
@@ -121,6 +241,11 @@
               <span>Shopped-1.1.5-macos.zip</span>
             </a>
           </div>
+          <p class="platform-note">
+            Shopped also runs on iPhone and iPad. iOS installs go through
+            TestFlight when a signed build is available — there is no separate
+            App Store download link on this page.
+          </p>
         </section>
       </main>
 
@@ -132,6 +257,7 @@
           >.
           Full walkthrough:
           <a href="guide.html">Using Shopped</a>.
+          <a href="assets/brand/Photography/PHOTO-CREDITS.md">Photo credits</a>.
         </p>
       </footer>
     </div>

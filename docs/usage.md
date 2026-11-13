@@ -1,10 +1,10 @@
 # Using Shopped
 
 <p align="center">
-  <img src="brand/shopped-horizontal-dark.png" alt="Shopped primary logo" width="280" height="101">
+  <img src="assets/brand/Brand/shopped-horizontal-dark.svg" alt="Shopped primary logo" width="280" height="88">
 </p>
 
-<img src="assets/readme-banner-dark.svg" alt="Shopped — make room for the everyday. Household shopping lists, pantry, and recipes for Windows, macOS, Android, and iOS." width="1600" height="520">
+<img src="assets/brand/Graphics/readme-banner-dark.svg" alt="Shopped: shopping, pantry and recipes, with a three-photo triptych. macOS, Windows, Android and iOS. Photography and crop licenses are in assets/brand/Photography/PHOTO-CREDITS.md." width="1472" height="780">
 
 The app is named **Shopped** on the window title, under the icon, in the Mac menu bar, and in Windows Installed apps.
 
@@ -24,9 +24,9 @@ Windows and Mac use the side rail. An Android phone and an iPhone use the bottom
 <img src="screenshots/android.png" alt="Shopped on an Android phone" width="280">
 </p>
 
-<img src="assets/workflow-dark.svg" alt="Shopped household loop: plan a shopping list, check items into the cart, track pantry items as Low, Full, or exact amounts, then scale a recipe and cook. Pantry-to-shopping suggestions require the optional Shopping and pantry setting." width="100%">
+<img src="assets/brand/Graphics/workflow-dark.svg" alt="Plan a shopping list, shop and check items, track pantry amounts, then choose and cook a recipe. Shopping and pantry suggestions require opting in." width="1472" height="660">
 
-<img src="assets/features-dark.svg" alt="Shopped has three connected areas: shopping lists with quantities, prices, coupons, and cart totals; pantry tracking with Low, Full, exact amounts, and Use soon; and recipes with serving scaling, missing-ingredient lists, and pantry deductions on Cook." width="100%">
+<img src="assets/brand/Graphics/features-dark.svg" alt="Shopped's three equal areas: Shopping, Pantry and Recipes. Keyline icons, MIT licensed." width="1472" height="340">
 
 ## Controls
 
@@ -221,7 +221,7 @@ Each one is **Check or uncheck** or **Delete**. On a shopping list, check moves 
 
 ## Sync between phone and computer
 
-<img src="assets/sharing-dark.svg" alt="Illustrative Shopped device diagram: enter the same household code on both devices. Share on the same Wi-Fi while both apps are open, or over the internet while both apps are open. List copies are encrypted, and the household code itself is not sent over the network." width="100%">
+<img src="assets/brand/Graphics/sharing-dark.svg" alt="Illustrative Shopped desktop and phone sharing diagram. Pair with the same household code; use Wi-Fi or internet sharing." width="1472" height="660">
 
 On both devices, open **Settings → Share lists**.
 

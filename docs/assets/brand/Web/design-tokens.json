@@ -1,0 +1,18 @@
+{
+  "light": {
+    "bg": "#FFF8EA",
+    "panel": "#F5EEDC",
+    "ink": "#30271F",
+    "dim": "#816650",
+    "line": "#D8C9AC",
+    "accent": "#A44516"
+  },
+  "dark": {
+    "bg": "#172820",
+    "panel": "#22382C",
+    "ink": "#FFF8EA",
+    "dim": "#D3C7AD",
+    "line": "#49604E",
+    "accent": "#FFA754"
+  }
+}

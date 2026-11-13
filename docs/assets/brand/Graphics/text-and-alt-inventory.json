@@ -1,0 +1,1677 @@
+[
+  {
+    "file": "Graphics/readme-banner-light.svg",
+    "width": 1472,
+    "height": 780,
+    "alt": "Shopped: shopping, pantry and recipes, with a three-photo triptych. macOS, Windows, Android and iOS. Photography and crop licenses are in Photography/PHOTO-CREDITS.md.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          140.0,
+          49.679194613255596,
+          347.09847619434925,
+          102.32080538674441
+        ],
+        "baseline": 89.71045483524316,
+        "row": null
+      },
+      {
+        "text": "SHOP. KEEP. COOK.",
+        "bounds": [
+          1236.174652043663,
+          69.12199999999999,
+          1408.0,
+          82.87799999999999
+        ],
+        "baseline": 82.64999999999999,
+        "row": null
+      },
+      {
+        "text": "A full pantry.",
+        "bounds": [
+          64.0,
+          192.81599957029962,
+          517.3320098831086,
+          271.3439982811985
+        ],
+        "baseline": 252,
+        "row": null
+      },
+      {
+        "text": "A clearer head.",
+        "bounds": [
+          64.0,
+          288.8159995702996,
+          576.3320098831085,
+          348.8853339062672
+        ],
+        "baseline": 348,
+        "row": null
+      },
+      {
+        "text": "The shopping, pantry, and recipe app",
+        "bounds": [
+          64.0,
+          433.60049464400157,
+          522.8770000000001,
+          459.16276338999603
+        ],
+        "baseline": 453,
+        "row": null
+      },
+      {
+        "text": "for making more of what you have.",
+        "bounds": [
+          64.0,
+          476.60049464400157,
+          483.6281236610004,
+          502.16276338999603
+        ],
+        "baseline": 496,
+        "row": null
+      },
+      {
+        "text": "A little organisation for everyday life.",
+        "bounds": [
+          64.0,
+          604.1379939573351,
+          439.7555015106662,
+          625.104
+        ],
+        "baseline": 620,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          836.0951799965983,
+          607.0545027814469,
+          931.9048200034017,
+          629.6478793770843
+        ],
+        "baseline": 624,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          1062.2281370268477,
+          607.9,
+          1129.7718629731523,
+          629.5761160109015
+        ],
+        "baseline": 624,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          1269.5595959649127,
+          607.9,
+          1346.4404040350873,
+          629.3750992213555
+        ],
+        "baseline": 624,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Photos: Leonie Wise \u00b7 Shixart1985 \u00b7 Liat Portal",
+        "bounds": [
+          784.0,
+          644.5359752480686,
+          1059.0217987624035,
+          654.156
+        ],
+        "baseline": 654,
+        "row": null
+      },
+      {
+        "text": "CC0 \u00b7 CC BY 2.0 \u00b7 CC BY-SA 4.0 / cropped",
+        "bounds": [
+          784.0,
+          665.832,
+          1023.0767897184285,
+          677.64
+        ],
+        "baseline": 675,
+        "row": null
+      },
+      {
+        "text": "OPEN SOURCE",
+        "bounds": [
+          64.0,
+          731.184,
+          184.57768552462912,
+          744.216
+        ],
+        "baseline": 744,
+        "row": "footer"
+      },
+      {
+        "text": "macOS   /   Windows   /   Android   /   iOS",
+        "bounds": [
+          1067.6425993957334,
+          730.248,
+          1408.0,
+          745.71
+        ],
+        "baseline": 744,
+        "row": "footer"
+      }
+    ]
+  },
+  {
+    "file": "Graphics/features-light.svg",
+    "width": 1472,
+    "height": 340,
+    "alt": "Shopped's three equal areas: Shopping, Pantry and Recipes. Keyline icons, MIT licensed.",
+    "text": [
+      {
+        "text": "A place for",
+        "bounds": [
+          64.0,
+          64.63548406562832,
+          283.7621134174387,
+          111.21759837500277
+        ],
+        "baseline": 100,
+        "row": null
+      },
+      {
+        "text": "every step.",
+        "bounds": [
+          64.0,
+          137.0226519012426,
+          280.6875643689503,
+          175.63711167492494
+        ],
+        "baseline": 164,
+        "row": null
+      },
+      {
+        "text": "From the first list to the last ingredient.",
+        "bounds": [
+          64.0,
+          236.84849391155737,
+          434.7057259132664,
+          256.872
+        ],
+        "baseline": 252,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          704.0,
+          74.63393828965044,
+          823.6295460955348,
+          103.12123921458468
+        ],
+        "baseline": 96,
+        "row": "row0"
+      },
+      {
+        "text": "Start with what you need.",
+        "bounds": [
+          944.0,
+          81.55999389629811,
+          1176.2240006103702,
+          100.4
+        ],
+        "baseline": 96,
+        "row": "row0"
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          704.0,
+          159.7,
+          788.2942631496885,
+          187.03075497026714
+        ],
+        "baseline": 180,
+        "row": "row1"
+      },
+      {
+        "text": "Keep track of what is already there.",
+        "bounds": [
+          944.0,
+          165.5599938962981,
+          1265.6260009155553,
+          184.4
+        ],
+        "baseline": 180,
+        "row": "row1"
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          704.0,
+          243.7,
+          798.9366710450031,
+          270.77729901823085
+        ],
+        "baseline": 264,
+        "row": "row2"
+      },
+      {
+        "text": "Bring your ingredients together.",
+        "bounds": [
+          944.0,
+          249.5599938962981,
+          1232.6260009155553,
+          268.64
+        ],
+        "baseline": 264,
+        "row": "row2"
+      }
+    ]
+  },
+  {
+    "file": "Graphics/workflow-light.svg",
+    "width": 1472,
+    "height": 660,
+    "alt": "Plan a shopping list, shop and check items, track pantry amounts, then choose and cook a recipe. Shopping and pantry suggestions require opting in.",
+    "text": [
+      {
+        "text": "THE HOUSEHOLD ROUTINE",
+        "bounds": [
+          64.0,
+          63.184,
+          286.90913463377956,
+          76.216
+        ],
+        "baseline": 76,
+        "row": null
+      },
+      {
+        "text": "From the list",
+        "bounds": [
+          64.0,
+          181.1731996454972,
+          425.0573578441469,
+          230.73040047267042
+        ],
+        "baseline": 230,
+        "row": null
+      },
+      {
+        "text": "to the table.",
+        "bounds": [
+          64.0,
+          277.1731996454972,
+          393.32450945340827,
+          326.7304004726704
+        ],
+        "baseline": 326,
+        "row": null
+      },
+      {
+        "text": "Three connected areas.",
+        "bounds": [
+          64.0,
+          434.0312356944487,
+          336.1734267708365,
+          452.3
+        ],
+        "baseline": 452,
+        "row": null
+      },
+      {
+        "text": "One everyday routine.",
+        "bounds": [
+          64.0,
+          476.01249427777947,
+          317.7046853541673,
+          499.4687643055513
+        ],
+        "baseline": 494,
+        "row": null
+      },
+      {
+        "text": "01",
+        "bounds": [
+          688.0,
+          195.184,
+          703.3525105746636,
+          208.216
+        ],
+        "baseline": 208,
+        "row": "step0"
+      },
+      {
+        "text": "Plan your list",
+        "bounds": [
+          792.0,
+          185.8971775410177,
+          957.7517923496162,
+          215.27319479682808
+        ],
+        "baseline": 208,
+        "row": "step0"
+      },
+      {
+        "text": "Add what you need for the week.",
+        "bounds": [
+          792.0,
+          228.16,
+          1132.7555015106661,
+          248.84
+        ],
+        "baseline": 244,
+        "row": null
+      },
+      {
+        "text": "02",
+        "bounds": [
+          688.0,
+          299.184,
+          708.636403625599,
+          312.216
+        ],
+        "baseline": 312,
+        "row": "step1"
+      },
+      {
+        "text": "Shop and check",
+        "bounds": [
+          792.0,
+          289.8971775410177,
+          990.6769428107701,
+          319.0109989843767
+        ],
+        "baseline": 312,
+        "row": "step1"
+      },
+      {
+        "text": "Move bought items into the cart.",
+        "bounds": [
+          792.0,
+          332.13799395733514,
+          1126.7853009063997,
+          353.104
+        ],
+        "baseline": 348,
+        "row": null
+      },
+      {
+        "text": "03",
+        "bounds": [
+          688.0,
+          403.184,
+          708.6301009063998,
+          416.216
+        ],
+        "baseline": 416,
+        "row": "step2"
+      },
+      {
+        "text": "Track your pantry",
+        "bounds": [
+          792.0,
+          393.8971775410177,
+          1025.4191590502548,
+          423.2731947968281
+        ],
+        "baseline": 416,
+        "row": "step2"
+      },
+      {
+        "text": "Use Low, Full, or exact amounts.",
+        "bounds": [
+          792.0,
+          436.16,
+          1111.9217021149327,
+          454.706
+        ],
+        "baseline": 452,
+        "row": null
+      },
+      {
+        "text": "04",
+        "bounds": [
+          688.0,
+          507.184,
+          709.5661009063997,
+          520.216
+        ],
+        "baseline": 520,
+        "row": "step3"
+      },
+      {
+        "text": "Choose and cook",
+        "bounds": [
+          792.0,
+          497.8971775410177,
+          1007.0017361193821,
+          520.5012015156432
+        ],
+        "baseline": 520,
+        "row": "step3"
+      },
+      {
+        "text": "Scale servings and use your ingredients.",
+        "bounds": [
+          792.0,
+          540.1379939573351,
+          1200.4442006042664,
+          561.104
+        ],
+        "baseline": 556,
+        "row": null
+      },
+      {
+        "text": "Pantry-to-shopping suggestions require the optional Shopping and pantry setting.",
+        "bounds": [
+          64.0,
+          613.5599938962981,
+          815.6260009155552,
+          632.64
+        ],
+        "baseline": 628,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Graphics/sharing-light.svg",
+    "width": 1472,
+    "height": 660,
+    "alt": "Illustrative Shopped desktop and phone sharing diagram. Pair with the same household code; use Wi-Fi or internet sharing.",
+    "text": [
+      {
+        "text": "A SHARED HOUSEHOLD",
+        "bounds": [
+          64.0,
+          63.184,
+          260.40951663018626,
+          76.216
+        ],
+        "baseline": 76,
+        "row": null
+      },
+      {
+        "text": "One household.",
+        "bounds": [
+          64.0,
+          165.09159968846723,
+          456.6275085671512,
+          208.8429350986857
+        ],
+        "baseline": 208,
+        "row": null
+      },
+      {
+        "text": "Across your devices.",
+        "bounds": [
+          64.0,
+          249.09159968846723,
+          578.3907071652537,
+          306.0243987538689
+        ],
+        "baseline": 292,
+        "row": null
+      },
+      {
+        "text": "Pair devices with the same household code.",
+        "bounds": [
+          64.0,
+          375.4284940336314,
+          523.8647258949553,
+          392.276
+        ],
+        "baseline": 392,
+        "row": null
+      },
+      {
+        "text": "Wi-Fi: keep both apps open on the same network.",
+        "bounds": [
+          64.0,
+          432.84849391155734,
+          540.7153012176885,
+          452.62
+        ],
+        "baseline": 448,
+        "row": null
+      },
+      {
+        "text": "Internet: devices can sync at different times.",
+        "bounds": [
+          64.0,
+          472.84849391155734,
+          489.7057259132664,
+          492.62
+        ],
+        "baseline": 488,
+        "row": null
+      },
+      {
+        "text": "Shopped",
+        "bounds": [
+          832.0,
+          203.46700915648725,
+          927.5455908307172,
+          227.83812525532466
+        ],
+        "baseline": 222,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          832.0,
+          254.23702536088138,
+          900.879730979339,
+          269.77
+        ],
+        "baseline": 266,
+        "row": null
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          832.0,
+          290.625,
+          879.4917563402204,
+          305.575
+        ],
+        "baseline": 302,
+        "row": null
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          832.0,
+          326.2370253608814,
+          887.1036273248458,
+          341.575
+        ],
+        "baseline": 338,
+        "row": null
+      },
+      {
+        "text": "Shopped",
+        "bounds": [
+          1254.0,
+          250.39756622641133,
+          1320.5310017648876,
+          266.96992517362077
+        ],
+        "baseline": 263,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          1254.0,
+          298.8909467174399,
+          1307.4408899619202,
+          309.5636
+        ],
+        "baseline": 307,
+        "row": null
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          1254.0,
+          335.265,
+          1288.06683667936,
+          345.431
+        ],
+        "baseline": 343,
+        "row": null
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          1254.0,
+          370.8909467174399,
+          1295.1669313335922,
+          381.431
+        ],
+        "baseline": 379,
+        "row": null
+      },
+      {
+        "text": "SAME HOUSEHOLD CODE",
+        "bounds": [
+          945.4994609045215,
+          543.674,
+          1228.5005390954784,
+          560.3259999999999
+        ],
+        "baseline": 560.05,
+        "row": null
+      },
+      {
+        "text": "Illustrative device diagram. Set up sharing in Settings \u2192 Share lists.",
+        "bounds": [
+          64.0,
+          613.5599938962981,
+          666.6260009155552,
+          632.64
+        ],
+        "baseline": 628,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Graphics/social-card-light.svg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Shopped social preview. Shopping, pantry and recipes. Photo credits in Photography/PHOTO-CREDITS.md.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          136.0,
+          50.41665758045551,
+          321.0875343949771,
+          97.20920049022334
+        ],
+        "baseline": 86,
+        "row": null
+      },
+      {
+        "text": "A full pantry.",
+        "bounds": [
+          64.0,
+          202.09159968846723,
+          389.39070716525373,
+          259.0243987538689
+        ],
+        "baseline": 245,
+        "row": null
+      },
+      {
+        "text": "A clearer head.",
+        "bounds": [
+          64.0,
+          281.0915996884672,
+          439.39070716525373,
+          324.6418670820437
+        ],
+        "baseline": 324,
+        "row": null
+      },
+      {
+        "text": "Shopping, pantry & recipes.",
+        "bounds": [
+          64.0,
+          402.7199941404462,
+          364.66400058595536,
+          425.568
+        ],
+        "baseline": 420,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          670.7618466632649,
+          493.0545027814469,
+          766.5714866700683,
+          515.6478793770843
+        ],
+        "baseline": 510,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          854.2281370268477,
+          493.9,
+          921.7718629731525,
+          515.5761160109015
+        ],
+        "baseline": 510,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          1018.892929298246,
+          493.9,
+          1095.7737373684208,
+          515.3750992213555
+        ],
+        "baseline": 510,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Photos: Leonie Wise \u00b7 Shixart1985 \u00b7 Liat Portal",
+        "bounds": [
+          640.0,
+          530.5359752480686,
+          915.0217987624035,
+          540.156
+        ],
+        "baseline": 540,
+        "row": null
+      },
+      {
+        "text": "CC0 \u00b7 CC BY 2.0 \u00b7 CC BY-SA 4.0 / cropped",
+        "bounds": [
+          640.0,
+          551.832,
+          879.0767897184285,
+          563.64
+        ],
+        "baseline": 561,
+        "row": null
+      },
+      {
+        "text": "macOS \u00b7 Windows \u00b7 Android \u00b7 iOS",
+        "bounds": [
+          64.0,
+          576.9859939573352,
+          332.3574006042665,
+          590.216
+        ],
+        "baseline": 590,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Graphics/readme-banner-dark.svg",
+    "width": 1472,
+    "height": 780,
+    "alt": "Shopped: shopping, pantry and recipes, with a three-photo triptych. macOS, Windows, Android and iOS. Photography and crop licenses are in Photography/PHOTO-CREDITS.md.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          140.0,
+          49.679194613255596,
+          347.09847619434925,
+          102.32080538674441
+        ],
+        "baseline": 89.71045483524316,
+        "row": null
+      },
+      {
+        "text": "SHOP. KEEP. COOK.",
+        "bounds": [
+          1236.174652043663,
+          69.12199999999999,
+          1408.0,
+          82.87799999999999
+        ],
+        "baseline": 82.64999999999999,
+        "row": null
+      },
+      {
+        "text": "A full pantry.",
+        "bounds": [
+          64.0,
+          192.81599957029962,
+          517.3320098831086,
+          271.3439982811985
+        ],
+        "baseline": 252,
+        "row": null
+      },
+      {
+        "text": "A clearer head.",
+        "bounds": [
+          64.0,
+          288.8159995702996,
+          576.3320098831085,
+          348.8853339062672
+        ],
+        "baseline": 348,
+        "row": null
+      },
+      {
+        "text": "The shopping, pantry, and recipe app",
+        "bounds": [
+          64.0,
+          433.60049464400157,
+          522.8770000000001,
+          459.16276338999603
+        ],
+        "baseline": 453,
+        "row": null
+      },
+      {
+        "text": "for making more of what you have.",
+        "bounds": [
+          64.0,
+          476.60049464400157,
+          483.6281236610004,
+          502.16276338999603
+        ],
+        "baseline": 496,
+        "row": null
+      },
+      {
+        "text": "A little organisation for everyday life.",
+        "bounds": [
+          64.0,
+          604.1379939573351,
+          439.7555015106662,
+          625.104
+        ],
+        "baseline": 620,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          836.0951799965983,
+          607.0545027814469,
+          931.9048200034017,
+          629.6478793770843
+        ],
+        "baseline": 624,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          1062.2281370268477,
+          607.9,
+          1129.7718629731523,
+          629.5761160109015
+        ],
+        "baseline": 624,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          1269.5595959649127,
+          607.9,
+          1346.4404040350873,
+          629.3750992213555
+        ],
+        "baseline": 624,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Photos: Leonie Wise \u00b7 Shixart1985 \u00b7 Liat Portal",
+        "bounds": [
+          784.0,
+          644.5359752480686,
+          1059.0217987624035,
+          654.156
+        ],
+        "baseline": 654,
+        "row": null
+      },
+      {
+        "text": "CC0 \u00b7 CC BY 2.0 \u00b7 CC BY-SA 4.0 / cropped",
+        "bounds": [
+          784.0,
+          665.832,
+          1023.0767897184285,
+          677.64
+        ],
+        "baseline": 675,
+        "row": null
+      },
+      {
+        "text": "OPEN SOURCE",
+        "bounds": [
+          64.0,
+          731.184,
+          184.57768552462912,
+          744.216
+        ],
+        "baseline": 744,
+        "row": "footer"
+      },
+      {
+        "text": "macOS   /   Windows   /   Android   /   iOS",
+        "bounds": [
+          1067.6425993957334,
+          730.248,
+          1408.0,
+          745.71
+        ],
+        "baseline": 744,
+        "row": "footer"
+      }
+    ]
+  },
+  {
+    "file": "Graphics/features-dark.svg",
+    "width": 1472,
+    "height": 340,
+    "alt": "Shopped's three equal areas: Shopping, Pantry and Recipes. Keyline icons, MIT licensed.",
+    "text": [
+      {
+        "text": "A place for",
+        "bounds": [
+          64.0,
+          64.63548406562832,
+          283.7621134174387,
+          111.21759837500277
+        ],
+        "baseline": 100,
+        "row": null
+      },
+      {
+        "text": "every step.",
+        "bounds": [
+          64.0,
+          137.0226519012426,
+          280.6875643689503,
+          175.63711167492494
+        ],
+        "baseline": 164,
+        "row": null
+      },
+      {
+        "text": "From the first list to the last ingredient.",
+        "bounds": [
+          64.0,
+          236.84849391155737,
+          434.7057259132664,
+          256.872
+        ],
+        "baseline": 252,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          704.0,
+          74.63393828965044,
+          823.6295460955348,
+          103.12123921458468
+        ],
+        "baseline": 96,
+        "row": "row0"
+      },
+      {
+        "text": "Start with what you need.",
+        "bounds": [
+          944.0,
+          81.55999389629811,
+          1176.2240006103702,
+          100.4
+        ],
+        "baseline": 96,
+        "row": "row0"
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          704.0,
+          159.7,
+          788.2942631496885,
+          187.03075497026714
+        ],
+        "baseline": 180,
+        "row": "row1"
+      },
+      {
+        "text": "Keep track of what is already there.",
+        "bounds": [
+          944.0,
+          165.5599938962981,
+          1265.6260009155553,
+          184.4
+        ],
+        "baseline": 180,
+        "row": "row1"
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          704.0,
+          243.7,
+          798.9366710450031,
+          270.77729901823085
+        ],
+        "baseline": 264,
+        "row": "row2"
+      },
+      {
+        "text": "Bring your ingredients together.",
+        "bounds": [
+          944.0,
+          249.5599938962981,
+          1232.6260009155553,
+          268.64
+        ],
+        "baseline": 264,
+        "row": "row2"
+      }
+    ]
+  },
+  {
+    "file": "Graphics/workflow-dark.svg",
+    "width": 1472,
+    "height": 660,
+    "alt": "Plan a shopping list, shop and check items, track pantry amounts, then choose and cook a recipe. Shopping and pantry suggestions require opting in.",
+    "text": [
+      {
+        "text": "THE HOUSEHOLD ROUTINE",
+        "bounds": [
+          64.0,
+          63.184,
+          286.90913463377956,
+          76.216
+        ],
+        "baseline": 76,
+        "row": null
+      },
+      {
+        "text": "From the list",
+        "bounds": [
+          64.0,
+          181.1731996454972,
+          425.0573578441469,
+          230.73040047267042
+        ],
+        "baseline": 230,
+        "row": null
+      },
+      {
+        "text": "to the table.",
+        "bounds": [
+          64.0,
+          277.1731996454972,
+          393.32450945340827,
+          326.7304004726704
+        ],
+        "baseline": 326,
+        "row": null
+      },
+      {
+        "text": "Three connected areas.",
+        "bounds": [
+          64.0,
+          434.0312356944487,
+          336.1734267708365,
+          452.3
+        ],
+        "baseline": 452,
+        "row": null
+      },
+      {
+        "text": "One everyday routine.",
+        "bounds": [
+          64.0,
+          476.01249427777947,
+          317.7046853541673,
+          499.4687643055513
+        ],
+        "baseline": 494,
+        "row": null
+      },
+      {
+        "text": "01",
+        "bounds": [
+          688.0,
+          195.184,
+          703.3525105746636,
+          208.216
+        ],
+        "baseline": 208,
+        "row": "step0"
+      },
+      {
+        "text": "Plan your list",
+        "bounds": [
+          792.0,
+          185.8971775410177,
+          957.7517923496162,
+          215.27319479682808
+        ],
+        "baseline": 208,
+        "row": "step0"
+      },
+      {
+        "text": "Add what you need for the week.",
+        "bounds": [
+          792.0,
+          228.16,
+          1132.7555015106661,
+          248.84
+        ],
+        "baseline": 244,
+        "row": null
+      },
+      {
+        "text": "02",
+        "bounds": [
+          688.0,
+          299.184,
+          708.636403625599,
+          312.216
+        ],
+        "baseline": 312,
+        "row": "step1"
+      },
+      {
+        "text": "Shop and check",
+        "bounds": [
+          792.0,
+          289.8971775410177,
+          990.6769428107701,
+          319.0109989843767
+        ],
+        "baseline": 312,
+        "row": "step1"
+      },
+      {
+        "text": "Move bought items into the cart.",
+        "bounds": [
+          792.0,
+          332.13799395733514,
+          1126.7853009063997,
+          353.104
+        ],
+        "baseline": 348,
+        "row": null
+      },
+      {
+        "text": "03",
+        "bounds": [
+          688.0,
+          403.184,
+          708.6301009063998,
+          416.216
+        ],
+        "baseline": 416,
+        "row": "step2"
+      },
+      {
+        "text": "Track your pantry",
+        "bounds": [
+          792.0,
+          393.8971775410177,
+          1025.4191590502548,
+          423.2731947968281
+        ],
+        "baseline": 416,
+        "row": "step2"
+      },
+      {
+        "text": "Use Low, Full, or exact amounts.",
+        "bounds": [
+          792.0,
+          436.16,
+          1111.9217021149327,
+          454.706
+        ],
+        "baseline": 452,
+        "row": null
+      },
+      {
+        "text": "04",
+        "bounds": [
+          688.0,
+          507.184,
+          709.5661009063997,
+          520.216
+        ],
+        "baseline": 520,
+        "row": "step3"
+      },
+      {
+        "text": "Choose and cook",
+        "bounds": [
+          792.0,
+          497.8971775410177,
+          1007.0017361193821,
+          520.5012015156432
+        ],
+        "baseline": 520,
+        "row": "step3"
+      },
+      {
+        "text": "Scale servings and use your ingredients.",
+        "bounds": [
+          792.0,
+          540.1379939573351,
+          1200.4442006042664,
+          561.104
+        ],
+        "baseline": 556,
+        "row": null
+      },
+      {
+        "text": "Pantry-to-shopping suggestions require the optional Shopping and pantry setting.",
+        "bounds": [
+          64.0,
+          613.5599938962981,
+          815.6260009155552,
+          632.64
+        ],
+        "baseline": 628,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Graphics/sharing-dark.svg",
+    "width": 1472,
+    "height": 660,
+    "alt": "Illustrative Shopped desktop and phone sharing diagram. Pair with the same household code; use Wi-Fi or internet sharing.",
+    "text": [
+      {
+        "text": "A SHARED HOUSEHOLD",
+        "bounds": [
+          64.0,
+          63.184,
+          260.40951663018626,
+          76.216
+        ],
+        "baseline": 76,
+        "row": null
+      },
+      {
+        "text": "One household.",
+        "bounds": [
+          64.0,
+          165.09159968846723,
+          456.6275085671512,
+          208.8429350986857
+        ],
+        "baseline": 208,
+        "row": null
+      },
+      {
+        "text": "Across your devices.",
+        "bounds": [
+          64.0,
+          249.09159968846723,
+          578.3907071652537,
+          306.0243987538689
+        ],
+        "baseline": 292,
+        "row": null
+      },
+      {
+        "text": "Pair devices with the same household code.",
+        "bounds": [
+          64.0,
+          375.4284940336314,
+          523.8647258949553,
+          392.276
+        ],
+        "baseline": 392,
+        "row": null
+      },
+      {
+        "text": "Wi-Fi: keep both apps open on the same network.",
+        "bounds": [
+          64.0,
+          432.84849391155734,
+          540.7153012176885,
+          452.62
+        ],
+        "baseline": 448,
+        "row": null
+      },
+      {
+        "text": "Internet: devices can sync at different times.",
+        "bounds": [
+          64.0,
+          472.84849391155734,
+          489.7057259132664,
+          492.62
+        ],
+        "baseline": 488,
+        "row": null
+      },
+      {
+        "text": "Shopped",
+        "bounds": [
+          832.0,
+          203.46700915648725,
+          927.5455908307172,
+          227.83812525532466
+        ],
+        "baseline": 222,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          832.0,
+          254.23702536088138,
+          900.879730979339,
+          269.77
+        ],
+        "baseline": 266,
+        "row": null
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          832.0,
+          290.625,
+          879.4917563402204,
+          305.575
+        ],
+        "baseline": 302,
+        "row": null
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          832.0,
+          326.2370253608814,
+          887.1036273248458,
+          341.575
+        ],
+        "baseline": 338,
+        "row": null
+      },
+      {
+        "text": "Shopped",
+        "bounds": [
+          1254.0,
+          250.39756622641133,
+          1320.5310017648876,
+          266.96992517362077
+        ],
+        "baseline": 263,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          1254.0,
+          298.8909467174399,
+          1307.4408899619202,
+          309.5636
+        ],
+        "baseline": 307,
+        "row": null
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          1254.0,
+          335.265,
+          1288.06683667936,
+          345.431
+        ],
+        "baseline": 343,
+        "row": null
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          1254.0,
+          370.8909467174399,
+          1295.1669313335922,
+          381.431
+        ],
+        "baseline": 379,
+        "row": null
+      },
+      {
+        "text": "SAME HOUSEHOLD CODE",
+        "bounds": [
+          945.4994609045215,
+          543.674,
+          1228.5005390954784,
+          560.3259999999999
+        ],
+        "baseline": 560.05,
+        "row": null
+      },
+      {
+        "text": "Illustrative device diagram. Set up sharing in Settings \u2192 Share lists.",
+        "bounds": [
+          64.0,
+          613.5599938962981,
+          666.6260009155552,
+          632.64
+        ],
+        "baseline": 628,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Graphics/social-card-dark.svg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Shopped social preview. Shopping, pantry and recipes. Photo credits in Photography/PHOTO-CREDITS.md.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          136.0,
+          50.41665758045551,
+          321.0875343949771,
+          97.20920049022334
+        ],
+        "baseline": 86,
+        "row": null
+      },
+      {
+        "text": "A full pantry.",
+        "bounds": [
+          64.0,
+          202.09159968846723,
+          389.39070716525373,
+          259.0243987538689
+        ],
+        "baseline": 245,
+        "row": null
+      },
+      {
+        "text": "A clearer head.",
+        "bounds": [
+          64.0,
+          281.0915996884672,
+          439.39070716525373,
+          324.6418670820437
+        ],
+        "baseline": 324,
+        "row": null
+      },
+      {
+        "text": "Shopping, pantry & recipes.",
+        "bounds": [
+          64.0,
+          402.7199941404462,
+          364.66400058595536,
+          425.568
+        ],
+        "baseline": 420,
+        "row": null
+      },
+      {
+        "text": "Shopping",
+        "bounds": [
+          670.7618466632649,
+          493.0545027814469,
+          766.5714866700683,
+          515.6478793770843
+        ],
+        "baseline": 510,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Pantry",
+        "bounds": [
+          854.2281370268477,
+          493.9,
+          921.7718629731525,
+          515.5761160109015
+        ],
+        "baseline": 510,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Recipes",
+        "bounds": [
+          1018.892929298246,
+          493.9,
+          1095.7737373684208,
+          515.3750992213555
+        ],
+        "baseline": 510,
+        "row": "triptych-labels"
+      },
+      {
+        "text": "Photos: Leonie Wise \u00b7 Shixart1985 \u00b7 Liat Portal",
+        "bounds": [
+          640.0,
+          530.5359752480686,
+          915.0217987624035,
+          540.156
+        ],
+        "baseline": 540,
+        "row": null
+      },
+      {
+        "text": "CC0 \u00b7 CC BY 2.0 \u00b7 CC BY-SA 4.0 / cropped",
+        "bounds": [
+          640.0,
+          551.832,
+          879.0767897184285,
+          563.64
+        ],
+        "baseline": 561,
+        "row": null
+      },
+      {
+        "text": "macOS \u00b7 Windows \u00b7 Android \u00b7 iOS",
+        "bounds": [
+          64.0,
+          576.9859939573352,
+          332.3574006042665,
+          590.216
+        ],
+        "baseline": 590,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/shopped-horizontal-light.svg",
+    "width": 511,
+    "height": 160,
+    "alt": "Shopped transparent horizontal logo for light backgrounds.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          156.0,
+          39.056524953953144,
+          479.1531851912099,
+          120.94347504604686
+        ],
+        "baseline": 101.32737418815601,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/shopped-wordmark-light.svg",
+    "width": 387,
+    "height": 146,
+    "alt": "Shopped transparent wordmark.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          32.0,
+          32.0,
+          355.1531851912099,
+          113.88695009209371
+        ],
+        "baseline": 94.27084923420287,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/shopped-stacked-light.svg",
+    "width": 387,
+    "height": 266,
+    "alt": "Shopped transparent stacked logo.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          31.92340740439505,
+          152.0,
+          355.076592595605,
+          233.8869500920937
+        ],
+        "baseline": 214.27084923420287,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/shopped-horizontal-dark.svg",
+    "width": 511,
+    "height": 160,
+    "alt": "Shopped transparent horizontal logo for dark backgrounds.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          156.0,
+          39.056524953953144,
+          479.1531851912099,
+          120.94347504604686
+        ],
+        "baseline": 101.32737418815601,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/shopped-wordmark-dark.svg",
+    "width": 387,
+    "height": 146,
+    "alt": "Shopped transparent wordmark.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          32.0,
+          32.0,
+          355.1531851912099,
+          113.88695009209371
+        ],
+        "baseline": 94.27084923420287,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/shopped-stacked-dark.svg",
+    "width": 387,
+    "height": 266,
+    "alt": "Shopped transparent stacked logo.",
+    "text": [
+      {
+        "text": "Shopped",
+        "bounds": [
+          31.92340740439505,
+          152.0,
+          355.076592595605,
+          233.8869500920937
+        ],
+        "baseline": 214.27084923420287,
+        "row": null
+      }
+    ]
+  },
+  {
+    "file": "Brand/logo-color.svg",
+    "width": 256,
+    "height": 256,
+    "alt": "Shopped approved full-color symbol.",
+    "text": []
+  }
+]
