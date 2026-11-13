@@ -305,12 +305,18 @@ html[data-theme="dark"] .theme-pair .for-dark {
   border-bottom: 1px solid var(--brand-line);
 }
 
-.area-row img {
+.area-icon {
   display: block;
   width: 2.5rem;
   height: 2.5rem;
   margin-top: 0.15rem;
-  color: var(--brand-ink);
+  background-color: var(--brand-ink);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+html[data-theme="dark"] .area-icon {
+  background-color: var(--brand-accent);
 }
 
 .area-row h3 {

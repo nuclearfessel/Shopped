@@ -5,14 +5,15 @@
 
   function stored() {
     try {
-      return localStorage.getItem(STORAGE_KEY) || "system";
+      var value = localStorage.getItem(STORAGE_KEY);
+      if (value === "light" || value === "dark") return value;
+      // Migrate the old "system" preference to a concrete theme.
+      if (value === "system") {
+        return media.matches ? "dark" : "light";
+      }
     } catch (error) {
-      return "system";
+      /* ignore */
     }
-  }
-
-  function resolved(preference) {
-    if (preference === "light" || preference === "dark") return preference;
     return media.matches ? "dark" : "light";
   }
 
@@ -30,39 +31,34 @@
     );
   }
 
-  function apply(preference) {
-    var theme = resolved(preference);
+  function apply(theme) {
+    if (theme !== "light" && theme !== "dark") {
+      theme = media.matches ? "dark" : "light";
+    }
     root.setAttribute("data-theme", theme);
-    root.setAttribute("data-theme-preference", preference);
     syncThemedSources(theme);
     document.querySelectorAll("[data-theme-toggle]").forEach(function (button) {
-      var next =
-        preference === "system" ? "light" : preference === "light" ? "dark" : "system";
-      button.setAttribute("aria-pressed", preference === "system" ? "mixed" : "true");
+      var next = theme === "light" ? "dark" : "light";
+      button.setAttribute("aria-pressed", "true");
       button.setAttribute(
         "aria-label",
-        preference === "system"
-          ? "Theme: system. Switch to light."
-          : preference === "light"
-            ? "Theme: light. Switch to dark."
-            : "Theme: dark. Switch to system."
+        theme === "light" ? "Theme: light. Switch to dark." : "Theme: dark. Switch to light."
       );
       button.dataset.nextTheme = next;
       var label = button.querySelector("[data-theme-label]");
       if (label) {
-        label.textContent =
-          preference === "system" ? "System" : preference === "light" ? "Light" : "Dark";
+        label.textContent = theme === "light" ? "Light" : "Dark";
       }
     });
   }
 
-  function save(preference) {
+  function save(theme) {
     try {
-      localStorage.setItem(STORAGE_KEY, preference);
+      localStorage.setItem(STORAGE_KEY, theme);
     } catch (error) {
       /* ignore quota / private mode */
     }
-    apply(preference);
+    apply(theme);
   }
 
   apply(stored());
@@ -73,18 +69,8 @@
   document.addEventListener("click", function (event) {
     var button = event.target.closest("[data-theme-toggle]");
     if (!button) return;
-    save(button.dataset.nextTheme || "system");
+    save(button.dataset.nextTheme || "dark");
   });
-
-  if (media.addEventListener) {
-    media.addEventListener("change", function () {
-      if (stored() === "system") apply("system");
-    });
-  } else if (media.addListener) {
-    media.addListener(function () {
-      if (stored() === "system") apply("system");
-    });
-  }
 
   window.ShoppedTheme = { apply: apply, save: save, stored: stored };
 })();
