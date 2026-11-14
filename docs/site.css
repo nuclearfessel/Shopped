@@ -315,13 +315,10 @@ html[data-theme="dark"] .theme-pair .for-dark {
   width: 2.5rem;
   height: 2.5rem;
   margin-top: 0.15rem;
-  background-color: var(--brand-ink);
+  /* Light accent is darker gold (#A44516); dark accent stays bright gold. */
+  background-color: var(--brand-accent);
   -webkit-mask: var(--icon) center / contain no-repeat;
   mask: var(--icon) center / contain no-repeat;
-}
-
-html[data-theme="dark"] .area-icon {
-  background-color: var(--brand-accent);
 }
 
 .area-row h3 {
@@ -644,6 +641,12 @@ html[data-theme="dark"] .area-icon {
   background: transparent !important;
   vertical-align: middle;
   object-fit: contain;
+}
+
+/* Bright gold PNGs read washed on cream; recolor to light accent (#A44516). */
+html[data-theme="light"] .guide-body :is(img.guide-icon, img[src*="icons/"]) {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(78%) saturate(1600%)
+    hue-rotate(355deg) brightness(0.92) contrast(1.05);
 }
 
 .guide-body p img.guide-icon,
