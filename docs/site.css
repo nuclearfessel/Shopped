@@ -438,18 +438,18 @@ html[data-theme="dark"] .area-icon {
 }
 
 /* Guide */
-.guide-page .guide-layout {
+.brand-site.guide-page .guide-layout {
   display: grid;
   grid-template-columns: 13.5rem minmax(0, 1fr);
   gap: 3rem;
-  padding-block: 1.75rem 3rem;
+  padding-block: 48px;
   align-items: start;
 }
 
 .guide-intro {
   display: grid;
   gap: 0.75rem;
-  padding: 2.5rem 0 0;
+  padding: 48px 0 0;
   max-width: 42rem;
 }
 
@@ -545,19 +545,15 @@ html[data-theme="dark"] .area-icon {
   margin-top: 0;
 }
 
-.guide-body h2 {
+/* 48px from prior content to divider, 48px from divider to heading.
+   Beat brand.css figure { margin: 0 } so graphics keep in-section gaps. */
+.brand-site .guide-body h2 {
   margin: 48px 0 0.85rem;
   padding-top: 48px;
   border-top: 1px solid var(--brand-line);
   font-size: clamp(1.5rem, 3vw, 1.95rem);
   letter-spacing: -0.02em;
   scroll-margin-top: 1.25rem;
-}
-
-.guide-body h2:first-of-type {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
 }
 
 .guide-body h3 {
@@ -593,17 +589,26 @@ html[data-theme="dark"] .area-icon {
   color: var(--brand-ink);
 }
 
-.guide-shots {
+.brand-site .guide-shots {
   display: grid;
   grid-template-columns: minmax(0, 1.65fr) minmax(7.5rem, 12rem);
   gap: 1.25rem;
   align-items: start;
-  margin: 1.1rem 0 1.75rem;
+  margin: 1.25rem 0;
 }
 
-.guide-figure {
-  margin: 1.15rem 0 1.65rem;
+.brand-site .guide-figure {
+  margin: 1.25rem 0;
   max-width: min(100%, 48rem);
+}
+
+.brand-site .guide-shots .guide-figure {
+  margin: 0;
+}
+
+.brand-site .guide-body :is(p, ul, ol, .guide-figure, .guide-shots, .table-scroll) + h2 {
+  /* Keep the 48px band above the divider; don't stack extra figure margins. */
+  margin-top: 48px;
 }
 
 .guide-figure img,
@@ -723,9 +728,9 @@ html[data-theme="dark"] .area-icon {
     flex-direction: column;
   }
 
-  .hero,
+  .brand-site .hero,
   .sharing-block,
-  .guide-page .guide-layout {
+  .brand-site.guide-page .guide-layout {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
