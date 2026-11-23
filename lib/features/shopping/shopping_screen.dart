@@ -915,9 +915,11 @@ List<Widget> _grouped(
         db.fileShoppingItemInCategory(details.data, name);
       },
       builder: (context, candidate, _) {
+        // Flat tint only — lift/shadow stays on the dragged tile.
         if (candidate.isEmpty) return body;
         return Material(
           color: Theme.of(context).colorScheme.secondaryContainer,
+          elevation: 0,
           child: body,
         );
       },
@@ -1233,7 +1235,16 @@ class _ItemTile extends StatelessWidget {
       swipeKey: ValueKey(item.id),
       onCheck: () => db.setChecked(item.id, !item.checked),
       onDelete: () => db.deleteShoppingItem(item.id),
-      child: dragEnabled ? _categoryDrag(item: item, child: row, ghost: line()) : row,
+      child: dragEnabled
+          ? _categoryDrag(
+              context: context,
+              item: item,
+              child: row,
+              // Fresh copies: feedback and the in-list ghost cannot share one widget.
+              lifted: line(),
+              ghost: line(),
+            )
+          : row,
     );
   }
 }
@@ -1241,43 +1252,70 @@ class _ItemTile extends StatelessWidget {
 /// Category filing drag. On a phone or tablet, require a long-press first so a
 /// normal vertical finger move still scrolls the list. Desktop keeps an
 /// immediate drag (vertical only, so horizontal swipe can still dismiss).
+///
+/// While dragging, the real row stays as a faded ghost and a raised copy of the
+/// tile follows the pointer so the item looks lifted out of its category.
 Widget _categoryDrag({
+  required BuildContext context,
   required ShoppingItem item,
   required Widget child,
+  required Widget lifted,
   required Widget ghost,
 }) {
-  final feedback = Material(
-    elevation: 4,
-    borderRadius: BorderRadius.circular(8),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Text(item.name),
-    ),
-  );
-  final whenDragging = Opacity(opacity: 0.4, child: ghost);
-  // Phones and tablets: LongPressDraggable. Immediate Draggable fights the
-  // scroll view for the same vertical pan.
-  if (categoryMoveRequiresLongPress) {
-    return LongPressDraggable<String>(
-      data: item.id,
-      axis: Axis.vertical,
-      hapticFeedbackOnStart: true,
-      dragAnchorStrategy: pointerDragAnchorStrategy,
-      feedback: feedback,
-      childWhenDragging: whenDragging,
-      child: child,
-    );
-  }
-  return Draggable<String>(
-    data: item.id,
-    // Move between categories up and down. A sideways move is a swipe, so the
-    // drag must not claim the pointer until it is clearly vertical.
-    axis: Axis.vertical,
-    affinity: Axis.vertical,
-    dragAnchorStrategy: pointerDragAnchorStrategy,
-    feedback: feedback,
-    childWhenDragging: whenDragging,
-    child: child,
+  final scheme = Theme.of(context).colorScheme;
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      // Even glow (no directional shadow offset) so the tile looks lifted
+      // without sliding down under a drop-shadow. Inner Material keeps
+      // ListTile ink/background painting valid.
+      final feedback = DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.32),
+              blurRadius: 18,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: Material(
+          color: scheme.surfaceContainerHigh,
+          elevation: 0,
+          borderRadius: BorderRadius.circular(12),
+          clipBehavior: Clip.antiAlias,
+          child: SizedBox(width: constraints.maxWidth, child: lifted),
+        ),
+      );
+      final whenDragging = Opacity(opacity: 0.35, child: ghost);
+      // Phones and tablets: LongPressDraggable. Immediate Draggable fights the
+      // scroll view for the same vertical pan.
+      if (categoryMoveRequiresLongPress) {
+        return LongPressDraggable<String>(
+          data: item.id,
+          axis: Axis.vertical,
+          hapticFeedbackOnStart: true,
+          feedbackOffset: Offset.zero,
+          // Keep the tile under the press point so it reads as peeling off.
+          dragAnchorStrategy: childDragAnchorStrategy,
+          feedback: feedback,
+          childWhenDragging: whenDragging,
+          child: child,
+        );
+      }
+      return Draggable<String>(
+        data: item.id,
+        // Move between categories up and down. A sideways move is a swipe, so the
+        // drag must not claim the pointer until it is clearly vertical.
+        axis: Axis.vertical,
+        affinity: Axis.vertical,
+        feedbackOffset: Offset.zero,
+        dragAnchorStrategy: childDragAnchorStrategy,
+        feedback: feedback,
+        childWhenDragging: whenDragging,
+        child: child,
+      );
+    },
   );
 }
 
