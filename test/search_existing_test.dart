@@ -251,25 +251,32 @@ void main() {
   testWidgets('an Other item can be dragged into a category that has items', (
     tester,
   ) async {
-    await pumpShopped(
-      tester,
-      items: [
-        fakeItem('a', 'Crackers', category: 'Other'),
-        fakeItem('b', 'Bread', category: 'Bakery'),
-      ],
-    );
-    expect(find.byTooltip('Drag into a category'), findsNothing);
-    expect(find.text('OTHER'), findsOneWidget);
-    expect(find.text('BAKERY'), findsOneWidget);
+    // Widget tests default to Android (long-press before drag). This case is
+    // about filing into a category, so use desktop immediate-drag.
+    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+    try {
+      await pumpShopped(
+        tester,
+        items: [
+          fakeItem('a', 'Crackers', category: 'Other'),
+          fakeItem('b', 'Bread', category: 'Bakery'),
+        ],
+      );
+      expect(find.byTooltip('Drag into a category'), findsNothing);
+      expect(find.text('OTHER'), findsOneWidget);
+      expect(find.text('BAKERY'), findsOneWidget);
 
-    final gesture = await tester.startGesture(
-      tester.getCenter(find.widgetWithText(ListTile, 'Crackers')),
-    );
-    await gesture.moveTo(tester.getCenter(find.text('BAKERY')));
-    await tester.pump();
-    expect(find.text('Crackers'), findsNWidgets(2));
-    await gesture.up();
-    await tester.pump();
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.widgetWithText(ListTile, 'Crackers')),
+      );
+      await gesture.moveTo(tester.getCenter(find.text('BAKERY')));
+      await tester.pump();
+      expect(find.text('Crackers'), findsNWidgets(2));
+      await gesture.up();
+      await tester.pump();
+    } finally {
+      debugDefaultTargetPlatformOverride = null;
+    }
   });
 
   testWidgets('a sideways swipe still checks an item that can be dragged', (
