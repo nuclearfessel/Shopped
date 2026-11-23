@@ -21,6 +21,7 @@ import '../lists/list_settings_dialog.dart';
 import '../lists/move_copy_dialog.dart';
 import '../lists/manage_lists_dialog.dart';
 import '../settings/list_handoff.dart';
+import '../settings/swipe_actions.dart';
 import 'tax_rates_dialog.dart';
 import '../../ui/keyline/keyline_icon.dart';
 import '../../ui/category_header.dart';
@@ -1232,32 +1233,52 @@ class _ItemTile extends StatelessWidget {
       swipeKey: ValueKey(item.id),
       onCheck: () => db.setChecked(item.id, !item.checked),
       onDelete: () => db.deleteShoppingItem(item.id),
-      child: dragEnabled
-            ? Draggable<String>(
-              data: item.id,
-              // Move between categories up and down. A sideways move is a
-              // swipe, so the drag must not claim the pointer until it is
-              // clearly vertical.
-              axis: Axis.vertical,
-              affinity: Axis.vertical,
-              dragAnchorStrategy: pointerDragAnchorStrategy,
-              feedback: Material(
-                elevation: 4,
-                borderRadius: BorderRadius.circular(8),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  child: Text(item.name),
-                ),
-              ),
-              childWhenDragging: Opacity(opacity: 0.4, child: line()),
-              child: row,
-            )
-          : row,
+      child: dragEnabled ? _categoryDrag(item: item, child: row, ghost: line()) : row,
     );
   }
+}
+
+/// Category filing drag. On a phone or tablet, require a long-press first so a
+/// normal vertical finger move still scrolls the list. Desktop keeps an
+/// immediate drag (vertical only, so horizontal swipe can still dismiss).
+Widget _categoryDrag({
+  required ShoppingItem item,
+  required Widget child,
+  required Widget ghost,
+}) {
+  final feedback = Material(
+    elevation: 4,
+    borderRadius: BorderRadius.circular(8),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Text(item.name),
+    ),
+  );
+  final whenDragging = Opacity(opacity: 0.4, child: ghost);
+  // Phones and tablets: LongPressDraggable. Immediate Draggable fights the
+  // scroll view for the same vertical pan.
+  if (categoryMoveRequiresLongPress) {
+    return LongPressDraggable<String>(
+      data: item.id,
+      axis: Axis.vertical,
+      hapticFeedbackOnStart: true,
+      dragAnchorStrategy: pointerDragAnchorStrategy,
+      feedback: feedback,
+      childWhenDragging: whenDragging,
+      child: child,
+    );
+  }
+  return Draggable<String>(
+    data: item.id,
+    // Move between categories up and down. A sideways move is a swipe, so the
+    // drag must not claim the pointer until it is clearly vertical.
+    axis: Axis.vertical,
+    affinity: Axis.vertical,
+    dragAnchorStrategy: pointerDragAnchorStrategy,
+    feedback: feedback,
+    childWhenDragging: whenDragging,
+    child: child,
+  );
 }
 
 /// Out-of-Milk-style bottom bar: cart and list totals (with tax at the list's

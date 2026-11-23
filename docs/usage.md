@@ -123,7 +123,7 @@ Windows and Mac use the side rail. An Android phone and an iPhone use the bottom
 2. Create a list from the empty screen, or choose **New list** from <img src="icons/more.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="List options">.
 3. If you have more than one list, use the name at the top to switch between them.
 4. Type in **Search or add an item**, then press Enter or tap <img src="icons/plus.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Add">. Use <img src="icons/pen.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Edit"> to set quantity, unit, category, price, tax, and a note before you add. On a phone or tablet, tap <img src="icons/scan.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Scan"> to add from a barcode instead of typing.
-5. Tap an item to edit it. Check an item to move it into the cart. Swipe left or right to check or delete, depending on **Swipe** in Settings. When categories are on, drag an unchecked item onto another category that already has items to file it there. Sideways swipe still works on that same row.
+5. Tap an item to edit it. Check an item to move it into the cart. Swipe left or right to check or delete, depending on **Swipe** in Settings. When categories are on, move an unchecked item onto another category that already has items to file it there: on a phone or tablet, press and hold the row, then drag; on Windows or Mac, drag the row. Sideways swipe still works on that same row.
 
 From the cart you can uncheck everything (<img src="icons/uncheck.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Uncheck all">) or delete the checked items (<img src="icons/delete.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Delete all">). When **Shopping and pantry** is on in Settings, <img src="icons/pantry.png" width="22" height="22" align="middle" style="vertical-align: middle" alt="Add to pantry"> **Add to pantry** is there too. One pantry list is used. More than one asks which list. A new name is added. A name already there is marked Full, or its exact amount increases by what you bought. Undo puts that change back.
 
@@ -164,7 +164,7 @@ Categories are alphabetical on every list. A new category slots into that order 
 - **Mark all items taxable**
 - **Mark all items not taxable**
 
-Tap a category header to change its color. Manage the full category list from the list menu: add, recolor, or delete. Category order is alphabetical; there is no drag-to-reorder for categories. To move one item into a category that already has items, drag that unchecked row onto the category.
+Tap a category header to change its color. Manage the full category list from the list menu: add, recolor, or delete. Category order is alphabetical; there is no drag-to-reorder for categories. To move one item into a category that already has items, press and hold then drag that unchecked row onto the category on a phone or tablet; on Windows or Mac, drag the row.
 
 ## Pantry
 

@@ -98,6 +98,10 @@ bool get swipeActionsUseDesktop =>
     defaultTargetPlatform == TargetPlatform.macOS ||
     defaultTargetPlatform == TargetPlatform.linux;
 
+/// Category moves on a phone or tablet need a long-press before the drag so a
+/// normal vertical finger pan still scrolls the list.
+bool get categoryMoveRequiresLongPress => !swipeActionsUseDesktop;
+
 class SwipeActionsNotifier extends Notifier<SwipeActions> {
   @override
   SwipeActions build() {
