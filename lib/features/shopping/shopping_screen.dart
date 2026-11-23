@@ -1191,46 +1191,55 @@ class _ItemTile extends StatelessWidget {
       if (item.hasCoupon) 'coupon',
       if (tax?.isTaxed(item) ?? false) 'tax',
     ].join(' · ');
-    Widget line() => ListTile(
-      onTap: () => _edit(context),
-      leading: Tip(
-        item.checked ? 'Move back to the list' : 'Put in your cart',
-        child: Checkbox(
-          value: item.checked,
-          onChanged: (v) => db.setChecked(item.id, v ?? false),
-        ),
-      ),
-      title: Tip(
-        'Edit item',
-        child: Text(
-          item.name,
-          style: item.checked
-              ? const TextStyle(decoration: TextDecoration.lineThrough)
-              : null,
-        ),
-      ),
-      subtitle: (details.isEmpty && item.note.isEmpty)
-          ? null
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (details.isNotEmpty) Text(details),
-                if (item.note.isNotEmpty)
-                  Text(
-                    item.note,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-              ],
-            ),
-      trailing: item.price == null
-          ? null
-          : Text(
-              formatMoney(item.price! * item.quantity),
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-    );
-    final row = line();
+    // When the row can be dragged, tips must not use long-press (that starts
+    // the move). Hover still works. Drag feedback/ghost omit tips entirely so
+    // "Edit item" cannot appear on the lifted tile.
+    final tipMode = dragEnabled ? TooltipTriggerMode.manual : null;
+    Widget line({required bool tips}) {
+      final name = Text(
+        item.name,
+        style: item.checked
+            ? const TextStyle(decoration: TextDecoration.lineThrough)
+            : null,
+      );
+      final box = Checkbox(
+        value: item.checked,
+        onChanged: (v) => db.setChecked(item.id, v ?? false),
+      );
+      return ListTile(
+        onTap: () => _edit(context),
+        leading: tips
+            ? Tip(
+                item.checked ? 'Move back to the list' : 'Put in your cart',
+                triggerMode: tipMode,
+                child: box,
+              )
+            : box,
+        title: tips ? Tip('Edit item', triggerMode: tipMode, child: name) : name,
+        subtitle: (details.isEmpty && item.note.isEmpty)
+            ? null
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (details.isNotEmpty) Text(details),
+                  if (item.note.isNotEmpty)
+                    Text(
+                      item.note,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                ],
+              ),
+        trailing: item.price == null
+            ? null
+            : Text(
+                formatMoney(item.price! * item.quantity),
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+      );
+    }
+
+    final row = line(tips: true);
     return ItemSwipe(
       swipeKey: ValueKey(item.id),
       onCheck: () => db.setChecked(item.id, !item.checked),
@@ -1241,8 +1250,8 @@ class _ItemTile extends StatelessWidget {
               item: item,
               child: row,
               // Fresh copies: feedback and the in-list ghost cannot share one widget.
-              lifted: line(),
-              ghost: line(),
+              lifted: line(tips: false),
+              ghost: line(tips: false),
             )
           : row,
     );
@@ -1290,12 +1299,14 @@ Widget _categoryDrag({
       final whenDragging = Opacity(opacity: 0.35, child: ghost);
       // Phones and tablets: LongPressDraggable. Immediate Draggable fights the
       // scroll view for the same vertical pan.
+      void clearTips() => Tooltip.dismissAllToolTips();
       if (categoryMoveRequiresLongPress) {
         return LongPressDraggable<String>(
           data: item.id,
           axis: Axis.vertical,
           hapticFeedbackOnStart: true,
           feedbackOffset: Offset.zero,
+          onDragStarted: clearTips,
           // Keep the tile under the press point so it reads as peeling off.
           dragAnchorStrategy: childDragAnchorStrategy,
           feedback: feedback,
@@ -1310,6 +1321,7 @@ Widget _categoryDrag({
         axis: Axis.vertical,
         affinity: Axis.vertical,
         feedbackOffset: Offset.zero,
+        onDragStarted: clearTips,
         dragAnchorStrategy: childDragAnchorStrategy,
         feedback: feedback,
         childWhenDragging: whenDragging,
