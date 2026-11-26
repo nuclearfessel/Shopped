@@ -228,6 +228,108 @@ void main() {
     }
   });
 
+  test('Coca-Cola, PepsiCo, and Gatorade drinks are searchable', () async {
+    final db = AppDatabase.memory();
+    addTearDown(db.close);
+
+    final coke = await db.searchCatalog('coke zero sugar');
+    expect(
+      coke.map((item) => item.name),
+      containsAll(['Coke Zero Sugar', 'Coke Zero Sugar mini cans']),
+    );
+    expect(
+      coke.firstWhere((item) => item.name == 'Coke Zero Sugar').parentName,
+      'Soft drinks',
+    );
+
+    final cocaCola = await db.searchCatalog('coca-cola zero');
+    expect(
+      cocaCola.map((item) => item.name),
+      contains('Coca-Cola Zero Sugar'),
+    );
+
+    final pepsi = await db.searchCatalog('diet pepsi');
+    expect(
+      pepsi.map((item) => item.name),
+      containsAll(['Diet Pepsi', 'Diet Pepsi mini cans']),
+    );
+
+    final sprite = await db.searchCatalog('sprite zero');
+    expect(
+      sprite.map((item) => item.name),
+      containsAll(['Sprite Zero', 'Sprite Zero Sugar', 'Sprite Zero Sugar mini cans']),
+    );
+
+    final dew = await db.searchCatalog('mountain dew zero');
+    expect(
+      dew.map((item) => item.name),
+      containsAll([
+        'Mountain Dew Zero Sugar',
+        'Mountain Dew Zero Sugar mini cans',
+      ]),
+    );
+
+    final tropicana = await db.searchCatalog('tropicana');
+    expect(
+      tropicana.map((item) => item.name),
+      containsAll([
+        'Tropicana',
+        'Tropicana orange juice',
+        'Tropicana mini bottles',
+        'Tropicana Zero Sugar',
+      ]),
+    );
+    expect(
+      tropicana
+          .firstWhere((item) => item.name == 'Tropicana orange juice')
+          .parentName,
+      'Juice',
+    );
+
+    final minuteMaid = await db.searchCatalog('minute maid');
+    expect(
+      minuteMaid.map((item) => item.name),
+      containsAll([
+        'Minute Maid',
+        'Minute Maid orange juice',
+        'Minute Maid Zero Sugar',
+        'Minute Maid mini bottles',
+      ]),
+    );
+
+    final gatorade = await db.searchCatalog('gatorade');
+    expect(
+      gatorade.map((item) => item.name),
+      containsAll([
+        'Gatorade',
+        'Gatorade Zero',
+        'Gatorade mini bottles',
+        'Gatorade Zero mini bottles',
+        'Gatorade Lemon Lime',
+      ]),
+    );
+    expect(
+      gatorade.firstWhere((item) => item.name == 'Gatorade Zero').parentName,
+      'Energy & sports',
+    );
+
+    final powerade = await db.searchCatalog('powerade zero');
+    expect(
+      powerade.map((item) => item.name),
+      containsAll(['Powerade Zero', 'Powerade Zero Sugar']),
+    );
+
+    final mini = await db.searchCatalog('mini cans');
+    expect(
+      mini.map((item) => item.name),
+      containsAll([
+        'Coca-Cola mini cans',
+        'Pepsi mini cans',
+        'Mini soda cans',
+      ]),
+    );
+  });
+
   test('Darigold dairy products are searchable', () async {
     final db = AppDatabase.memory();
     addTearDown(db.close);
