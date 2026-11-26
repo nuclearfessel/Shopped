@@ -103,9 +103,9 @@ void main() {
     Future<void> choose(WidgetTester tester, String label) async {
       await tester.tap(find.byTooltip('Settings'));
       await tester.pumpAndSettle();
-      // Wide window: Android/iOS keep the dialog; tests default to Android.
+      // Mobile platforms use the full-screen page; desktop uses the drawer.
       expect(
-        find.byType(SettingsDialog).evaluate().isNotEmpty ||
+        find.byType(SettingsPage).evaluate().isNotEmpty ||
             find.byType(SettingsDrawer).evaluate().isNotEmpty,
         isTrue,
       );

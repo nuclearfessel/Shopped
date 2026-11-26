@@ -14,15 +14,21 @@ import 'device_link_dialog.dart';
 import 'list_handoff.dart';
 import 'swipe_actions.dart';
 
-/// On a large window, Settings is a side panel at this width or wider, and a
-/// full-screen page below it. A phone is always the page.
+/// On a large desktop window, Settings is a side panel at this width or wider,
+/// and a full-screen page below it. Android and iOS are always the page.
 const settingsDialogBreakpoint = 700.0;
 
-/// Fixed width of the desktop Settings drawer and the tablet Settings dialog.
+/// Fixed width of the desktop Settings drawer.
 const settingsPanelWidth = 420.0;
 
-/// A phone is always the full-screen page. A tablet or desktop window follows
-/// [width], including while Settings is already open.
+/// Android and iOS always open Settings as a full-screen page.
+bool settingsIsMobilePlatform(TargetPlatform platform) => switch (platform) {
+  TargetPlatform.android || TargetPlatform.iOS => true,
+  _ => false,
+};
+
+/// A phone-sized desktop window is the full-screen page. Larger desktop
+/// windows follow [width], including while Settings is already open.
 bool settingsUsesDialog({required bool phone, required double width}) =>
     !phone && width >= settingsDialogBreakpoint;
 
@@ -35,12 +41,22 @@ bool settingsUsesDrawer(TargetPlatform platform) => switch (platform) {
   _ => false,
 };
 
+/// Overlay panel (desktop drawer) only on large desktop windows. Mobile is
+/// always [SettingsPage].
+bool settingsUsesPanel({
+  required TargetPlatform platform,
+  required bool phone,
+  required double width,
+}) =>
+    !settingsIsMobilePlatform(platform) &&
+    settingsUsesDialog(phone: phone, width: width);
+
 /// Route name for the open Settings page, so the keyboard shortcut does not
 /// stack a second copy.
 const settingsRouteName = 'settings';
 
-/// Opens Settings and switches between the dialog and the page if the window
-/// later crosses [settingsDialogBreakpoint] or the phone-size line.
+/// Opens Settings. Desktop wide windows use a translucent overlay + drawer;
+/// Android, iOS, and narrow desktop use an opaque full-screen page.
 void showAppSettings(BuildContext context, {String? listId, String? listName}) {
   final navigator = Navigator.of(context);
   var alreadyOpen = false;
@@ -49,19 +65,28 @@ void showAppSettings(BuildContext context, {String? listId, String? listName}) {
     return true;
   });
   if (alreadyOpen) return;
+  // Mobile always gets an opaque page. Desktop stays translucent so a
+  // narrow→wide resize can reveal the drawer over the list underneath.
+  final mobile = settingsIsMobilePlatform(Theme.of(context).platform);
   navigator.push<void>(
     PageRouteBuilder<void>(
-      opaque: false,
+      opaque: mobile,
       barrierDismissible: false,
       settings: const RouteSettings(name: settingsRouteName),
       pageBuilder: (_, _, _) =>
           _AdaptiveSettings(listId: listId, listName: listName),
+      transitionsBuilder: mobile
+          ? (_, animation, _, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              )
+          : (_, _, _, child) => child,
     ),
   );
 }
 
-/// Switches the open Settings between the dialog and the full-screen page as
-/// the window changes size.
+/// Switches the open Settings between the desktop drawer and the full-screen
+/// page as the window or platform layout changes.
 class _AdaptiveSettings extends StatefulWidget {
   const _AdaptiveSettings({this.listId, this.listName});
 
@@ -78,18 +103,19 @@ class _AdaptiveSettingsState extends State<_AdaptiveSettings> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final wide = settingsUsesDialog(
+    final platform = Theme.of(context).platform;
+    final panel = settingsUsesPanel(
+      platform: platform,
       phone: isPhoneSize(size),
       width: size.width,
     );
-    if (!wide) {
+    if (!panel) {
       return SettingsPage(
         listId: widget.listId,
         listName: widget.listName,
         formKey: _formKey,
       );
     }
-    final drawer = settingsUsesDrawer(Theme.of(context).platform);
     return CallbackShortcuts(
       bindings: {
         const SingleActivator(LogicalKeyboardKey.escape): () {
@@ -106,18 +132,11 @@ class _AdaptiveSettingsState extends State<_AdaptiveSettings> {
               dismissible: true,
               onDismiss: () => Navigator.of(context).pop(),
             ),
-            if (drawer)
-              SettingsDrawer(
-                listId: widget.listId,
-                listName: widget.listName,
-                formKey: _formKey,
-              )
-            else
-              SettingsDialog(
-                listId: widget.listId,
-                listName: widget.listName,
-                formKey: _formKey,
-              ),
+            SettingsDrawer(
+              listId: widget.listId,
+              listName: widget.listName,
+              formKey: _formKey,
+            ),
           ],
         ),
       ),
@@ -125,7 +144,9 @@ class _AdaptiveSettingsState extends State<_AdaptiveSettings> {
   }
 }
 
-/// App settings as a centered dialog (iOS / Android wide windows).
+/// App settings as a centered dialog. Kept for tests and direct callers;
+/// the adaptive shell uses [SettingsPage] on mobile and [SettingsDrawer] on
+/// desktop.
 ///
 /// Opened from a shopping list, [listId] and [listName] let the tax section
 /// choose which rate that list uses; from elsewhere it only manages rates.

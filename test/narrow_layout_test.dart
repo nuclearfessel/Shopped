@@ -1,11 +1,12 @@
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/foundation.dart'
-    show debugDefaultTargetPlatformOverride;
+    show debugDefaultTargetPlatformOverride, defaultTargetPlatform;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopped/app/app.dart';
+import 'package:shopped/app/form_factor.dart';
 import 'package:shopped/data/database.dart';
 import 'package:shopped/data/providers.dart';
 import 'package:shopped/features/settings/settings_dialog.dart';
@@ -211,21 +212,22 @@ void main() {
         expect(find.byTooltip('Delete all'), findsOneWidget);
       }
       // Settings: theme options and the tax rates, from the gear icon.
-      // Wide windows use a dialog. Narrow windows use a full-screen page.
+      // Desktop wide windows use a drawer; Android/iOS and narrow are a page.
       await tester.tap(find.byTooltip('Settings'));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull, reason: 'settings');
-      if (width >= 700) {
-        expect(
-          find.descendant(
-            of: find.byType(AlertDialog),
-            matching: find.text('Settings'),
-          ),
-          findsOneWidget,
-        );
+      final usesPanel = settingsUsesPanel(
+        platform: defaultTargetPlatform,
+        phone: isPhoneSize(Size(width, 700)),
+        width: width,
+      );
+      if (usesPanel) {
+        expect(find.byType(SettingsDrawer), findsOneWidget);
+        expect(find.byType(AlertDialog), findsNothing);
       } else {
         expect(find.byType(SettingsPage), findsOneWidget);
         expect(find.byTooltip('Close'), findsOneWidget);
+        expect(find.byType(AlertDialog), findsNothing);
       }
       expect(find.text('APPEARANCE'), findsOneWidget);
       // A segmented control: System / Light / Dark.
@@ -287,12 +289,39 @@ void main() {
     expect(settingsUsesDialog(phone: false, width: 699), isFalse);
   });
 
-  test('desktop platforms use the settings drawer; mobile keeps the dialog', () {
+  test('desktop platforms use the settings drawer; mobile is full screen', () {
     expect(settingsUsesDrawer(TargetPlatform.windows), isTrue);
     expect(settingsUsesDrawer(TargetPlatform.macOS), isTrue);
     expect(settingsUsesDrawer(TargetPlatform.linux), isTrue);
     expect(settingsUsesDrawer(TargetPlatform.android), isFalse);
     expect(settingsUsesDrawer(TargetPlatform.iOS), isFalse);
+    expect(settingsIsMobilePlatform(TargetPlatform.android), isTrue);
+    expect(settingsIsMobilePlatform(TargetPlatform.iOS), isTrue);
+    expect(settingsIsMobilePlatform(TargetPlatform.windows), isFalse);
+    expect(
+      settingsUsesPanel(
+        platform: TargetPlatform.android,
+        phone: false,
+        width: 1200,
+      ),
+      isFalse,
+    );
+    expect(
+      settingsUsesPanel(
+        platform: TargetPlatform.iOS,
+        phone: false,
+        width: 1200,
+      ),
+      isFalse,
+    );
+    expect(
+      settingsUsesPanel(
+        platform: TargetPlatform.windows,
+        phone: false,
+        width: 900,
+      ),
+      isTrue,
+    );
   });
 
   testWidgets('windows settings switches as the window crosses 700', (
@@ -365,7 +394,7 @@ void main() {
     }
   });
 
-  testWidgets('android wide settings stay a dialog, not a drawer', (
+  testWidgets('android wide settings stay full screen, not a dialog', (
     tester,
   ) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -396,9 +425,13 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
       await tester.tap(find.byTooltip('Settings'));
       await tester.pumpAndSettle();
-      expect(find.byType(SettingsDialog), findsOneWidget);
+      expect(find.byType(SettingsPage), findsOneWidget);
       expect(find.byType(SettingsDrawer), findsNothing);
-      expect(find.byType(SettingsPage), findsNothing);
+      expect(find.byType(SettingsDialog), findsNothing);
+      expect(find.byType(AlertDialog), findsNothing);
+      final page = tester.getRect(find.byType(SettingsPage));
+      expect(page.width, 900);
+      expect(page.height, 700);
     } finally {
       debugDefaultTargetPlatformOverride = null;
     }
