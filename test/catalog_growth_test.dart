@@ -433,6 +433,43 @@ void main() {
     );
   });
 
+  test('upgrading from v16 adds mini-can pack names', () async {
+    final file = File(
+      '${Directory.systemTemp.path}${Platform.pathSeparator}'
+      'shopped-catalog-v16-${DateTime.now().microsecondsSinceEpoch}.sqlite',
+    );
+    addTearDown(() async {
+      if (await file.exists()) await file.delete();
+    });
+
+    final first = AppDatabase(NativeDatabase(file));
+    await first.customSelect('select 1').get();
+    await (first.delete(
+      first.catalogItems,
+    )..where((t) => t.name.like('%mini cans%'))).go();
+    final missingBefore = await (first.select(
+      first.catalogItems,
+    )..where((t) => t.name.equals('Coca-Cola mini cans 12-pack'))).get();
+    expect(missingBefore, isEmpty);
+    await first.customStatement('PRAGMA user_version = 16');
+    await first.close();
+
+    final upgraded = AppDatabase(NativeDatabase(file));
+    addTearDown(upgraded.close);
+    await upgraded.customSelect('select 1').get();
+
+    final hits = await upgraded.searchCatalog('coca-cola mini cans 12-pack');
+    expect(
+      hits.map((item) => item.name),
+      contains('Coca-Cola mini cans 12-pack'),
+    );
+    final pepsi = await upgraded.searchCatalog('pepsi mini cans 24 pk');
+    expect(
+      pepsi.map((item) => item.name),
+      contains('Pepsi mini cans 24 pk'),
+    );
+  });
+
   test('upgrading adds missing built-ins without duplicating names', () async {
     final file = File(
       '${Directory.systemTemp.path}${Platform.pathSeparator}'

@@ -197,7 +197,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.memory() : super(NativeDatabase.memory());
 
   @override
-  int get schemaVersion => 16;
+  int get schemaVersion => 17;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -331,6 +331,11 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 16) {
         // v16: a much larger set of generic grocery names.
+        await mergeBuiltinCatalog();
+      }
+      if (from < 17) {
+        // v17: Coke/PepsiCo/Gatorade juices and sodas, including mini-can
+        // 6/12/24 packs. Existing installs stay on v16 until this merge runs.
         await mergeBuiltinCatalog();
       }
     },
