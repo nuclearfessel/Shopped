@@ -3,13 +3,22 @@ import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../services/app_update.dart';
 import 'legal_copy.dart';
 
 const shoppedSiteUrl = 'https://nuclearfessel.github.io/Shopped/';
 
-/// The About block at the bottom of Settings, on Windows and Android.
+/// The About block at the bottom of Settings, on every platform.
 class AboutSection extends StatefulWidget {
-  const AboutSection({super.key});
+  const AboutSection({
+    super.key,
+    this.updateChecker,
+  });
+
+  /// Optional override for tests; defaults to [checkForAppUpdate].
+  final Future<AppUpdateCheck> Function({
+    required String currentVersion,
+  })? updateChecker;
 
   @override
   State<AboutSection> createState() => _AboutSectionState();
@@ -17,6 +26,7 @@ class AboutSection extends StatefulWidget {
 
 class _AboutSectionState extends State<AboutSection> {
   String? _version;
+  var _checkingUpdates = false;
 
   @override
   void initState() {
@@ -49,6 +59,87 @@ class _AboutSectionState extends State<AboutSection> {
       "Shopped couldn't open the site link. "
           'Open this address in your browser instead:\n\n$shoppedSiteUrl',
     );
+  }
+
+  Future<void> _openDownload(Uri url) async {
+    var opened = false;
+    try {
+      opened = await launchUrl(url);
+    } on PlatformException {
+      // Same as site: show the address when the OS cannot open it.
+    }
+    if (!mounted || opened) return;
+    _showNotice(
+      context,
+      "Couldn't open download",
+      "Shopped couldn't open the download link. "
+          'Open this address in your browser instead:\n\n$url',
+    );
+  }
+
+  Future<void> _checkForUpdates() async {
+    if (_checkingUpdates) return;
+    setState(() => _checkingUpdates = true);
+    final current = _version;
+    try {
+      final checker = widget.updateChecker ??
+          ({required String currentVersion}) =>
+              checkForAppUpdate(currentVersion: currentVersion);
+      final result = await checker(
+        currentVersion: current ?? '',
+      );
+      if (!mounted) return;
+      switch (result) {
+        case AppUpdateUpToDate(:final currentVersion):
+          _showNotice(
+            context,
+            'Up to date',
+            "You're on the latest version ($currentVersion).",
+          );
+        case AppUpdateAvailable(
+          :final currentVersion,
+          :final latestVersion,
+          :final downloadUrl,
+        ):
+          await showDialog<void>(
+            context: context,
+            builder: (context) => AlertDialog(
+              scrollable: true,
+              title: const Text('Update available'),
+              content: SizedBox(
+                width: 420,
+                child: Text(
+                  'Version $latestVersion is available '
+                  '(you have $currentVersion).',
+                ),
+              ),
+              actions: [
+                Tooltip(
+                  message: 'Close',
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Close'),
+                  ),
+                ),
+                Tooltip(
+                  message: 'Download the update',
+                  child: TextButton(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      await _openDownload(downloadUrl);
+                    },
+                    child: const Text('Download'),
+                  ),
+                ),
+              ],
+            ),
+          );
+        case AppUpdateFailed(:final message):
+          _showNotice(context, "Couldn't check for updates", message);
+      }
+    } finally {
+      if (mounted) setState(() => _checkingUpdates = false);
+    }
   }
 
   @override
@@ -97,6 +188,12 @@ class _AboutSectionState extends State<AboutSection> {
           tooltip: 'Read the licenses for Shopped and the pieces it includes',
           onTap: () => _showNotice(context, 'Licenses', shoppedLicenses),
         ),
+        const SizedBox(height: 4),
+        _AboutLink(
+          label: _checkingUpdates ? 'Checking for updates…' : 'Check for updates',
+          tooltip: 'See if a newer Shopped version is available',
+          onTap: _checkingUpdates ? null : _checkForUpdates,
+        ),
         if (version != null) ...[
           const SizedBox(height: 4),
           Text('Version $version', style: muted),
@@ -115,20 +212,25 @@ class _AboutLink extends StatelessWidget {
 
   final String label;
   final String tooltip;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final enabled = onTap != null;
     final style = theme.textTheme.bodyMedium?.copyWith(
-      color: theme.colorScheme.primary,
-      decoration: TextDecoration.underline,
+      color: enabled
+          ? theme.colorScheme.primary
+          : theme.colorScheme.onSurface.withValues(alpha: 0.55),
+      decoration: enabled ? TextDecoration.underline : TextDecoration.none,
       decorationColor: theme.colorScheme.primary,
     );
     return Tooltip(
       message: tooltip,
       child: MouseRegion(
-        cursor: SystemMouseCursors.click,
+        cursor: enabled
+            ? SystemMouseCursors.click
+            : SystemMouseCursors.basic,
         child: GestureDetector(
           onTap: onTap,
           behavior: HitTestBehavior.opaque,

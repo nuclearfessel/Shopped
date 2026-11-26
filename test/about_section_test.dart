@@ -63,6 +63,7 @@ void main() {
               expect(find.text(shoppedSiteUrl), findsOneWidget);
               expect(find.text('Privacy'), findsOneWidget);
               expect(find.text('Licenses'), findsOneWidget);
+              expect(find.text('Check for updates'), findsOneWidget);
               final bounds = tester.getRect(logoFinder);
               expect(bounds.left, greaterThanOrEqualTo(24));
               expect(bounds.right, lessThanOrEqualTo(width - 24));
