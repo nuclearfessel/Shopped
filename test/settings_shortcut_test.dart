@@ -19,7 +19,8 @@ void main() {
     try {
       await pumpShopped(tester);
       await _pressComma(tester, LogicalKeyboardKey.controlLeft);
-      expect(find.byType(SettingsDialog), findsOneWidget);
+      expect(find.byType(SettingsDrawer), findsOneWidget);
+      expect(find.byType(SettingsDialog), findsNothing);
     } finally {
       debugDefaultTargetPlatformOverride = null;
     }
@@ -30,7 +31,8 @@ void main() {
     try {
       await pumpShopped(tester);
       await _pressComma(tester, LogicalKeyboardKey.metaLeft);
-      expect(find.byType(SettingsDialog), findsOneWidget);
+      expect(find.byType(SettingsDrawer), findsOneWidget);
+      expect(find.byType(SettingsDialog), findsNothing);
     } finally {
       debugDefaultTargetPlatformOverride = null;
     }

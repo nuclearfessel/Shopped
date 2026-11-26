@@ -120,7 +120,8 @@ function Try-ClearLists {
 }
 
 function Try-ClearSettings {
-  & adb shell "run-as $Package sh -c 'rm -f shared_prefs/FlutterSharedPreferences.xml'" 2>$null | Out-Null
+  # Theme, tax prefs, and list-sharing credentials (SharedPreferences + durable file).
+  & adb shell "run-as $Package sh -c 'rm -f shared_prefs/FlutterSharedPreferences.xml shared_prefs/FlutterSharedPreferences.xml.bak files/shopped_share.json; rm -rf files/datastore'" 2>$null | Out-Null
   return ($LASTEXITCODE -eq 0)
 }
 
@@ -191,6 +192,12 @@ if (Test-PackageInstalled) {
 
 & adb install -r -d $apk
 if ($LASTEXITCODE -ne 0) {
+  if ($KeepLists -or $KeepSettings) {
+    Write-Host "In-place replace failed."
+    Write-Host "Not uninstalling, because you chose to keep lists and/or settings"
+    Write-Host "(including list sharing). Fix the install error and try again."
+    throw "adb install -r failed with exit code $LASTEXITCODE"
+  }
   Write-Host "In-place replace failed; removing the previous package and installing fresh."
   Write-Host "Lists and settings on the device will be cleared."
   & adb uninstall $Package 2>$null

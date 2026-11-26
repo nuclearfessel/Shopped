@@ -44,6 +44,8 @@ clear_lists() {
 
 clear_settings() {
   rm -f "$PREFS_PLIST" "$PREFS_PLIST.lockfile"
+  # Durable household / Wi-Fi share credentials live next to the database.
+  rm -f "$SUPPORT_DIR"/shopped_share.json "$SUPPORT_DIR_ALT"/shopped_share.json
   defaults delete "$BUNDLE_ID" >/dev/null 2>&1 || true
   echo "Cleared settings."
 }

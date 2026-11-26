@@ -198,6 +198,11 @@ begin
   DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\shop_it\shared_preferences.json'));
   DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\ShopIt\shared_preferences.json'));
   DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\shop_it\shared_preferences.json'));
+  { Durable household / Wi-Fi share credentials (kept when settings are kept). }
+  DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\Shopped\shopped_share.json'));
+  DeleteIfExists(ExpandConstant('{userappdata}\com.nuclearfessel\shopped\shopped_share.json'));
+  DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\Shopped\shopped_share.json'));
+  DeleteIfExists(ExpandConstant('{localappdata}\com.nuclearfessel\shopped\shopped_share.json'));
 end;
 
 procedure ApplyDataRetentionChoice();

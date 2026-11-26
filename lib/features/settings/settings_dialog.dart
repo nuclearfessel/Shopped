@@ -14,14 +14,26 @@ import 'device_link_dialog.dart';
 import 'list_handoff.dart';
 import 'swipe_actions.dart';
 
-/// On a large window, Settings is a dialog at this width or wider, and a
+/// On a large window, Settings is a side panel at this width or wider, and a
 /// full-screen page below it. A phone is always the page.
 const settingsDialogBreakpoint = 700.0;
+
+/// Fixed width of the desktop Settings drawer and the tablet Settings dialog.
+const settingsPanelWidth = 420.0;
 
 /// A phone is always the full-screen page. A tablet or desktop window follows
 /// [width], including while Settings is already open.
 bool settingsUsesDialog({required bool phone, required double width}) =>
     !phone && width >= settingsDialogBreakpoint;
+
+/// Desktop (Windows / macOS / Linux) uses a right-side drawer for the wide
+/// Settings panel so About dialogs are not stacked on an AlertDialog.
+bool settingsUsesDrawer(TargetPlatform platform) => switch (platform) {
+  TargetPlatform.windows ||
+  TargetPlatform.macOS ||
+  TargetPlatform.linux => true,
+  _ => false,
+};
 
 /// Route name for the open Settings page, so the keyboard shortcut does not
 /// stack a second copy.
@@ -66,17 +78,18 @@ class _AdaptiveSettingsState extends State<_AdaptiveSettings> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final dialog = settingsUsesDialog(
+    final wide = settingsUsesDialog(
       phone: isPhoneSize(size),
       width: size.width,
     );
-    if (!dialog) {
+    if (!wide) {
       return SettingsPage(
         listId: widget.listId,
         listName: widget.listName,
         formKey: _formKey,
       );
     }
+    final drawer = settingsUsesDrawer(Theme.of(context).platform);
     return CallbackShortcuts(
       bindings: {
         const SingleActivator(LogicalKeyboardKey.escape): () {
@@ -93,11 +106,18 @@ class _AdaptiveSettingsState extends State<_AdaptiveSettings> {
               dismissible: true,
               onDismiss: () => Navigator.of(context).pop(),
             ),
-            SettingsDialog(
-              listId: widget.listId,
-              listName: widget.listName,
-              formKey: _formKey,
-            ),
+            if (drawer)
+              SettingsDrawer(
+                listId: widget.listId,
+                listName: widget.listName,
+                formKey: _formKey,
+              )
+            else
+              SettingsDialog(
+                listId: widget.listId,
+                listName: widget.listName,
+                formKey: _formKey,
+              ),
           ],
         ),
       ),
@@ -105,7 +125,7 @@ class _AdaptiveSettingsState extends State<_AdaptiveSettings> {
   }
 }
 
-/// App settings: light/dark theme and the sales tax rates.
+/// App settings as a centered dialog (iOS / Android wide windows).
 ///
 /// Opened from a shopping list, [listId] and [listName] let the tax section
 /// choose which rate that list uses; from elsewhere it only manages rates.
@@ -115,34 +135,128 @@ class SettingsDialog extends ConsumerWidget {
   final String? listId;
   final String? listName;
 
-  /// Keeps the form's fields when Windows swaps this dialog for the page.
+  /// Keeps the form's fields when the shell swaps this dialog for the page.
   final Key? formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    // Desktop draws the scrollbar over the scroll view. Keep a gutter so it
-    // sits beside the theme control instead of covering it when the dialog
-    // shrinks to fit a short window.
-    final scrollbarGutter = switch (theme.platform) {
-      TargetPlatform.windows ||
-      TargetPlatform.linux ||
-      TargetPlatform.macOS => 16.0,
-      _ => 0.0,
-    };
-
     return AlertDialog(
       title: const Text('Settings'),
       content: SizedBox(
-        width: 420,
+        width: settingsPanelWidth,
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(right: scrollbarGutter),
+          padding: EdgeInsets.only(right: _settingsScrollbarGutter(context)),
           child: SettingsForm(key: formKey, listId: listId, listName: listName),
         ),
       ),
       actions: const [_SettingsDoneButton()],
     );
   }
+}
+
+/// Desktop Settings: a panel anchored to the right edge of the window.
+///
+/// About notices (Check for updates, Privacy, Licenses) can open as normal
+/// dialogs above this shell instead of stacking on an [AlertDialog].
+class SettingsDrawer extends StatelessWidget {
+  const SettingsDrawer({super.key, this.listId, this.listName, this.formKey});
+
+  final String? listId;
+  final String? listName;
+
+  /// Keeps the form's fields when the shell swaps this drawer for the page.
+  final Key? formKey;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final maxWidth = MediaQuery.sizeOf(context).width;
+    final width = settingsPanelWidth.clamp(280.0, maxWidth);
+    final routeAnimation = ModalRoute.of(context)?.animation;
+    Widget panel = Material(
+      key: const ValueKey('settings-drawer-panel'),
+      elevation: 8,
+      color: theme.colorScheme.surface,
+      surfaceTintColor: theme.colorScheme.surfaceTint,
+      child: SizedBox(
+        width: width,
+        height: double.infinity,
+        child: SafeArea(
+          left: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 16, 8, 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Settings',
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: 'Close',
+                      icon: const KeylineIcon(KeylineIcons.x),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.fromLTRB(
+                    20,
+                    0,
+                    20 + _settingsScrollbarGutter(context),
+                    16,
+                  ),
+                  children: [
+                    SettingsForm(
+                      key: formKey,
+                      listId: listId,
+                      listName: listName,
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: _SettingsDoneButton(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (routeAnimation != null) {
+      panel = SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(1, 0),
+          end: Offset.zero,
+        ).animate(
+          CurvedAnimation(parent: routeAnimation, curve: Curves.easeOutCubic),
+        ),
+        child: panel,
+      );
+    }
+    return Align(alignment: Alignment.centerRight, child: panel);
+  }
+}
+
+double _settingsScrollbarGutter(BuildContext context) {
+  // Desktop draws the scrollbar over the scroll view. Keep a gutter so it
+  // sits beside controls instead of covering them.
+  return switch (Theme.of(context).platform) {
+    TargetPlatform.windows ||
+    TargetPlatform.linux ||
+    TargetPlatform.macOS => 16.0,
+    _ => 0.0,
+  };
 }
 
 /// Settings as its own page. The close icon and Done both return to the

@@ -1,24 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/form_factor.dart';
 import '../../data/providers.dart';
 import '../../services/cloud_mailbox.dart';
 import '../../services/device_link.dart';
+import '../../services/share_credentials_store.dart';
 import '../../services/sync_qr.dart';
 
-const _prefKey = 'device_link';
-const _deviceIdKey = 'device_id';
-const _cloudCodeKey = 'cloud_household';
-const _lastWifiSyncKey = 'last_wifi_sync';
-const _lastCloudSyncKey = 'last_cloud_sync';
-const _wifiShareOffKey = 'wifi_share_explicit_off';
 const _network = MethodChannel('shopped/network');
 
 /// Whether this device is sharing lists on Wi-Fi and/or over the internet.
@@ -128,9 +121,13 @@ class DeviceLinkState {
 
 /// Shares lists on the same Wi-Fi and, when paired, through the cloud mailbox.
 class DeviceLinkController extends Notifier<DeviceLinkState> {
-  DeviceLinkController({this._mailbox});
+  DeviceLinkController({
+    this._mailbox,
+    ShareCredentialsStore? credentials,
+  }) : _credentials = credentials ?? ShareCredentialsStore();
 
   final CloudMailbox? _mailbox;
+  final ShareCredentialsStore _credentials;
   final _host = DeviceHost();
   final _discovery = DeviceDiscovery();
   Timer? _wifiTimer;
@@ -139,6 +136,7 @@ class DeviceLinkController extends Notifier<DeviceLinkState> {
   Object _token = Object();
   var _syncing = false;
   var _cloudSyncing = false;
+  var _wifiShareOff = false;
   String? _rememberedDeviceId;
 
   CloudMailbox get mailbox => _mailbox ?? CloudMailbox();
@@ -382,52 +380,37 @@ class DeviceLinkController extends Notifier<DeviceLinkState> {
   Future<void> leaveCloud() => stopAllSharing();
 
   Future<void> _restore(Object token) async {
-    SharedPreferences prefs;
+    ShareCredentials saved;
     try {
-      prefs = await SharedPreferences.getInstance();
+      saved = await _credentials.load();
     } on Object {
       return;
     }
     if (token != _token) return;
 
-    final cloud = prefs.getString(_cloudCodeKey);
-    final wifiAt = DateTime.tryParse(prefs.getString(_lastWifiSyncKey) ?? '');
-    final cloudAt = DateTime.tryParse(prefs.getString(_lastCloudSyncKey) ?? '');
-    if (cloud != null && isHouseholdCode(cloud) ||
-        wifiAt != null ||
-        cloudAt != null) {
+    final cloud = saved.cloudCode;
+    final code = cloud != null && isHouseholdCode(cloud)
+        ? cloud.toLowerCase()
+        : null;
+    if (code != null ||
+        saved.lastWifiSync != null ||
+        saved.lastCloudSync != null) {
       state = state.copyWith(
-        cloudCode: cloud != null && isHouseholdCode(cloud)
-            ? cloud.toLowerCase()
-            : null,
-        lastWifiSync: wifiAt,
-        lastCloudSync: cloudAt,
+        cloudCode: code,
+        lastWifiSync: saved.lastWifiSync,
+        lastCloudSync: saved.lastCloudSync,
       );
     }
+    if (saved.deviceId != null && saved.deviceId!.isNotEmpty) {
+      _rememberedDeviceId = saved.deviceId;
+    }
 
-    String? raw;
-    try {
-      raw = prefs.getString(_prefKey);
-    } on Object {
-      raw = null;
-    }
-    if (token != _token) return;
-    final explicitOff = prefs.getBool(_wifiShareOffKey) ?? false;
-    var savedSharing = false;
-    if (raw != null && raw.isNotEmpty) {
-      Object? decoded;
-      try {
-        decoded = jsonDecode(raw);
-      } on FormatException {
-        decoded = null;
-      }
-      savedSharing = decoded is Map && decoded['sharing'] == true;
-    }
-    final code = state.cloudCode;
+    _wifiShareOff = saved.wifiShareOff;
+    final savedSharing = saved.sharing;
     // A saved household code starts Wi-Fi sharing. An explicit off choice,
     // from Stop Wi-Fi sharing, stays off on the next launch.
     if (savedSharing ||
-        (code != null && isHouseholdCode(code) && !explicitOff)) {
+        (code != null && isHouseholdCode(code) && !_wifiShareOff)) {
       await startSharing();
     }
     if (token != _token) return;
@@ -529,12 +512,12 @@ class DeviceLinkController extends Notifier<DeviceLinkState> {
     final id = await resolveDeviceId(
       remembered: _rememberedDeviceId,
       readSaved: () async {
-        final prefs = await SharedPreferences.getInstance();
-        return prefs.getString(_deviceIdKey);
+        final saved = await _credentials.load();
+        return saved.deviceId;
       },
       write: (next) async {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString(_deviceIdKey, next);
+        _rememberedDeviceId = next;
+        await _save();
       },
     );
     _rememberedDeviceId = id;
@@ -542,40 +525,22 @@ class DeviceLinkController extends Notifier<DeviceLinkState> {
   }
 
   Future<void> _setWifiShareOff(bool off) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      if (off) {
-        await prefs.setBool(_wifiShareOffKey, true);
-      } else {
-        await prefs.remove(_wifiShareOffKey);
-      }
-    } on Object {
-      // The switch still applies this session if the choice cannot be saved.
-    }
+    _wifiShareOff = off;
+    await _save();
   }
 
   Future<void> _save() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      if (state.sharing) {
-        await prefs.setString(_prefKey, jsonEncode({'sharing': true}));
-      } else {
-        await prefs.remove(_prefKey);
-      }
-      final code = state.cloudCode;
-      if (code != null && code.isNotEmpty) {
-        await prefs.setString(_cloudCodeKey, code);
-      } else {
-        await prefs.remove(_cloudCodeKey);
-      }
-      final wifiAt = state.lastWifiSync;
-      if (wifiAt != null) {
-        await prefs.setString(_lastWifiSyncKey, wifiAt.toIso8601String());
-      }
-      final cloudAt = state.lastCloudSync;
-      if (cloudAt != null) {
-        await prefs.setString(_lastCloudSyncKey, cloudAt.toIso8601String());
-      }
+      await _credentials.save(
+        ShareCredentials(
+          cloudCode: state.cloudCode,
+          sharing: state.sharing,
+          wifiShareOff: _wifiShareOff,
+          deviceId: _rememberedDeviceId,
+          lastWifiSync: state.lastWifiSync,
+          lastCloudSync: state.lastCloudSync,
+        ),
+      );
     } on Object {
       // Sharing still works this session if the choice cannot be saved.
     }

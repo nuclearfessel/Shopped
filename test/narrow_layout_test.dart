@@ -287,12 +287,92 @@ void main() {
     expect(settingsUsesDialog(phone: false, width: 699), isFalse);
   });
 
+  test('desktop platforms use the settings drawer; mobile keeps the dialog', () {
+    expect(settingsUsesDrawer(TargetPlatform.windows), isTrue);
+    expect(settingsUsesDrawer(TargetPlatform.macOS), isTrue);
+    expect(settingsUsesDrawer(TargetPlatform.linux), isTrue);
+    expect(settingsUsesDrawer(TargetPlatform.android), isFalse);
+    expect(settingsUsesDrawer(TargetPlatform.iOS), isFalse);
+  });
+
   testWidgets('windows settings switches as the window crosses 700', (
     tester,
   ) async {
-    Future<void> show(Size size) async {
-      tester.view.physicalSize = size;
+    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+    try {
+      Future<void> show(Size size) async {
+        tester.view.physicalSize = size;
+        tester.view.devicePixelRatio = 1;
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              databaseProvider.overrideWithValue(AppDatabase.memory()),
+              listsProvider.overrideWith(
+                (_) => Stream.value(const <ShoppingList>[]),
+              ),
+              taxRatesProvider.overrideWith(
+                (_) => Stream.value(const <TaxRate>[]),
+              ),
+              pantryListsProvider.overrideWith(
+                (_) => Stream.value(const <ShoppingList>[]),
+              ),
+              pantryProvider.overrideWith(
+                (ref, id) => Stream.value(const <PantryItem>[]),
+              ),
+            ],
+            child: const ShoppedApp(windowChrome: false),
+          ),
+        );
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+
+      addTearDown(tester.view.reset);
+      await show(const Size(640, 700));
+      await tester.tap(find.byTooltip('Settings'));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(find.byType(SettingsPage), findsOneWidget);
+      expect(find.byType(SettingsDrawer), findsNothing);
+      expect(find.byType(SettingsDialog), findsNothing);
+
+      tester.view.physicalSize = const Size(900, 700);
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull, reason: 'grew past 700');
+      expect(find.byType(SettingsDrawer), findsOneWidget);
+      expect(find.byType(SettingsDialog), findsNothing);
+      expect(find.byType(SettingsPage), findsNothing);
+      expect(find.text('Shopping'), findsWidgets);
+      final panel = tester.getRect(
+        find.byKey(const ValueKey('settings-drawer-panel')),
+      );
+      expect(panel.right, 900);
+      expect(panel.width, settingsPanelWidth);
+
+      tester.view.physicalSize = const Size(640, 700);
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull, reason: 'shrank below 700');
+      expect(find.byType(SettingsPage), findsOneWidget);
+      expect(find.byType(SettingsDrawer), findsNothing);
+      expect(find.byType(SettingsDialog), findsNothing);
+      final page = tester.getRect(find.byType(SettingsPage));
+      expect(page.width, 640);
+      expect(page.height, 700);
+
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pump(const Duration(seconds: 2));
+    } finally {
+      debugDefaultTargetPlatformOverride = null;
+    }
+  });
+
+  testWidgets('android wide settings stay a dialog, not a drawer', (
+    tester,
+  ) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.android;
+    try {
+      tester.view.physicalSize = const Size(900, 700);
       tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -314,34 +394,14 @@ void main() {
         ),
       );
       await tester.pump(const Duration(milliseconds: 300));
+      await tester.tap(find.byTooltip('Settings'));
+      await tester.pumpAndSettle();
+      expect(find.byType(SettingsDialog), findsOneWidget);
+      expect(find.byType(SettingsDrawer), findsNothing);
+      expect(find.byType(SettingsPage), findsNothing);
+    } finally {
+      debugDefaultTargetPlatformOverride = null;
     }
-
-    addTearDown(tester.view.reset);
-    await show(const Size(640, 700));
-    await tester.tap(find.byTooltip('Settings'));
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull);
-    expect(find.byType(SettingsPage), findsOneWidget);
-    expect(find.byType(SettingsDialog), findsNothing);
-
-    tester.view.physicalSize = const Size(900, 700);
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull, reason: 'grew past 700');
-    expect(find.byType(SettingsDialog), findsOneWidget);
-    expect(find.byType(SettingsPage), findsNothing);
-    expect(find.text('Shopping'), findsWidgets);
-
-    tester.view.physicalSize = const Size(640, 700);
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull, reason: 'shrank below 700');
-    expect(find.byType(SettingsPage), findsOneWidget);
-    expect(find.byType(SettingsDialog), findsNothing);
-    final page = tester.getRect(find.byType(SettingsPage));
-    expect(page.width, 640);
-    expect(page.height, 700);
-
-    await tester.pumpWidget(const SizedBox.shrink());
-    await tester.pump(const Duration(seconds: 2));
   });
 
   testWidgets('android settings stay full screen and keep appearance words', (

@@ -103,7 +103,12 @@ void main() {
     Future<void> choose(WidgetTester tester, String label) async {
       await tester.tap(find.byTooltip('Settings'));
       await tester.pumpAndSettle();
-      expect(find.byType(SettingsDialog), findsOneWidget);
+      // Wide window: Android/iOS keep the dialog; tests default to Android.
+      expect(
+        find.byType(SettingsDialog).evaluate().isNotEmpty ||
+            find.byType(SettingsDrawer).evaluate().isNotEmpty,
+        isTrue,
+      );
       // Tap the segment (found by its tooltip, which every segment has).
       await tester.tap(find.byTooltip(label));
       await tester.pumpAndSettle();
@@ -205,10 +210,11 @@ void main() {
         await tester.tap(find.byTooltip('Settings'));
         await tester.pumpAndSettle();
 
+        expect(find.byType(SettingsDrawer), findsOneWidget);
         final button = tester.getRect(find.byType(SegmentedButton<ThemeMode>));
         final scroll = tester.getRect(
           find.descendant(
-            of: find.byType(SettingsDialog),
+            of: find.byType(SettingsDrawer),
             matching: find.byType(Scrollbar),
           ),
         );

@@ -99,7 +99,8 @@ try_clear_lists() {
 }
 
 try_clear_settings() {
-  adb shell "run-as $PACKAGE sh -c 'rm -f shared_prefs/FlutterSharedPreferences.xml'" >/dev/null 2>&1
+  # Theme, tax prefs, and list-sharing credentials (SharedPreferences + durable file).
+  adb shell "run-as $PACKAGE sh -c 'rm -f shared_prefs/FlutterSharedPreferences.xml shared_prefs/FlutterSharedPreferences.xml.bak files/shopped_share.json; rm -rf files/datastore'" >/dev/null 2>&1
 }
 
 clear_all_app_data() {
@@ -179,6 +180,12 @@ fi
 
 # -r replaces an existing install. -d allows installing an older build when needed.
 if ! adb install -r -d "$APK"; then
+  if [[ "$KEEP_LISTS" -eq 1 || "$KEEP_SETTINGS" -eq 1 ]]; then
+    echo "In-place replace failed."
+    echo "Not uninstalling, because you chose to keep lists and/or settings"
+    echo "(including list sharing). Fix the install error and try again."
+    exit 1
+  fi
   echo "In-place replace failed; removing the previous package and installing fresh."
   echo "Lists and settings on the device will be cleared."
   adb uninstall "$PACKAGE" || true
