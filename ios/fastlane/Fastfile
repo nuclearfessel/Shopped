@@ -29,11 +29,36 @@ platform :ios do
       cache_dir: cache_dir
     )
 
-    get_provisioning_profile(
-      api_key: api_key,
-      app_identifier: "com.nuclearfessel.shopped",
-      force: true
-    )
+    begin
+      get_provisioning_profile(
+        api_key: api_key,
+        app_identifier: "com.nuclearfessel.shopped",
+        force: true
+      )
+    rescue StandardError => error
+      unless error.message.include?("matching code signing identity")
+        raise error
+      end
+
+      # Cached .p12 can outlive the portal cert / profile pair. Drop it and
+      # mint a fresh Distribution identity, then retry profile creation once.
+      UI.important(
+        "Cached Distribution certificate does not match App Store profiles; recreating"
+      )
+      clear_distribution_certificate_cache!(cache_dir)
+      ensure_distribution_certificate!(
+        api_key: api_key,
+        keychain_path: keychain_path,
+        keychain_password: keychain_password,
+        cache_dir: cache_dir,
+        force_new: true
+      )
+      get_provisioning_profile(
+        api_key: api_key,
+        app_identifier: "com.nuclearfessel.shopped",
+        force: true
+      )
+    end
 
     profile_name = lane_context[SharedValues::SIGH_NAME]
     profile_path = lane_context[SharedValues::SIGH_PROFILE_PATH]
@@ -112,11 +137,36 @@ platform :ios do
   end
 end
 
-def ensure_distribution_certificate!(api_key:, keychain_path:, keychain_password:, cache_dir:)
+def clear_distribution_certificate_cache!(cache_dir)
+  FileUtils.rm_f(
+    [
+      File.join(cache_dir, "dist.p12"),
+      File.join(cache_dir, "password.txt")
+    ]
+  )
+end
+
+def distribution_identity_present?(keychain_path)
+  output = sh(
+    "security", "find-identity", "-v", "-p", "codesigning", keychain_path,
+    log: false
+  ).to_s
+  output.match?(/Apple Distribution|iPhone Distribution/)
+rescue StandardError
+  false
+end
+
+def ensure_distribution_certificate!(
+  api_key:,
+  keychain_path:,
+  keychain_password:,
+  cache_dir:,
+  force_new: false
+)
   cached_p12 = File.join(cache_dir, "dist.p12")
   cached_password_file = File.join(cache_dir, "password.txt")
 
-  if File.exist?(cached_p12) && File.exist?(cached_password_file)
+  if !force_new && File.exist?(cached_p12) && File.exist?(cached_password_file)
     UI.success("Importing cached Distribution certificate")
     import_certificate(
       certificate_path: cached_p12,
@@ -124,7 +174,17 @@ def ensure_distribution_certificate!(api_key:, keychain_path:, keychain_password
       keychain_path: keychain_path,
       keychain_password: keychain_password
     )
-    return
+    if distribution_identity_present?(keychain_path)
+      return
+    end
+
+    UI.important("Cached Distribution certificate imported but is not usable")
+    clear_distribution_certificate_cache!(cache_dir)
+  end
+
+  if force_new
+    UI.important("Revoking portal Distribution certificates before minting a new one")
+    revoke_orphaned_distribution_certificates!
   end
 
   begin
