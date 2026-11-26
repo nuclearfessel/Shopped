@@ -22,7 +22,10 @@
       "Non-organic green onions",
       "Organic green onions",
       "Thai shallots",
-      "Indian red onions"
+      "Indian red onions",
+      "Red onion",
+      "Yellow onion",
+      "White onion"
     ],
     "Potatoes": [
       "Russet potatoes",
@@ -44,7 +47,8 @@
       "Organic sweet potatoes",
       "Japanese sweet potatoes",
       "Purple sweet potatoes",
-      "Baby yellow potatoes"
+      "Baby yellow potatoes",
+      "Sweet potato"
     ],
     "Tomatoes": [
       "Cherry tomatoes",
@@ -258,7 +262,8 @@
       "Horned melon",
       "Pepino melon",
       "Seedless watermelon quarters",
-      "Yellow watermelon"
+      "Yellow watermelon",
+      "Honeydew"
     ],
     "Stone fruit": [
       "Peaches",
@@ -454,7 +459,8 @@
       "Dried pasilla chiles",
       "Dried chile de arbol",
       "Chile negro",
-      "California chiles"
+      "California chiles",
+      "Bell pepper"
     ],
     "Lettuce": [
       "Iceberg lettuce",
@@ -628,7 +634,8 @@
       "Mini cucumbers",
       "Snack cucumbers",
       "Hot house cucumbers",
-      "Slicing cucumbers"
+      "Slicing cucumbers",
+      "Cucumber"
     ],
     "Brassicas": [
       "Broccoli",
@@ -658,7 +665,9 @@
       "Shredded brussels sprouts",
       "Savoy cabbage head",
       "Pointed cabbage",
-      "Sweetheart cabbage"
+      "Sweetheart cabbage",
+      "Broccoli florets",
+      "Cauliflower florets"
     ],
     "Root vegetables": [
       "Beetroot",
@@ -1505,7 +1514,8 @@
       "Japanese ginger",
       "Myoga",
       "Young ginger root",
-      "Turmeric root fresh"
+      "Turmeric root fresh",
+      "Ginger root"
     ],
     "Celery": [
       "Regular celery",
@@ -1981,7 +1991,8 @@
       "Medianoche bread",
       "Pretzel bread",
       "Everything bagel bread",
-      "Bagel bread"
+      "Bagel bread",
+      "Sourdough bread"
     ],
     "Rolls & buns": [
       "Burger buns",
@@ -2581,7 +2592,8 @@
       "Ground chicken breast",
       "Rotisserie chicken whole",
       "Rotisserie chicken half",
-      "Chicken wings buffalo raw"
+      "Chicken wings buffalo raw",
+      "Chicken breast"
     ],
     "Turkey": [
       "Turkey breast",
@@ -2735,7 +2747,8 @@
       "Speck",
       "Lardons",
       "Bacon bits real",
-      "Cottage bacon"
+      "Cottage bacon",
+      "Bacon bits"
     ],
     "Ham": [
       "Sliced ham",
@@ -2970,7 +2983,9 @@
       "Whitefish smoked",
       "Chubs",
       "Smelt",
-      "Sardine fillets"
+      "Sardine fillets",
+      "Cod fillets",
+      "Salmon fillet"
     ],
     "Shrimp": [
       "Raw shrimp",
@@ -3711,7 +3726,11 @@
       "Port wine cheese",
       "Cold pack cheese",
       "Cheese ball",
-      "Cheese log"
+      "Cheese log",
+      "Ricotta cheese",
+      "Feta cheese",
+      "Parmesan cheese",
+      "Mozzarella cheese"
     ],
     "Yogurt": [
       "Greek yogurt",
@@ -3776,7 +3795,8 @@
       "Custard-style yogurt",
       "Whipped yogurt",
       "Yogurt parfait cups",
-      "High-protein yogurt"
+      "High-protein yogurt",
+      "Greek yoghurt"
     ],
     "Eggs": [
       "Large eggs",
@@ -4499,7 +4519,8 @@
       "Sun-dried tomatoes jar",
       "Sun-dried tomato paste",
       "Passata jar",
-      "Strained tomatoes"
+      "Strained tomatoes",
+      "Tomato sauce"
     ],
     "Canned fish": [
       "Canned tuna",
@@ -4698,7 +4719,10 @@
       "Soup cups",
       "Ramen soup cup",
       "Miso soup",
-      "Instant miso soup"
+      "Instant miso soup",
+      "Chicken stock",
+      "Beef stock",
+      "Vegetable stock"
     ],
     "Pasta sauce": [
       "Tomato pasta sauce",
@@ -4977,7 +5001,8 @@
       "Pierogi sauerkraut",
       "Macaroni and cheese box",
       "Macaroni and cheese cups",
-      "Instant macaroni and cheese"
+      "Instant macaroni and cheese",
+      "Mac and cheese"
     ],
     "Rice": [
       "White rice",
@@ -5079,7 +5104,8 @@
       "Shirataki noodles",
       "Konjac noodles",
       "Zucchini noodles",
-      "Hearts of palm noodles"
+      "Hearts of palm noodles",
+      "Cup noodles"
     ],
     "Grains": [
       "Couscous",
@@ -6754,7 +6780,9 @@
       "Bombay mix",
       "Sev",
       "Mixture snack",
-      "Chivda"
+      "Chivda",
+      "Protein powder",
+      "Energy bars"
     ],
     "Popcorn": [
       "Microwave popcorn",
@@ -7407,7 +7435,9 @@
       "Sandwich bags",
       "Reynolds Wrap",
       "Glad cling film",
-      "Ziploc bags"
+      "Ziploc bags",
+      "Plastic wrap",
+      "Parchment paper"
     ]
   },
   "Personal Care": {

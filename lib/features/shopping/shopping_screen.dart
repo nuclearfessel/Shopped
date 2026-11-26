@@ -83,16 +83,21 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
     await ref.read(databaseProvider).addList(name);
   }
 
-  /// Adds an item. With "Auto-categorize items" off the item goes in without a
-  /// category.
-  void _add(ShoppingList list, String name, String category) {
+  /// Adds an item. Known catalog/history/barcode hits keep their category even
+  /// when auto-categorize is off; unknown typed names only get a category when
+  /// auto-categorize is on.
+  void _add(
+    ShoppingList list,
+    String name,
+    String category, {
+    bool known = false,
+  }) {
+    final resolved = known
+        ? category
+        : (list.autoCategorize ? (category.isEmpty ? 'Other' : category) : '');
     ref
         .read(databaseProvider)
-        .addShoppingItem(
-          list.id,
-          name,
-          category: list.autoCategorize ? category : '',
-        );
+        .addShoppingItem(list.id, name, category: resolved);
     _dismissSearch();
   }
 
@@ -177,17 +182,16 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
     final db = ref.read(databaseProvider);
     final text = _controller.text.trim();
     if (text.isEmpty) return;
-    // Start from the category remembered for this name, if there is one.
-    final match = (await db.searchCatalog(text))
-        .where((i) => i.name.toLowerCase() == text.toLowerCase())
-        .toList();
+    // Predictive match: same words any order → catalog name + category.
+    final guess = await db.bestCatalogGuess(text);
     if (!mounted) return;
-    final category = list.autoCategorize
-        ? (match.isEmpty ? 'Other' : match.first.category)
-        : '';
+    final name = guess?.name ?? text;
+    final category = guess != null
+        ? guess.category
+        : (list.autoCategorize ? 'Other' : '');
     final taxed = tax == null
         ? true
-        : tax.rateForClass(classifyItem(text, category)) > 0;
+        : tax.rateForClass(classifyItem(name, category)) > 0;
     final result = await showItemEditor(
       context,
       title: 'New item',
@@ -195,14 +199,14 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       showPrice: true,
       categories: categories.isEmpty ? null : categories,
       initial: ItemEdit(
-        name: text,
+        name: name,
         category: category,
-        unit: match.isEmpty ? '' : match.first.defaultUnit,
+        unit: guess?.defaultUnit ?? '',
         taxable: taxed,
       ),
       taxHint: tax == null
           ? 'No sales tax rate is set for this list.'
-          : describeTax(text, category, tax, manual: false),
+          : describeTax(name, category, tax, manual: false),
     );
     if (result is! ItemSaved || !mounted) return;
     final e = result.edit;
@@ -251,10 +255,10 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
         category: edit.category,
         unit: edit.unit,
       );
-      _add(list, edit.name, edit.category);
+      _add(list, edit.name, edit.category, known: true);
       return;
     }
-    _add(list, resolved.name, resolved.category);
+    _add(list, resolved.name, resolved.category, known: true);
   }
 
   /// Clears the query and closes the suggestion menu.
@@ -300,13 +304,13 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       }
       return;
     }
-    final match = (await ref.read(databaseProvider).searchCatalog(name))
-        .where((i) => i.name.toLowerCase() == name.toLowerCase());
+    final guess = await ref.read(databaseProvider).bestCatalogGuess(name);
     if (!mounted) return;
     _add(
       list,
-      match.isEmpty ? name : match.first.name,
-      match.isEmpty ? 'Other' : match.first.category,
+      guess?.name ?? name,
+      guess?.category ?? 'Other',
+      known: guess != null,
     );
   }
 
@@ -793,7 +797,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
                         onList: items.value ?? const [],
                         inPantry: pantryItems,
                         history: history,
-                        onPick: (i) => _add(current, i.name, i.category),
+                        onPick: (i) =>
+                            _add(current, i.name, i.category, known: true),
                         onOpenList: (item) {
                           _revealItem(item.id);
                           showInfoSnackBar(
@@ -809,8 +814,12 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
                           );
                           _dismissSearch();
                         },
-                        onHistory: (entry) =>
-                            _add(current, entry.name, entry.category),
+                        onHistory: (entry) => _add(
+                          current,
+                          entry.name,
+                          entry.category,
+                          known: true,
+                        ),
                       ),
                     ),
                   ],

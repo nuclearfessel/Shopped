@@ -36,7 +36,9 @@ class _HistoryDialogState extends ConsumerState<HistoryDialog> {
         .addShoppingItem(
           list.id,
           e.name,
-          category: list.autoCategorize ? e.category : '',
+          // History already carries a category; keep it even when
+          // auto-categorize is off so re-adding does not strip filing.
+          category: e.category,
           unit: e.unit,
         );
     if (mounted) setState(() => _added.add(e.id));

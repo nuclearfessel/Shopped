@@ -236,6 +236,17 @@ void main() {
     }
   });
 
+  testWidgets('catalog suggestions match multi-word queries', (tester) async {
+    await pumpShopped(
+      tester,
+      items: [fakeItem('a', 'Bread', category: 'Bakery')],
+    );
+    await tester.enterText(find.byType(TextField).first, 'milk almond');
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text('Almond milk'), findsOneWidget);
+  });
+
   testWidgets('choosing a catalog match closes the menu', (tester) async {
     await pumpShopped(tester, items: [fakeItem('a', 'Milk')]);
     await tester.enterText(find.byType(TextField).first, 'oni');

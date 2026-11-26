@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/form_factor.dart';
+import '../../data/catalog_match.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../ui/tip.dart';
@@ -176,24 +177,31 @@ class CatalogSuggestionsState extends ConsumerState<CatalogSuggestions> {
   }
 
   List<_SuggestionRow> _matches(WidgetRef ref) {
-    final q = widget.query.trim().toLowerCase();
-    if (q.isEmpty && !widget.showRecent) return const [];
+    final raw = widget.query.trim();
+    final tokens = catalogTokens(raw);
+    if (tokens.isEmpty && !widget.showRecent) return const [];
 
-    final listHits = q.isEmpty
-        ? const <ShoppingItem>[]
+    final listHits = tokens.isEmpty
+        ? <ShoppingItem>[]
         : [
             for (final item in widget.onList)
-              if (item.name.toLowerCase().contains(q)) item,
+              if (matchesAllTokens(item.name, tokens)) item,
           ];
+    if (tokens.isNotEmpty) {
+      listHits.sort((a, b) => compareCatalogMatches(a.name, b.name, tokens));
+    }
     final listNames = {for (final item in listHits) item.name.toLowerCase()};
-    final pantryHits = q.isEmpty
-        ? const <PantryItem>[]
+    final pantryHits = tokens.isEmpty
+        ? <PantryItem>[]
         : [
             for (final item in widget.inPantry)
-              if (item.name.toLowerCase().contains(q) &&
+              if (matchesAllTokens(item.name, tokens) &&
                   !listNames.contains(item.name.toLowerCase()))
                 item,
           ];
+    if (tokens.isNotEmpty) {
+      pantryHits.sort((a, b) => compareCatalogMatches(a.name, b.name, tokens));
+    }
     final taken = {
       ...listNames,
       for (final item in pantryHits) item.name.toLowerCase(),
@@ -203,13 +211,15 @@ class CatalogSuggestionsState extends ConsumerState<CatalogSuggestions> {
     for (final entry in widget.history) {
       final name = entry.name.toLowerCase();
       if (!seenHistory.add(name)) continue;
-      if (q.isEmpty || name.contains(q)) historyHits.add(entry);
+      if (tokens.isEmpty || matchesAllTokens(name, tokens)) {
+        historyHits.add(entry);
+      }
       if (historyHits.length == 6) break;
     }
 
-    final results = q.isEmpty
+    final results = tokens.isEmpty
         ? const AsyncData<List<CatalogItem>>([])
-        : ref.watch(catalogSearchProvider(widget.query.trim()));
+        : ref.watch(catalogSearchProvider(raw));
     final catalog = [
       for (final item in results.value ?? const <CatalogItem>[])
         if (!taken.contains(item.name.toLowerCase()) &&

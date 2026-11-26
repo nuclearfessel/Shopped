@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+import 'catalog_match.dart';
 import 'catalog_seed.dart';
 import 'recipe_plan.dart';
 
@@ -402,26 +403,43 @@ class AppDatabase extends _$AppDatabase {
 
   /// Case-insensitive search over item names and their group names.
   ///
-  /// Results come back grouped: each matching top-level item (e.g. "Onions")
-  /// is followed by its variants (types, cuts, flavours), then any variants
-  /// that matched on their own name. Duplicate names are dropped.
+  /// Every whitespace-separated word in [query] must appear somewhere in the
+  /// name or parent name (any order). Results come back grouped: each matching
+  /// top-level item (e.g. "Onions") is followed by its variants (types, cuts,
+  /// flavours), then any variants that matched on their own name. Duplicate
+  /// names are dropped.
   Future<List<CatalogItem>> searchCatalog(
     String query, {
     int limit = 100,
   }) async {
-    final q = query.trim().toLowerCase().replaceAll(RegExp(r'[%_\\]'), '');
-    if (q.isEmpty) return const [];
+    final tokens = catalogTokens(query);
+    if (tokens.isEmpty) return const [];
+    final first = tokens.first;
+    final firstStem = catalogStem(first);
     final rows =
         await (select(catalogItems)
-              ..where(
-                (t) =>
-                    t.deletedAt.isNull() &
-                    (t.name.lower().like('%$q%') |
-                        t.parentName.lower().like('%$q%')),
-              )
+              ..where((t) {
+                Expression<bool> clause(String token) {
+                  Expression<bool>? any;
+                  for (final form in catalogSearchForms(token)) {
+                    final hit =
+                        t.name.lower().like('%$form%') |
+                        t.parentName.lower().like('%$form%');
+                    any = any == null ? hit : (any | hit);
+                  }
+                  return any!;
+                }
+
+                var all = clause(tokens.first);
+                for (final token in tokens.skip(1)) {
+                  all = all & clause(token);
+                }
+                return t.deletedAt.isNull() & all;
+              })
               ..orderBy([
-                (t) => OrderingTerm.desc(t.name.lower().like('$q%')),
-                (t) => OrderingTerm.desc(t.name.lower().like('% $q%')),
+                (t) => OrderingTerm.desc(t.name.lower().like('$first%')),
+                (t) => OrderingTerm.desc(t.name.lower().like('$firstStem%')),
+                (t) => OrderingTerm.desc(t.name.lower().like('% $first%')),
                 (t) => OrderingTerm.asc(t.name),
               ])
               ..limit(1000))
@@ -433,7 +451,15 @@ class AppDatabase extends _$AppDatabase {
       if (out.length < limit && seen.add(i.name.toLowerCase())) out.add(i);
     }
 
-    final parents = rows.where((i) => i.parentName.isEmpty).toList();
+    bool nameMatches(CatalogItem i) => matchesAllTokens(i.name, tokens);
+
+    // Keep SQL name order for variants so the unmatched-type cap stays stable
+    // (e.g. Ribeye under Beef). Only re-rank top-level parents. Broad LIKE
+    // forms can pull weak rows; keep parents that still pass the matcher.
+    final parents = rows
+        .where((i) => i.parentName.isEmpty && nameMatches(i))
+        .toList()
+      ..sort((a, b) => compareCatalogMatches(a.name, b.name, tokens));
     final parentNames = {for (final parent in parents) parent.name};
     final variants = rows.where((i) => i.parentName.isNotEmpty).toList();
     for (final parent in parents) {
@@ -441,26 +467,57 @@ class AppDatabase extends _$AppDatabase {
       final children = variants
           .where((v) => v.parentName == parent.name)
           .toList();
-      // Types that do not repeat the search word, such as Sourdough under
-      // Bread, are shown before the many names that contain it. Otherwise
+      // Types that do not repeat the search words, such as Sourdough under
+      // Bread, are shown before the many names that contain them. Otherwise
       // those names fill the result list and the types never appear.
       var unmatched = 0;
       for (final v in children) {
-        if (v.name.toLowerCase().contains(q)) continue;
+        if (nameMatches(v)) continue;
         if (unmatched >= _unmatchedVariantCap) continue;
         unmatched++;
         add(v);
       }
       for (final v in children) {
-        if (!v.name.toLowerCase().contains(q)) continue;
+        if (!nameMatches(v)) continue;
         add(v);
       }
     }
-    for (final v in variants) {
-      if (parentNames.contains(v.parentName)) continue;
+    final orphanVariants = [
+      for (final v in variants)
+        if (!parentNames.contains(v.parentName) &&
+            (nameMatches(v) || matchesAllTokens(v.parentName, tokens)))
+          v,
+    ]..sort((a, b) => compareCatalogMatches(a.name, b.name, tokens));
+    for (final v in orphanVariants) {
       add(v);
     }
     return out;
+  }
+
+  /// Best catalog row to use when the user presses Enter or opens New item.
+  ///
+  /// Prefers an exact name match, then a name with the same words in any
+  /// order, then the top ranked name that contains every typed word. Returns
+  /// null when nothing is clear enough to guess a category from.
+  Future<CatalogItem?> bestCatalogGuess(String query) async {
+    final q = query.trim();
+    if (q.isEmpty) return null;
+    final results = await searchCatalog(q);
+    if (results.isEmpty) return null;
+    final lower = q.toLowerCase();
+    for (final item in results) {
+      if (item.name.toLowerCase() == lower) return item;
+    }
+    final tokens = catalogTokens(q);
+    for (final item in results) {
+      if (sameTokenBag(item.name, q) && matchesAllTokens(item.name, tokens)) {
+        return item;
+      }
+    }
+    for (final item in results) {
+      if (matchesAllTokens(item.name, tokens)) return item;
+    }
+    return null;
   }
 
   /// Remembers an item typed by the user so it is suggested next time.

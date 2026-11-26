@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopped/app/app.dart';
 import 'package:shopped/app/theme_mode.dart';
+import 'package:shopped/data/catalog_match.dart';
 import 'package:shopped/features/settings/list_handoff.dart';
 import 'package:shopped/data/database.dart';
 import 'package:shopped/data/providers.dart';
@@ -171,12 +172,20 @@ Future<void> pumpShopped(
       ),
       historyProvider.overrideWith((_) => Stream.value(history)),
       recipesProvider.overrideWith((_) => Stream.value(const [])),
-      catalogSearchProvider.overrideWith(
-        (ref, q) async => [
+      catalogSearchProvider.overrideWith((ref, q) async {
+        final tokens = catalogTokens(q);
+        if (tokens.isEmpty) return const <CatalogItem>[];
+        final all = [
           fakeCatalog('Onions'),
           fakeCatalog('Red onions', parent: 'Onions'),
-        ],
-      ),
+          fakeCatalog('Almond milk', parent: 'Milk'),
+        ];
+        return [
+          for (final item in all)
+            if (matchesAllTokens('${item.name} ${item.parentName}', tokens))
+              item,
+        ];
+      }),
     ],
     child: const ShoppedApp(windowChrome: false),
   );

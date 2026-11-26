@@ -58,7 +58,8 @@ class ListSettingsDialog extends ConsumerWidget {
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Auto-categorize items'),
                   subtitle: const Text(
-                    'Turn off to add items without a category.',
+                    'Turn off to leave unknown typed items uncategorized. '
+                    'Catalog and history picks still keep their category.',
                   ),
                   value: list.autoCategorize,
                   onChanged: list.useCategories

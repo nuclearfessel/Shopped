@@ -31,6 +31,9 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Organic green onions',
       'Thai shallots',
       'Indian red onions',
+      'Red onion',
+      'Yellow onion',
+      'White onion',
     ],
     'Potatoes': [
       'Russet potatoes',
@@ -53,6 +56,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Japanese sweet potatoes',
       'Purple sweet potatoes',
       'Baby yellow potatoes',
+      'Sweet potato',
     ],
     'Tomatoes': [
       'Cherry tomatoes',
@@ -267,6 +271,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Pepino melon',
       'Seedless watermelon quarters',
       'Yellow watermelon',
+      'Honeydew',
     ],
     'Stone fruit': [
       'Peaches',
@@ -463,6 +468,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Dried chile de arbol',
       'Chile negro',
       'California chiles',
+      'Bell pepper',
     ],
     'Lettuce': [
       'Iceberg lettuce',
@@ -637,6 +643,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Snack cucumbers',
       'Hot house cucumbers',
       'Slicing cucumbers',
+      'Cucumber',
     ],
     'Brassicas': [
       'Broccoli',
@@ -667,6 +674,8 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Savoy cabbage head',
       'Pointed cabbage',
       'Sweetheart cabbage',
+      'Broccoli florets',
+      'Cauliflower florets',
     ],
     'Root vegetables': [
       'Beetroot',
@@ -1514,6 +1523,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Myoga',
       'Young ginger root',
       'Turmeric root fresh',
+      'Ginger root',
     ],
     'Celery': [
       'Regular celery',
@@ -1990,6 +2000,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Pretzel bread',
       'Everything bagel bread',
       'Bagel bread',
+      'Sourdough bread',
     ],
     'Rolls & buns': [
       'Burger buns',
@@ -2590,6 +2601,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Rotisserie chicken whole',
       'Rotisserie chicken half',
       'Chicken wings buffalo raw',
+      'Chicken breast',
     ],
     'Turkey': [
       'Turkey breast',
@@ -2744,6 +2756,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Lardons',
       'Bacon bits real',
       'Cottage bacon',
+      'Bacon bits',
     ],
     'Ham': [
       'Sliced ham',
@@ -2979,6 +2992,8 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Chubs',
       'Smelt',
       'Sardine fillets',
+      'Cod fillets',
+      'Salmon fillet',
     ],
     'Shrimp': [
       'Raw shrimp',
@@ -3720,6 +3735,10 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Cold pack cheese',
       'Cheese ball',
       'Cheese log',
+      'Ricotta cheese',
+      'Feta cheese',
+      'Parmesan cheese',
+      'Mozzarella cheese',
     ],
     'Yogurt': [
       'Greek yogurt',
@@ -3785,6 +3804,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Whipped yogurt',
       'Yogurt parfait cups',
       'High-protein yogurt',
+      'Greek yoghurt',
     ],
     'Eggs': [
       'Large eggs',
@@ -4508,6 +4528,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Sun-dried tomato paste',
       'Passata jar',
       'Strained tomatoes',
+      'Tomato sauce',
     ],
     'Canned fish': [
       'Canned tuna',
@@ -4707,6 +4728,9 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Ramen soup cup',
       'Miso soup',
       'Instant miso soup',
+      'Chicken stock',
+      'Beef stock',
+      'Vegetable stock',
     ],
     'Pasta sauce': [
       'Tomato pasta sauce',
@@ -4986,6 +5010,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Macaroni and cheese box',
       'Macaroni and cheese cups',
       'Instant macaroni and cheese',
+      'Mac and cheese',
     ],
     'Rice': [
       'White rice',
@@ -5088,6 +5113,7 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Konjac noodles',
       'Zucchini noodles',
       'Hearts of palm noodles',
+      'Cup noodles',
     ],
     'Grains': [
       'Couscous',
@@ -6763,6 +6789,8 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Sev',
       'Mixture snack',
       'Chivda',
+      'Protein powder',
+      'Energy bars',
     ],
     'Popcorn': [
       'Microwave popcorn',
@@ -7416,6 +7444,8 @@ const Map<String, Map<String, List<String>>> catalogSeed = {
       'Reynolds Wrap',
       'Glad cling film',
       'Ziploc bags',
+      'Plastic wrap',
+      'Parchment paper',
     ],
   },
   'Personal Care': {

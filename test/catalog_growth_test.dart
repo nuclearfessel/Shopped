@@ -23,6 +23,27 @@ void main() {
     );
   });
 
+  test('expanded multi-word grocery names are searchable', () async {
+    final db = AppDatabase.memory();
+    addTearDown(db.close);
+
+    const names = [
+      'Chicken breast',
+      'Salmon fillet',
+      'Bell pepper',
+      'Sweet potato',
+      'Sourdough bread',
+      'Mac and cheese',
+      'Tomato sauce',
+      'Plastic wrap',
+      'Greek yoghurt',
+    ];
+    for (final name in names) {
+      final hits = await db.searchCatalog(name);
+      expect(hits.map((item) => item.name), contains(name), reason: name);
+    }
+  });
+
   test(
     'regular, East Asian, Southeast Asian, and South Asian produce search',
     () async {

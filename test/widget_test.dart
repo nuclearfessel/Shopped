@@ -296,6 +296,31 @@ void main() {
     expect(await db.searchCatalog('   '), isEmpty);
   });
 
+  test('catalog search matches typed words in any order', () async {
+    final forward = await db.searchCatalog('almond milk');
+    final reverse = await db.searchCatalog('milk almond');
+    expect(forward.map((i) => i.name), contains('Almond milk'));
+    expect(reverse.map((i) => i.name), contains('Almond milk'));
+    final guess = await db.bestCatalogGuess('milk almond');
+    expect(guess?.name, 'Almond milk');
+    expect(guess?.category, 'Dairy & Eggs');
+  });
+
+  test('catalog search accepts stems and light typos', () async {
+    expect(
+      (await db.searchCatalog('sweet potato')).map((i) => i.name),
+      contains('Sweet potato'),
+    );
+    expect(
+      (await db.searchCatalog('sweet potatos')).map((i) => i.name),
+      anyOf(contains('Sweet potato'), contains('Sweet potatoes')),
+    );
+    expect(
+      (await db.searchCatalog('almod milk')).map((i) => i.name),
+      contains('Almond milk'),
+    );
+  });
+
   test('searching a group lists its types and cuts', () async {
     final onion = (await db.searchCatalog('onion')).map((i) => i.name).toList();
     expect(onion.first, 'Onions');
