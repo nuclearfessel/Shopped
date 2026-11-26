@@ -319,13 +319,42 @@ void main() {
       containsAll(['Powerade Zero', 'Powerade Zero Sugar']),
     );
 
-    final mini = await db.searchCatalog('mini cans');
+    final mini = await db.searchCatalog('coca-cola mini cans');
     expect(
       mini.map((item) => item.name),
       containsAll([
         'Coca-Cola mini cans',
-        'Pepsi mini cans',
-        'Mini soda cans',
+        'Coca-Cola mini cans 6-pack',
+        'Coca-Cola mini cans 12-pack',
+        'Coca-Cola mini cans 24-pack',
+        'Coca-Cola mini cans 12 pk',
+      ]),
+    );
+
+    final pepsiMini = await db.searchCatalog('pepsi mini cans 12');
+    expect(
+      pepsiMini.map((item) => item.name),
+      containsAll([
+        'Pepsi mini cans 12-pack',
+        'Pepsi mini cans 12 pk',
+      ]),
+    );
+
+    final dietCokePack = await db.searchCatalog('diet coke mini 24-pack');
+    expect(
+      dietCokePack.map((item) => item.name),
+      containsAll([
+        'Diet Coke mini cans 24-pack',
+        'Diet Coke mini 24-pack',
+      ]),
+    );
+
+    final zeroPack = await db.searchCatalog('coke zero sugar mini cans 6');
+    expect(
+      zeroPack.map((item) => item.name),
+      containsAll([
+        'Coke Zero Sugar mini cans 6-pack',
+        'Coke Zero Sugar mini cans 6 pk',
       ]),
     );
   });
